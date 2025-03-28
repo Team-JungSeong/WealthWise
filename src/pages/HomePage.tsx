@@ -1,16 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import Layout from '../components/common/Layout';
-import Button from '../components/common/Button';
-import Card from '../components/common/Card';
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import Layout from "../components/common/Layout";
+import Button from "../components/common/Button";
+import Card from "../components/common/Card";
 
 const Hero = styled.section`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: ${({ theme }) => `${theme.spacing.xl} 0`};
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     flex-direction: column;
     text-align: center;
@@ -21,7 +21,7 @@ const Hero = styled.section`
 const HeroContent = styled.div`
   flex: 1;
   max-width: 600px;
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     max-width: 100%;
     order: 2;
@@ -35,11 +35,11 @@ const HeroTitle = styled.h1`
   margin-bottom: ${({ theme }) => theme.spacing.md};
   color: ${({ theme }) => theme.colors.dark};
   line-height: 1.2;
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     font-size: 2.5rem;
   }
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     font-size: 2rem;
   }
@@ -50,7 +50,7 @@ const HeroSubtitle = styled.p`
   line-height: 1.6;
   margin-bottom: ${({ theme }) => theme.spacing.lg};
   color: ${({ theme }) => theme.colors.text}dd;
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     font-size: 1.125rem;
   }
@@ -59,7 +59,7 @@ const HeroSubtitle = styled.p`
 const ButtonGroup = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.md};
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     flex-direction: column;
   }
@@ -74,7 +74,7 @@ const HeroImageContainer = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     order: 1;
     justify-content: center;
@@ -83,15 +83,16 @@ const HeroImageContainer = styled.div`
 `;
 
 const HeroImage = styled.img`
-  max-width: 100%;
-  height: auto;
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   box-shadow: ${({ theme }) => theme.shadows.lg};
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     max-width: 80%;
   }
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     max-width: 100%;
   }
@@ -108,7 +109,7 @@ const SectionTitle = styled.h2`
   margin-bottom: ${({ theme }) => theme.spacing.lg};
   text-align: center;
   color: ${({ theme }) => theme.colors.dark};
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     font-size: 1.75rem;
   }
@@ -118,11 +119,11 @@ const FeaturesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: ${({ theme }) => theme.spacing.lg};
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     grid-template-columns: 1fr;
   }
@@ -162,21 +163,21 @@ const TestimonialsContainer = styled.div`
   padding: ${({ theme }) => theme.spacing.md} 0;
   margin: 0 -${({ theme }) => theme.spacing.md};
   padding: 0 ${({ theme }) => theme.spacing.md};
-  
+
   &::-webkit-scrollbar {
     height: 8px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: ${({ theme }) => theme.colors.light};
     border-radius: 4px;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.colors.border};
     border-radius: 4px;
   }
-  
+
   &::-webkit-scrollbar-thumb:hover {
     background: ${({ theme }) => theme.colors.primary}88;
   }
@@ -239,7 +240,7 @@ const CTATitle = styled.h2`
   font-weight: 700;
   margin-bottom: ${({ theme }) => theme.spacing.md};
   color: ${({ theme }) => theme.colors.dark};
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     font-size: 1.75rem;
   }
@@ -252,7 +253,7 @@ const CTAText = styled.p`
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     font-size: 1rem;
   }
@@ -265,23 +266,26 @@ const HomePage: React.FC = () => {
         <HeroContent>
           <HeroTitle>개인화된 금융 교육으로 더 현명한 재정 결정을</HeroTitle>
           <HeroSubtitle>
-            WealthWise는 당신의 재정 상황과 목표에 맞춘 맞춤형 금융 교육과 
-            시뮬레이션 도구를 제공합니다. 쉽고 실용적인 금융 지식으로 재정적 자유를 향해 한 걸음 나아가세요.
+            WealthWise는 당신의 재정 상황과 목표에 맞춘 맞춤형 금융 교육과
+            시뮬레이션 도구를 제공합니다. 쉽고 실용적인 금융 지식으로 재정적
+            자유를 향해 한 걸음 나아가세요.
           </HeroSubtitle>
           <ButtonGroup>
             <Link to="/profile">
-              <StyledButton variant="primary" size="lg">무료로 시작하기</StyledButton>
-            </Link>
-            <Link to="/learning">
-              <StyledButton variant="light" size="lg">학습 모듈 살펴보기</StyledButton>
+              <StyledButton variant="primary" size="lg">
+                무료로 시작하기
+              </StyledButton>
             </Link>
           </ButtonGroup>
         </HeroContent>
         <HeroImageContainer>
-          <HeroImage src="https://via.placeholder.com/600x400" alt="금융 교육 플랫폼" />
+          <HeroImage
+            src="https://images.unsplash.com/photo-1726065235203-4368c41c6f19?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="금융 교육 플랫폼"
+          />
         </HeroImageContainer>
       </Hero>
-      
+
       <Section>
         <SectionTitle>맞춤형 금융 교육 플랫폼</SectionTitle>
         <FeaturesGrid>
@@ -289,54 +293,61 @@ const HomePage: React.FC = () => {
             <FeatureIcon>📊</FeatureIcon>
             <FeatureTitle>개인화된 금융 프로필</FeatureTitle>
             <FeatureDescription>
-              당신의 재정 상황과 목표를 분석하여 맞춤형 학습 경로와 추천 사항을 제공합니다.
+              당신의 재정 상황과 목표를 분석하여 맞춤형 학습 경로와 추천 사항을
+              제공합니다.
             </FeatureDescription>
           </FeatureCard>
           <FeatureCard variant="elevated">
             <FeatureIcon>🎓</FeatureIcon>
             <FeatureTitle>인터랙티브 학습 모듈</FeatureTitle>
             <FeatureDescription>
-              기초부터 고급까지, 단계별 학습 과정과 실전 시뮬레이션으로 금융 지식을 체득하세요.
+              기초부터 고급까지, 단계별 학습 과정과 실전 시뮬레이션으로 금융
+              지식을 체득하세요.
             </FeatureDescription>
           </FeatureCard>
           <FeatureCard variant="elevated">
             <FeatureIcon>🧮</FeatureIcon>
             <FeatureTitle>금융 시뮬레이션 도구</FeatureTitle>
             <FeatureDescription>
-              예산 계획, 투자, 대출, 은퇴 준비까지 다양한 시뮬레이션으로 최적의 재정 결정을 내리세요.
+              예산 계획, 투자, 대출, 은퇴 준비까지 다양한 시뮬레이션으로 최적의
+              재정 결정을 내리세요.
             </FeatureDescription>
           </FeatureCard>
           <FeatureCard variant="elevated">
             <FeatureIcon>📈</FeatureIcon>
             <FeatureTitle>데이터 시각화 대시보드</FeatureTitle>
             <FeatureDescription>
-              재무 상태와 목표 달성 과정을 직관적인 차트와 그래프로 한눈에 파악하세요.
+              재무 상태와 목표 달성 과정을 직관적인 차트와 그래프로 한눈에
+              파악하세요.
             </FeatureDescription>
           </FeatureCard>
           <FeatureCard variant="elevated">
             <FeatureIcon>👥</FeatureIcon>
             <FeatureTitle>커뮤니티 지원</FeatureTitle>
             <FeatureDescription>
-              비슷한 목표를 가진 사용자들과 경험을 공유하고, 금융 전문가의 조언을 받으세요.
+              비슷한 목표를 가진 사용자들과 경험을 공유하고, 금융 전문가의
+              조언을 받으세요.
             </FeatureDescription>
           </FeatureCard>
           <FeatureCard variant="elevated">
             <FeatureIcon>🎮</FeatureIcon>
             <FeatureTitle>게이미피케이션 요소</FeatureTitle>
             <FeatureDescription>
-              배지, 레벨, 챌린지 등의 게임 요소로 학습 과정이 더욱 재미있고 지속 가능해집니다.
+              배지, 레벨, 챌린지 등의 게임 요소로 학습 과정이 더욱 재미있고 지속
+              가능해집니다.
             </FeatureDescription>
           </FeatureCard>
         </FeaturesGrid>
       </Section>
-      
+
       <Section>
         <SectionTitle>사용자 후기</SectionTitle>
         <TestimonialsContainer>
           <TestimonialCard variant="outlined">
             <Quote>
-              "WealthWise를 통해 금융에 대한 두려움이 사라졌어요. 개인화된 학습 경로와 
-              시뮬레이션 도구 덕분에 자신감을 갖고 투자를 시작할 수 있었습니다."
+              "WealthWise를 통해 금융에 대한 두려움이 사라졌어요. 개인화된 학습
+              경로와 시뮬레이션 도구 덕분에 자신감을 갖고 투자를 시작할 수
+              있었습니다."
             </Quote>
             <Author>
               <Avatar>김</Avatar>
@@ -348,8 +359,9 @@ const HomePage: React.FC = () => {
           </TestimonialCard>
           <TestimonialCard variant="outlined">
             <Quote>
-              "복잡한 재무 계획이 이렇게 쉬워질 수 있다니 놀라웠어요. 은퇴 시뮬레이션을 통해 
-              매월 얼마를 저축해야 하는지 정확히 알게 되었고, 이제 목표가 명확해졌습니다."
+              "복잡한 재무 계획이 이렇게 쉬워질 수 있다니 놀라웠어요. 은퇴
+              시뮬레이션을 통해 매월 얼마를 저축해야 하는지 정확히 알게 되었고,
+              이제 목표가 명확해졌습니다."
             </Quote>
             <Author>
               <Avatar>이</Avatar>
@@ -361,8 +373,9 @@ const HomePage: React.FC = () => {
           </TestimonialCard>
           <TestimonialCard variant="outlined">
             <Quote>
-              "대학생인 저에게 WealthWise는 금융 교육의 혁명이었어요. 학자금 대출 관리와 
-              첫 직장에서의 재정 준비에 대한 실질적인 조언이 매우 유용했습니다."
+              "대학생인 저에게 WealthWise는 금융 교육의 혁명이었어요. 학자금
+              대출 관리와 첫 직장에서의 재정 준비에 대한 실질적인 조언이 매우
+              유용했습니다."
             </Quote>
             <Author>
               <Avatar>박</Avatar>
@@ -374,8 +387,9 @@ const HomePage: React.FC = () => {
           </TestimonialCard>
           <TestimonialCard variant="outlined">
             <Quote>
-              "은퇴를 앞두고 불안했는데, WealthWise의 은퇴 계획 도구가 큰 도움이 되었어요. 
-              이제 제 자산이 얼마나 오래 지속될지 정확히 알고 있어 마음이 편합니다."
+              "은퇴를 앞두고 불안했는데, WealthWise의 은퇴 계획 도구가 큰 도움이
+              되었어요. 이제 제 자산이 얼마나 오래 지속될지 정확히 알고 있어
+              마음이 편합니다."
             </Quote>
             <Author>
               <Avatar>최</Avatar>
@@ -387,19 +401,22 @@ const HomePage: React.FC = () => {
           </TestimonialCard>
         </TestimonialsContainer>
       </Section>
-      
+
       <CTASection>
         <CTATitle>지금 바로 재정 건강을 개선하세요</CTATitle>
         <CTAText>
-          WealthWise와 함께라면 복잡한 금융 세계도 쉽게 이해할 수 있습니다. 
-          지금 무료로 가입하고 맞춤형 금융 교육과 도구를 활용해 더 나은 재정적 미래를 설계하세요.
+          WealthWise와 함께라면 복잡한 금융 세계도 쉽게 이해할 수 있습니다. 지금
+          무료로 가입하고 맞춤형 금융 교육과 도구를 활용해 더 나은 재정적 미래를
+          설계하세요.
         </CTAText>
         <Link to="/profile">
-          <StyledButton variant="primary" size="lg">무료 계정 만들기</StyledButton>
+          <StyledButton variant="primary" size="lg">
+            무료 계정 만들기
+          </StyledButton>
         </Link>
       </CTASection>
     </Layout>
   );
 };
 
-export default HomePage; 
+export default HomePage;
