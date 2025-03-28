@@ -5,21 +5,18 @@ import "./App.css";
 
 // 페이지 (나중에 구현)
 import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
 import DashboardPage from "./pages/DashboardPage";
 import LearningModulesPage from "./pages/LearningModulesPage";
-// 아직 구현되지 않은 페이지들은 일단 주석 처리
-// import ProfilePage from './pages/ProfilePage';
-// import DashboardPage from './pages/DashboardPage';
-// import LearningModulesPage from './pages/LearningModulesPage';
-// import LearningModuleDetailPage from './pages/LearningModuleDetailPage';
-// import SimulationsPage from './pages/SimulationsPage';
-// import BudgetSimulationPage from './pages/BudgetSimulationPage';
-// import InvestmentSimulationPage from './pages/InvestmentSimulationPage';
-// import RetirementSimulationPage from './pages/RetirementSimulationPage';
-// import LoanSimulationPage from './pages/LoanSimulationPage';
-// import CommunityPage from './pages/CommunityPage';
-// import ForumPostDetailPage from './pages/ForumPostDetailPage';
-// import ExpertsPage from './pages/ExpertsPage';
+import ExpertsPage from "./pages/ExpertsPage";
+import LearningModuleDetailPage from "./pages/LearningModuleDetailPage";
+import SimulationsPage from "./pages/SimulationsPage";
+import BudgetSimulationPage from "./pages/BudgetSimulationPage";
+import InvestmentSimulationPage from "./pages/InvestmentSimulationPage";
+import RetirementSimulationPage from "./pages/RetirementSimulationPage";
+import CommunityPage from "./pages/CommunityPage";
+import ForumPostDetailPage from "./pages/ForumPostDetailPage";
+import LoanSimulationPage from "./pages/LoanSimulationPage";
 
 // 테마
 const theme = {
@@ -82,19 +79,33 @@ const App: React.FC = () => {
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            {/* 아직 구현되지 않은 라우트는 주석 처리 */}
-            {/* <Route path="/profile" element={<ProfilePage />} /> */}
+            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/learning" element={<LearningModulesPage />} />
-            {/* <Route path="/learning/:moduleId" element={<LearningModuleDetailPage />} /> */}
-            {/* <Route path="/simulations" element={<SimulationsPage />} /> */}
-            {/* <Route path="/simulations/budget" element={<BudgetSimulationPage />} /> */}
-            {/* <Route path="/simulations/investment" element={<InvestmentSimulationPage />} /> */}
-            {/* <Route path="/simulations/retirement" element={<RetirementSimulationPage />} /> */}
-            {/* <Route path="/simulations/loan" element={<LoanSimulationPage />} /> */}
-            {/* <Route path="/community" element={<CommunityPage />} /> */}
-            {/* <Route path="/community/post/:postId" element={<ForumPostDetailPage />} /> */}
-            {/* <Route path="/experts" element={<ExpertsPage />} /> */}
+            <Route
+              path="/learning/:moduleId"
+              element={<LearningModuleDetailPage />}
+            />
+            <Route path="/simulations" element={<SimulationsPage />} />
+            <Route
+              path="/simulations/budget"
+              element={<BudgetSimulationPage />}
+            />
+            <Route
+              path="/simulations/investment"
+              element={<InvestmentSimulationPage />}
+            />
+            <Route
+              path="/simulations/retirement"
+              element={<RetirementSimulationPage />}
+            />
+            <Route path="/simulations/loan" element={<LoanSimulationPage />} />
+            <Route path="/community" element={<CommunityPage />} />
+            <Route
+              path="/community/post/:postId"
+              element={<ForumPostDetailPage />}
+            />
+            <Route path="/experts" element={<ExpertsPage />} />
           </Routes>
         </Router>
       </AppContainer>
