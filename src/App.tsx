@@ -21,11 +21,11 @@ import LoanSimulationPage from "./pages/LoanSimulationPage";
 // 테마
 const theme = {
   colors: {
-    primary: "#3366FF",
-    secondary: "#6C63FF",
-    success: "#00C853",
-    warning: "#FFD600",
-    danger: "#F44336",
+    primary: "#3A7A41", // 달러 지폐의 짙은 녹색 - 채도 조금 낮춤
+    secondary: "#82D878", // 밝은 녹색 - 채도 조금 낮춤
+    success: "#49B14D", // 달러 지폐의 녹색 변형 - 채도 조금 낮춤
+    warning: "#FFBB7C", // 밝은 오렌지 베이지 (유지)
+    danger: "#E57260",
     info: "#2196F3",
     light: "#F5F5F5",
     dark: "#333333",
@@ -41,7 +41,7 @@ const theme = {
     sm: "576px",
     md: "768px",
     lg: "992px",
-    xl: "1200px",
+    // xl: "1200px",
   },
   spacing: {
     xs: "4px",
