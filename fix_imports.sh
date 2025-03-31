@@ -1,0 +1,12 @@
+#!/bin/bash
+find src -type f -name "*.tsx" -o -name "*.ts" | xargs sed -i "" -E "s|import ([A-Za-z0-9_{}]+) from \"\\.\\.\/components\/common\/([A-Za-z0-9_]+)\"|import \1 from \"components/common/\2\"|g"
+find src -type f -name "*.tsx" -o -name "*.ts" | xargs sed -i "" -E "s|import ([A-Za-z0-9_{}]+) from \"\\.\\.\/\\.\\.\/components\/common\/([A-Za-z0-9_]+)\"|import \1 from \"components/common/\2\"|g"
+find src/pages/community -type f -name "*.tsx" | xargs sed -i "" -E "s|import \\{([^}]+)\\} from \"\\.\\.\\/styles\\/pages\\/([A-Za-z0-9_]+)\\.styled\"|import {\1} from \"styles/pages/community/\2.styled\"|g"
+find src/pages/dashboard -type f -name "*.tsx" | xargs sed -i "" -E "s|import \\{([^}]+)\\} from \"\\.\\.\\/styles\\/pages\\/([A-Za-z0-9_]+)\\.styled\"|import {\1} from \"styles/pages/dashboard/\2.styled\"|g"
+find src/pages/experts -type f -name "*.tsx" | xargs sed -i "" -E "s|import \\{([^}]+)\\} from \"\\.\\.\\/styles\\/pages\\/([A-Za-z0-9_]+)\\.styled\"|import {\1} from \"styles/pages/experts/\2.styled\"|g"
+find src/pages/learning -type f -name "*.tsx" | xargs sed -i "" -E "s|import \\{([^}]+)\\} from \"\\.\\.\\/styles\\/pages\\/([A-Za-z0-9_]+)\\.styled\"|import {\1} from \"styles/pages/learning/\2.styled\"|g"
+find src/pages/profile -type f -name "*.tsx" | xargs sed -i "" -E "s|import \\{([^}]+)\\} from \"\\.\\.\\/styles\\/pages\\/([A-Za-z0-9_]+)\\.styled\"|import {\1} from \"styles/pages/profile/\2.styled\"|g"
+find src/pages/simulations -type f -name "*.tsx" | xargs sed -i "" -E "s|import \\{([^}]+)\\} from \"\\.\\.\\/styles\\/pages\\/([A-Za-z0-9_]+)\\.styled\"|import {\1} from \"styles/pages/simulations/\2.styled\"|g"
+find src -type f -name "*.tsx" -o -name "*.ts" | xargs sed -i "" -E "s|import ([A-Za-z0-9_{}]+) from \"\\.\\.\\/types\"|import \1 from \"types\"|g"
+find src -type f -name "*.tsx" -o -name "*.ts" | xargs sed -i "" -E "s|import ([A-Za-z0-9_{}]+) from \"\\.\\.\/\\.\\.\/types\"|import \1 from \"types\"|g"
+echo "Import paths fixed successfully!"

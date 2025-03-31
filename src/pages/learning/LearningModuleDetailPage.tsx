@@ -1,193 +1,33 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import styled from 'styled-components';
-import Layout from '../components/common/Layout';
-import Card from '../components/common/Card';
-import Button from '../components/common/Button';
-import { DifficultyLevel, LearningCategory } from '../types';
-
-const PageHeader = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-`;
-
-const PageTitle = styled.h1`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 2rem;
-  color: ${({ theme }) => theme.colors.dark};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const PageSubtitle = styled.p`
-  color: ${({ theme }) => theme.colors.text}dd;
-  font-size: 1.125rem;
-`;
-
-const ModuleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg};
-`;
-
-const ModuleHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    flex-direction: column;
-    gap: ${({ theme }) => theme.spacing.md};
-  }
-`;
-
-const ModuleInfo = styled.div`
-  flex: 1;
-`;
-
-const ModuleActions = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.sm};
-`;
-
-const ModuleBadges = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.sm};
-  margin-top: ${({ theme }) => theme.spacing.sm};
-  flex-wrap: wrap;
-`;
-
-const Badge = styled.span<{ bgColor: string }>`
-  background-color: ${({ bgColor }) => bgColor}22;
-  color: ${({ bgColor }) => bgColor};
-  padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.sm}`};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  font-size: 0.875rem;
-  font-weight: 500;
-`;
-
-const ModuleProgress = styled.div`
-  margin: ${({ theme }) => theme.spacing.md} 0;
-`;
-
-const ProgressBar = styled.div`
-  width: 100%;
-  height: 8px;
-  background-color: ${({ theme }) => theme.colors.light};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  overflow: hidden;
-  margin-top: ${({ theme }) => theme.spacing.xs};
-`;
-
-const ProgressFill = styled.div<{ width: number; color: string }>`
-  width: ${({ width }) => `${width}%`};
-  height: 100%;
-  background-color: ${({ color }) => color};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-`;
-
-const TabContainer = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-`;
-
-const TabButtons = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.sm};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-`;
-
-const TabButton = styled.button<{ isActive: boolean }>`
-  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.md}`};
-  background-color: transparent;
-  border: none;
-  border-bottom: 3px solid ${({ isActive, theme }) => isActive ? theme.colors.primary : 'transparent'};
-  color: ${({ isActive, theme }) => isActive ? theme.colors.primary : theme.colors.text};
-  font-weight: ${({ isActive }) => isActive ? '600' : '400'};
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary};
-  }
-`;
-
-const LessonsList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm};
-`;
-
-const LessonItem = styled.div<{ isActive: boolean; isCompleted: boolean }>`
-  display: flex;
-  align-items: center;
-  padding: ${({ theme }) => theme.spacing.md};
-  background-color: ${({ isActive, theme }) => isActive ? theme.colors.primary + '11' : 'white'};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  
-  &:hover {
-    background-color: ${({ theme, isActive }) => isActive ? theme.colors.primary + '22' : theme.colors.light};
-  }
-`;
-
-const LessonNumber = styled.div<{ isCompleted: boolean }>`
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: ${({ isCompleted, theme }) => isCompleted ? theme.colors.success : theme.colors.primary}22;
-  color: ${({ isCompleted, theme }) => isCompleted ? theme.colors.success : theme.colors.primary};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  margin-right: ${({ theme }) => theme.spacing.md};
-`;
-
-const LessonInfo = styled.div`
-  flex: 1;
-`;
-
-const LessonTitle = styled.h3`
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 500;
-`;
-
-const LessonStatus = styled.span<{ isCompleted: boolean }>`
-  font-size: 0.875rem;
-  color: ${({ isCompleted, theme }) => isCompleted ? theme.colors.success : theme.colors.text + 'aa'};
-`;
-
-const ContentContainer = styled.div`
-  line-height: 1.6;
-  
-  h2 {
-    font-family: ${({ theme }) => theme.fonts.heading};
-    margin-top: ${({ theme }) => theme.spacing.lg};
-    margin-bottom: ${({ theme }) => theme.spacing.sm};
-  }
-  
-  p {
-    margin-bottom: ${({ theme }) => theme.spacing.md};
-  }
-  
-  img {
-    max-width: 100%;
-    border-radius: ${({ theme }) => theme.borderRadius.md};
-    margin: ${({ theme }) => theme.spacing.md} 0;
-  }
-  
-  ul, ol {
-    margin-bottom: ${({ theme }) => theme.spacing.md};
-    padding-left: ${({ theme }) => theme.spacing.lg};
-  }
-  
-  li {
-    margin-bottom: ${({ theme }) => theme.spacing.xs};
-  }
-`;
+import Layout from '../../components/common/Layout';
+import Card from '../../components/common/Card';
+import Button from '../../components/common/Button';
+import { DifficultyLevel, LearningCategory } from "../../types";
+import {
+  PageHeader,
+  PageTitle,
+  PageSubtitle,
+  ModuleContainer,
+  ModuleHeader,
+  ModuleInfo,
+  ModuleActions,
+  ModuleBadges,
+  Badge,
+  ModuleProgress,
+  ProgressBar,
+  ProgressFill,
+  TabContainer,
+  TabButtons,
+  TabButton,
+  LessonsList,
+  LessonItem,
+  LessonNumber,
+  LessonInfo,
+  LessonTitle,
+  LessonStatus,
+  ContentContainer
+} from '../../styles/pages/learning/LearningModuleDetailPage.styled';
 
 // 가상의 모듈 데이터
 const moduleData = {
@@ -259,6 +99,7 @@ const moduleData = {
 };
 
 const LearningModuleDetailPage: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { moduleId } = useParams<{ moduleId: string }>();
   const [activeTab, setActiveTab] = useState<'content' | 'resources'>('content');
   const [activeLessonId, setActiveLessonId] = useState(moduleData.lessons[0].id);
@@ -386,9 +227,9 @@ const LearningModuleDetailPage: React.FC = () => {
                   <div>
                     <h3>추천 참고 자료</h3>
                     <ul>
-                      <li><a href="#">금융 기초 용어 사전</a></li>
-                      <li><a href="#">금융 시스템 개요 도표</a></li>
-                      <li><a href="#">한국은행 경제교육 자료</a></li>
+                      <li><a href="/resources/financial-terms">금융 기초 용어 사전</a></li>
+                      <li><a href="/resources/financial-system">금융 시스템 개요 도표</a></li>
+                      <li><a href="/resources/bank-education">한국은행 경제교육 자료</a></li>
                     </ul>
                     
                     <h3>추천 도서</h3>

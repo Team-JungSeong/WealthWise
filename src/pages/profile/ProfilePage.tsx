@@ -1,149 +1,30 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import Layout from '../components/common/Layout';
-import Card from '../components/common/Card';
-import Button from '../components/common/Button';
-import Input from '../components/common/Input';
-
-const PageHeader = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-`;
-
-const PageTitle = styled.h1`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 2rem;
-  color: ${({ theme }) => theme.colors.dark};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const PageSubtitle = styled.p`
-  color: ${({ theme }) => theme.colors.text}dd;
-  font-size: 1.125rem;
-`;
-
-const ProfileContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.xl};
-`;
-
-const SectionHeader = styled.h2`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 1.5rem;
-  color: ${({ theme }) => theme.colors.dark};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
-const ProfileSection = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-`;
-
-const ProfileGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: ${({ theme }) => theme.spacing.lg};
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const ProfileCard = styled(Card)`
-  height: 100%;
-`;
-
-const ProfileHeader = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-`;
-
-const ProfileAvatar = styled.div`
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.primary}22;
-  margin-right: ${({ theme }) => theme.spacing.lg};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  color: ${({ theme }) => theme.colors.primary};
-  overflow: hidden;
-`;
-
-const ProfileImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-const ProfileInfo = styled.div`
-  flex: 1;
-`;
-
-const ProfileName = styled.h3`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 1.75rem;
-  font-weight: 600;
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
-`;
-
-const ProfileEmail = styled.p`
-  color: ${({ theme }) => theme.colors.text}aa;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
-const ProgressContainer = styled.div`
-  margin: ${({ theme }) => `${theme.spacing.md} 0`};
-`;
-
-const ProgressHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
-`;
-
-const ProgressTitle = styled.h4`
-  margin: 0;
-  font-weight: 500;
-  font-size: 1rem;
-`;
-
-const ProgressValue = styled.span`
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-const ProgressBar = styled.div`
-  width: 100%;
-  height: 8px;
-  background-color: ${({ theme }) => theme.colors.light};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  overflow: hidden;
-`;
-
-const ProgressFill = styled.div<{ width: number; color: string }>`
-  width: ${({ width }) => `${width}%`};
-  height: 100%;
-  background-color: ${({ color }) => color};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-`;
-
-const FormGroup = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
-const FormRow = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.md};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    flex-direction: column;
-  }
-`;
+import Layout from '../../components/common/Layout';
+import Button from '../../components/common/Button';
+import Input from '../../components/common/Input';
+import {
+  PageHeader,
+  PageTitle,
+  PageSubtitle,
+  ProfileContainer,
+  SectionHeader,
+  ProfileSection,
+  ProfileGrid,
+  ProfileCard,
+  ProfileHeader,
+  ProfileAvatar,
+  ProfileInfo,
+  ProfileName,
+  ProfileEmail,
+  ProgressContainer,
+  ProgressHeader,
+  ProgressTitle,
+  ProgressValue,
+  ProgressBar,
+  ProgressFill,
+  FormGroup,
+  FormRow
+} from '../../styles/pages/profile/ProfilePage.styled';
 
 // 사용자 프로필 데이터 (임시)
 const profileData = {

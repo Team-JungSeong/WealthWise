@@ -1,152 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import Layout from '../components/common/Layout';
-import Card from '../components/common/Card';
-import Button from '../components/common/Button';
-import Input from '../components/common/Input';
-
-const PageHeader = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-`;
-
-const PageTitle = styled.h1`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 2rem;
-  color: ${({ theme }) => theme.colors.dark};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const PageSubtitle = styled.p`
-  color: ${({ theme }) => `${theme.colors.text}dd`};
-  font-size: 1.125rem;
-`;
-
-const FormContainer = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-`;
-
-const FormRow = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.md};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    flex-direction: column;
-  }
-`;
-
-const FormCol = styled.div<{ width?: string }>`
-  flex: ${({ width }) => width || '1'};
-`;
-
-const FormGroup = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
-const FormLabel = styled.label`
-  display: block;
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
-  font-weight: 500;
-`;
-
-const RadioContainer = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.md};
-  margin: ${({ theme }) => theme.spacing.xs} 0;
-`;
-
-const RadioLabel = styled.label`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.xs};
-  cursor: pointer;
-`;
-
-const SliderContainer = styled.div`
-  margin: ${({ theme }) => theme.spacing.md} 0;
-`;
-
-const SliderLabel = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
-`;
-
-const Slider = styled.input`
-  width: 100%;
-  margin: ${({ theme }) => theme.spacing.sm} 0;
-`;
-
-const ActionButtons = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: ${({ theme }) => theme.spacing.lg};
-`;
-
-const ResultsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: ${({ theme }) => theme.spacing.lg};
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const ResultItem = styled.div`
-  text-align: center;
-`;
-
-const ResultLabel = styled.div`
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.text}aa;
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
-`;
-
-const ResultValue = styled.div`
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.primary};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const ChartContainer = styled.div`
-  width: 100%;
-  height: 300px;
-  background-color: #f9f9f9;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: ${({ theme }) => theme.spacing.xl} 0;
-`;
-
-const ScheduleTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  margin: ${({ theme }) => theme.spacing.lg} 0;
-`;
-
-const TableHeader = styled.th`
-  padding: ${({ theme }) => theme.spacing.sm};
-  background-color: ${({ theme }) => theme.colors.light};
-  text-align: left;
-  font-weight: 600;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-`;
-
-const TableCell = styled.td`
-  padding: ${({ theme }) => theme.spacing.sm};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-`;
-
-const TableRow = styled.tr`
-  &:nth-child(even) {
-    background-color: ${({ theme }) => theme.colors.light}50;
-  }
-`;
+import Layout from '../../components/common/Layout';
+import Card from '../../components/common/Card';
+import Button from '../../components/common/Button';
+import Input from '../../components/common/Input';
+import {
+  PageHeader,
+  PageTitle,
+  PageSubtitle,
+  FormContainer,
+  FormRow,
+  FormCol,
+  FormGroup,
+  FormLabel,
+  RadioContainer,
+  RadioLabel,
+  SliderContainer,
+  SliderLabel,
+  Slider,
+  ActionButtons,
+  ResultsContainer,
+  ResultItem,
+  ResultLabel,
+  ResultValue,
+  ChartContainer,
+  ScheduleTable,
+  TableHeader,
+  TableCell,
+  TableRow
+} from '../../styles/pages/simulations/LoanSimulationPage.styled';
 
 const LoanSimulationPage: React.FC = () => {
   // 대출 시뮬레이션 상태값

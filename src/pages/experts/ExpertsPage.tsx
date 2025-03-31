@@ -1,188 +1,35 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import Layout from '../components/common/Layout';
-import Card from '../components/common/Card';
-import Button from '../components/common/Button';
-import Input from '../components/common/Input';
-import { LearningCategory } from '../types';
-
-const PageHeader = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-`;
-
-const PageTitle = styled.h1`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 2rem;
-  color: ${({ theme }) => theme.colors.dark};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const PageSubtitle = styled.p`
-  color: ${({ theme }) => theme.colors.text}dd;
-  font-size: 1.125rem;
-`;
-
-const FiltersContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${({ theme }) => theme.spacing.md};
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    flex-direction: column;
-  }
-`;
-
-const FilterGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm};
-`;
-
-const FilterLabel = styled.label`
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.dark};
-  font-size: 0.875rem;
-`;
-
-const FilterSelect = styled.select`
-  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.md}`};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  font-family: ${({ theme }) => theme.fonts.primary};
-  font-size: 1rem;
-  color: ${({ theme }) => theme.colors.text};
-  background-color: white;
-  min-width: 200px;
-  
-  &:focus {
-    border-color: ${({ theme }) => theme.colors.primary};
-    outline: none;
-  }
-`;
-
-const SearchContainer = styled.div`
-  flex: 1;
-  min-width: 300px;
-`;
-
-const ExpertsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: ${({ theme }) => theme.spacing.lg};
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const ExpertCard = styled(Card)`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
-
-const ExpertHeader = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
-const ExpertAvatar = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.primary}22;
-  margin-right: ${({ theme }) => theme.spacing.md};
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-const ExpertImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-const ExpertInfo = styled.div`
-  flex: 1;
-`;
-
-const ExpertName = styled.h3`
-  margin: 0 0 ${({ theme }) => theme.spacing.xs};
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-weight: 600;
-  font-size: 1.25rem;
-`;
-
-const RatingContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
-`;
-
-const Rating = styled.div`
-  color: ${({ theme }) => theme.colors.warning};
-  margin-right: ${({ theme }) => theme.spacing.xs};
-`;
-
-const ReviewCount = styled.span`
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.text}aa;
-`;
-
-const Price = styled.div`
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-const ExpertBio = styled.p`
-  margin: 0 0 ${({ theme }) => theme.spacing.md};
-  line-height: 1.6;
-  color: ${({ theme }) => theme.colors.text}dd;
-  flex: 1;
-`;
-
-const SpecialtiesList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${({ theme }) => theme.spacing.xs};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
-const SpecialtyTag = styled.span`
-  background-color: ${({ theme }) => theme.colors.primary}11;
-  color: ${({ theme }) => theme.colors.primary};
-  padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.sm}`};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  font-size: 0.875rem;
-  font-weight: 500;
-`;
-
-const ActionButton = styled(Button)`
-  width: 100%;
-`;
-
-const NoResultsContainer = styled.div`
-  text-align: center;
-  padding: ${({ theme }) => theme.spacing.xl};
-  grid-column: 1 / -1;
-`;
-
-const NoResultsText = styled.p`
-  font-size: 1.125rem;
-  color: ${({ theme }) => theme.colors.text}aa;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
+import Layout from '../../components/common/Layout';
+import Button from '../../components/common/Button';
+import Input from '../../components/common/Input';
+import { LearningCategory } from '../../types';
+import {
+  PageHeader,
+  PageTitle,
+  PageSubtitle,
+  FiltersContainer,
+  FilterGroup,
+  FilterLabel,
+  FilterSelect,
+  SearchContainer,
+  ExpertsGrid,
+  ExpertCard,
+  ExpertHeader,
+  ExpertAvatar,
+  ExpertImage,
+  ExpertInfo,
+  ExpertName,
+  RatingContainer,
+  Rating,
+  ReviewCount,
+  Price,
+  ExpertBio,
+  SpecialtiesList,
+  SpecialtyTag,
+  ActionButton,
+  NoResultsContainer,
+  NoResultsText
+} from '../../styles/pages/experts/ExpertsPage.styled';
 
 // 가상의 전문가 데이터
 const expertsMockData = [

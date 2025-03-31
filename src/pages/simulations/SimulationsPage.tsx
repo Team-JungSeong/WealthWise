@@ -1,113 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import Layout from '../components/common/Layout';
-import Card from '../components/common/Card';
-import Button from '../components/common/Button';
-
-const PageHeader = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-`;
-
-const PageTitle = styled.h1`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 2rem;
-  color: ${({ theme }) => theme.colors.dark};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const PageSubtitle = styled.p`
-  color: ${({ theme }) => theme.colors.text}dd;
-  font-size: 1.125rem;
-`;
-
-const SimulationsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: ${({ theme }) => theme.spacing.lg};
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const SimulationCard = styled(Card)`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
-
-const SimulationIcon = styled.div`
-  font-size: 3rem;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-const SimulationTitle = styled.h3`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const SimulationDescription = styled.p`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-  flex: 1;
-  line-height: 1.6;
-`;
-
-const RecentSimulationsSection = styled.div`
-  margin-top: ${({ theme }) => theme.spacing.xl};
-`;
-
-const SectionTitle = styled.h2`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 1.75rem;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
-const RecentItemsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: ${({ theme }) => theme.spacing.md};
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const RecentItemCard = styled(Card)`
-  display: flex;
-  flex-direction: column;
-`;
-
-const RecentItemHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const RecentItemType = styled.span`
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-const RecentItemDate = styled.span`
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.text}aa;
-`;
-
-const ResultValue = styled.div`
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: ${({ theme }) => theme.spacing.sm} 0;
-`;
+import Layout from '../../components/common/Layout';
+import Button from '../../components/common/Button';
+import {
+  PageHeader,
+  PageTitle,
+  PageSubtitle,
+  SimulationsGrid,
+  SimulationCard,
+  SimulationIcon,
+  SimulationTitle,
+  SimulationDescription,
+  RecentSimulationsSection,
+  SectionTitle,
+  RecentItemsGrid,
+  RecentItemCard,
+  RecentItemHeader,
+  RecentItemType,
+  RecentItemDate,
+  ResultValue
+} from '../../styles/pages/simulations/SimulationsPage.styled';
 
 const SimulationsPage: React.FC = () => {
   // 가상의 최근 시뮬레이션 결과 데이터

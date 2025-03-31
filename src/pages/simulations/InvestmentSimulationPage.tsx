@@ -1,210 +1,24 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import Layout from '../components/common/Layout';
-import Card from '../components/common/Card';
-import Button from '../components/common/Button';
-import Input from '../components/common/Input';
-
-const PageHeader = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-`;
-
-const PageTitle = styled.h1`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 2rem;
-  color: ${({ theme }) => theme.colors.dark};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const PageSubtitle = styled.p`
-  color: ${({ theme }) => theme.colors.text}dd;
-  font-size: 1.125rem;
-`;
-
-const StepsContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    flex-direction: column;
-    gap: ${({ theme }) => theme.spacing.md};
-  }
-`;
-
-const StepIndicator = styled.div<{ isActive: boolean; isCompleted: boolean }>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  flex: 1;
-  
-  &:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 20px;
-    right: -50%;
-    width: 100%;
-    height: 2px;
-    background-color: ${({ isCompleted, theme }) => 
-      isCompleted ? theme.colors.primary : theme.colors.border};
-    z-index: 0;
-  }
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: ${({ theme }) => theme.spacing.md};
-    
-    &:not(:last-child)::after {
-      display: none;
-    }
-  }
-`;
-
-const StepCircle = styled.div<{ isActive: boolean; isCompleted: boolean }>`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: ${({ isActive, isCompleted, theme }) => 
-    isCompleted ? theme.colors.success :
-    isActive ? theme.colors.primary : 'white'};
-  border: 2px solid ${({ isActive, isCompleted, theme }) => 
-    isCompleted ? theme.colors.success :
-    isActive ? theme.colors.primary : theme.colors.border};
-  color: ${({ isActive, isCompleted, theme }) => 
-    (isActive || isCompleted) ? 'white' : theme.colors.text};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-  z-index: 1;
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    margin-bottom: 0;
-  }
-`;
-
-const StepLabel = styled.div<{ isActive: boolean; isCompleted: boolean }>`
-  font-weight: ${({ isActive }) => isActive ? '600' : '400'};
-  color: ${({ isActive, isCompleted, theme }) => 
-    isCompleted ? theme.colors.success :
-    isActive ? theme.colors.primary : theme.colors.text};
-  text-align: center;
-`;
-
-const FormContainer = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-`;
-
-const FormRow = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.md};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    flex-direction: column;
-  }
-`;
-
-const FormCol = styled.div<{ width?: string }>`
-  flex: ${({ width }) => width || '1'};
-`;
-
-const FormGroup = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
-const FormLabel = styled.label`
-  display: block;
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
-  font-weight: 500;
-`;
-
-const SliderContainer = styled.div`
-  margin: ${({ theme }) => theme.spacing.md} 0;
-`;
-
-const SliderLabel = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
-`;
-
-const Slider = styled.input`
-  width: 100%;
-  margin: ${({ theme }) => theme.spacing.sm} 0;
-`;
-
-const ActionButtons = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: ${({ theme }) => theme.spacing.lg};
-`;
-
-const ResultsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: ${({ theme }) => theme.spacing.lg};
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const ResultValue = styled.div`
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.primary};
-  margin: ${({ theme }) => `${theme.spacing.md} 0`};
-`;
-
-const ChartContainer = styled.div`
-  width: 100%;
-  height: 300px;
-  background-color: #f9f9f9;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: ${({ theme }) => theme.spacing.md} 0;
-`;
-
-const ProgressBar = styled.div`
-  width: 100%;
-  height: 16px;
-  background-color: ${({ theme }) => theme.colors.light};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  overflow: hidden;
-  margin: ${({ theme }) => theme.spacing.md} 0;
-`;
-
-const ProgressFill = styled.div<{ width: number; color: string }>`
-  width: ${({ width }) => `${width}%`};
-  height: 100%;
-  background-color: ${({ color }) => color};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-`;
-
-const RadioContainer = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.md};
-  margin: ${({ theme }) => theme.spacing.sm} 0;
-  flex-wrap: wrap;
-`;
-
-const RadioLabel = styled.label`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  
-  input {
-    margin-right: ${({ theme }) => theme.spacing.xs};
-  }
-`;
+import Layout from '../../components/common/Layout';
+import Card from '../../components/common/Card';
+import Button from '../../components/common/Button';
+import Input from '../../components/common/Input';
+import {
+  PageHeader,
+  PageTitle,
+  PageSubtitle,
+  FormContainer,
+  FormGroup,
+  FormLabel,
+  SliderContainer,
+  SliderLabel,
+  ActionButtons,
+  ResultsContainer,
+  ResultValue,
+  ChartContainer,
+  RadioContainer,
+  RadioLabel
+} from '../../styles/pages/simulations/InvestmentSimulationPage.styled';
 
 const InvestmentSimulationPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -271,6 +85,10 @@ const InvestmentSimulationPage: React.FC = () => {
     setExpectedReturn(((returns.min + returns.max) / 2).toString());
   };
 
+  const handleYearsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setYears(e.target.value);
+  };
+
   return (
     <Layout>
       <Card>
@@ -309,18 +127,19 @@ const InvestmentSimulationPage: React.FC = () => {
             <FormGroup>
               <FormLabel>투자 기간 (년)</FormLabel>
               <SliderContainer>
+                <input
+                  type="range"
+                  min="1"
+                  max="50"
+                  value={years}
+                  onChange={handleYearsChange}
+                  style={{ width: '100%' }}
+                />
                 <SliderLabel>
                   <span>1년</span>
                   <span>{years}년</span>
                   <span>50년</span>
                 </SliderLabel>
-                <Slider 
-                  type="range" 
-                  min="1" 
-                  max="50" 
-                  value={years}
-                  onChange={(e) => setYears(e.target.value)}
-                />
               </SliderContainer>
             </FormGroup>
             

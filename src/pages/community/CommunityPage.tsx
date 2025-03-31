@@ -1,238 +1,40 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import Layout from '../components/common/Layout';
-import Card from '../components/common/Card';
-import Button from '../components/common/Button';
-import Input from '../components/common/Input';
-
-const PageHeader = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-`;
-
-const PageTitle = styled.h1`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 2rem;
-  color: ${({ theme }) => theme.colors.dark};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const PageSubtitle = styled.p`
-  color: ${({ theme }) => `${theme.colors.text}dd`};
-  font-size: 1.125rem;
-`;
-
-const SearchAndFilters = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.md};
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-`;
-
-const CommunityContainer = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.xl};
-`;
-
-const MainContent = styled.div`
-  flex: 1;
-`;
-
-const Sidebar = styled.div`
-  width: 300px;
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    width: 100%;
-  }
-`;
-
-const CategoryTabs = styled.div`
-  display: flex;
-  overflow-x: auto;
-  gap: ${({ theme }) => theme.spacing.sm};
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-  padding-bottom: ${({ theme }) => theme.spacing.xs};
-  
-  &::-webkit-scrollbar {
-    height: 4px;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.border};
-    border-radius: 2px;
-  }
-`;
-
-const CategoryTab = styled.button<{ isActive: boolean }>`
-  background-color: ${({ isActive, theme }) => isActive ? theme.colors.primary : 'transparent'};
-  border: none;
-  padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.md}`};
-  color: ${({ isActive }) => isActive ? 'white' : 'inherit'};
-  font-weight: ${({ isActive }) => isActive ? '500' : '400'};
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primary}11;
-  }
-`;
-
-const PostList = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-`;
-
-const PostItem = styled.div`
-  padding: ${({ theme }) => theme.spacing.md};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  transition: all 0.2s ease-in-out;
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: ${({ theme }) => theme.shadows.md};
-  }
-`;
-
-const PostHeader = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  padding-bottom: ${({ theme }) => theme.spacing.md};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
-const PostCategory = styled.div`
-  display: inline-block;
-  padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.sm}`};
-  background-color: ${({ theme }) => theme.colors.primary}11;
-  color: ${({ theme }) => theme.colors.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const PostDate = styled.span`
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.text}aa;
-`;
-
-const PostTitle = styled.h2`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.colors.dark};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const PostExcerpt = styled.p`
-  line-height: 1.6;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  white-space: pre-line;
-  
-  p {
-    margin-bottom: ${({ theme }) => theme.spacing.md};
-  }
-`;
-
-const PostFooter = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const PostStats = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.md};
-`;
-
-const PostAuthor = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const AuthorAvatar = styled.div`
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.primary}22;
-  color: ${({ theme }) => theme.colors.primary};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-right: ${({ theme }) => theme.spacing.sm};
-`;
-
-const AuthorName = styled.span`
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.dark};
-  margin-right: ${({ theme }) => theme.spacing.xs};
-`;
-
-const Pagination = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: ${({ theme }) => theme.spacing.xl};
-`;
-
-const PageButton = styled.button<{ isActive?: boolean }>`
-  background-color: ${({ isActive, theme }) => isActive ? theme.colors.primary : 'transparent'};
-  border: 1px solid ${({ isActive, theme }) => isActive ? theme.colors.primary : theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.md}`};
-  color: ${({ isActive }) => isActive ? 'white' : 'inherit'};
-  font-weight: ${({ isActive }) => isActive ? '500' : '400'};
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  margin: 0 4px;
-  
-  &:hover {
-    background-color: ${({ isActive, theme }) => isActive ? theme.colors.primary : theme.colors.light};
-  }
-`;
-
-const TrendingTopics = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-`;
-
-const TopicsList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.xs};
-`;
-
-const TopicItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
-  padding: ${({ theme }) => `${theme.spacing.xs} 0`};
-  cursor: pointer;
-  
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary};
-  }
-`;
-
-const TopicIcon = styled.div`
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.primary}22;
-  color: ${({ theme }) => theme.colors.primary};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-`;
-
-const TopicText = styled.span`
-  flex: 1;
-`;
-
-const TopicCount = styled.span`
-  font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.text}aa;
-`;
+import Layout from '../../components/common/Layout';
+import Card from '../../components/common/Card';
+import Button from '../../components/common/Button';
+import Input from '../../components/common/Input';
+import {
+  PageHeader,
+  PageTitle,
+  PageSubtitle,
+  SearchAndFilters,
+  CommunityContainer,
+  MainContent,
+  Sidebar,
+  CategoryTabs,
+  CategoryTab,
+  PostList,
+  PostItem,
+  PostHeader,
+  PostCategory,
+  PostDate,
+  PostTitle,
+  PostExcerpt,
+  PostFooter,
+  PostStats,
+  PostAuthor,
+  AuthorAvatar,
+  AuthorName,
+  Pagination,
+  PageButton,
+  TrendingTopics,
+  TopicsList,
+  TopicItem,
+  TopicIcon,
+  TopicText,
+  TopicCount,
+} from '../../styles/pages/community/CommunityPage.styled';
 
 // 가상의 카테고리 데이터
 const categories = [

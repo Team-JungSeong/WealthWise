@@ -60,18 +60,6 @@ const FooterLink = styled(Link)`
   }
 `;
 
-const ExternalLink = styled.a`
-  display: block;
-  color: ${({ theme }) => theme.colors.light}dd;
-  text-decoration: none;
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    color: white;
-  }
-`;
-
 const Text = styled.p`
   color: ${({ theme }) => theme.colors.light}dd;
   margin-bottom: ${({ theme }) => theme.spacing.sm};
