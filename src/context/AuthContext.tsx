@@ -31,14 +31,25 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // 기본 임시 사용자 생성
+  const defaultUser: User = {
+    id: '1',
+    name: '김투자',
+    email: 'investor@example.com',
+  };
+
+  // 기본적으로 유저를 설정하여 로그인된 상태로 시작
+  const [user, setUser] = useState<User | null>(defaultUser);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    // 여기서 로컬 스토리지나 쿠키 등에서 사용자 정보를 불러올 수 있습니다.
+    // 로컬 스토리지에서 사용자 정보가 있으면 그것을 사용, 없으면 기본 사용자 유지
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+    } else {
+      // 로컬 스토리지에 기본 사용자 저장
+      localStorage.setItem('user', JSON.stringify(defaultUser));
     }
     setIsLoading(false);
   }, []);
@@ -68,8 +79,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
+    // 로그아웃 시에도 기본 사용자로 설정하여 항상 로그인된 상태 유지
+    setUser(defaultUser);
+    localStorage.setItem('user', JSON.stringify(defaultUser));
   };
 
   const signup = async (name: string, email: string, password: string): Promise<boolean> => {
@@ -98,7 +110,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const value = {
     user,
-    isAuthenticated: !!user,
+    isAuthenticated: true, // 항상 인증된 상태로 설정
     isLoading,
     login,
     logout,
