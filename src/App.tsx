@@ -23,9 +23,9 @@ const theme = {
   colors: {
     primary: "#3A7A41",
     secondary: "#82D878",
-    success: "#49B14D",
-    warning: "#FFBB7C",
-    danger: "#E57260",
+    success: "#2E7D32",
+    warning: "#FFC107",
+    danger: "#E64A19",
     info: "#2196F3",
     light: "#F5F5F5",
     dark: "#333333",

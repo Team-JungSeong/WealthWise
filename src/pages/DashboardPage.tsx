@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { Link } from "react-router-dom";
 import Layout from "../components/common/Layout";
 import Card from "../components/common/Card";
@@ -273,7 +273,14 @@ const GoalName = styled.h4`
   font-size: 1rem;
 `;
 
-const GoalProgress = styled.div`
+const GoalTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 ${({ theme }) => theme.spacing.xs};
+`;
+
+const Amount = styled.div`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.xs};
@@ -293,7 +300,12 @@ const GoalProgressFill = styled.div<{ width: number; color: string }>`
   background-color: ${({ color }) => color};
 `;
 
-const GoalAmount = styled.span`
+const CurrentAmount = styled.span`
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.text}aa;
+`;
+const TargetAmount = styled.span`
   font-size: 0.75rem;
   color: ${({ theme }) => theme.colors.text}aa;
 `;
@@ -478,6 +490,8 @@ const DashboardPage: React.FC = () => {
     colors: ["#3366FF", "#00C853", "#FFD600", "#FF6D00", "#8E24AA", "#00BCD4"],
   });
 
+  const theme = useTheme();
+
   // 금융 목표 예시 데이터
   const financialGoals = [
     {
@@ -487,7 +501,7 @@ const DashboardPage: React.FC = () => {
       target: 10000000,
       current: 8500000,
       icon: "💰",
-      color: "#3366FF",
+      color: "#3A7A41",
     },
     {
       id: 2,
@@ -496,7 +510,7 @@ const DashboardPage: React.FC = () => {
       target: 300000000,
       current: 135000000,
       icon: "🏠",
-      color: "#00C853",
+      color: "#3A7A41",
     },
     {
       id: 3,
@@ -505,7 +519,7 @@ const DashboardPage: React.FC = () => {
       target: 500000000,
       current: 150000000,
       icon: "🏖️",
-      color: "#FFD600",
+      color: "#3A7A41",
     },
   ];
 
@@ -599,24 +613,52 @@ const DashboardPage: React.FC = () => {
       </PageHeader>
 
       <DashboardGrid>
-        <FinancialOverviewCard title="재무 요약" variant="elevated">
+        <FinancialOverviewCard title="재정 현황" variant="elevated">
           <div>
-            <ProgressContainer>
+            <ProgressContainer style={{ margin: `0 0 ${theme.spacing.lg}` }}>
               <ProgressHeader>
                 <ProgressTitle>총 자산</ProgressTitle>
-                <ProgressValue>
+                <ProgressValue style={{ color: "#2E7D32" }}>
                   {formatNumber(financialSummary.totalAssets)}원
                 </ProgressValue>
               </ProgressHeader>
               <ProgressBar>
-                <ProgressFill width={100} color="#3366FF" />
+                <ProgressFill width={100} color="#3A7A41" />
+              </ProgressBar>
+            </ProgressContainer>
+
+            <ProgressContainer>
+              <ProgressHeader>
+                <ProgressTitle>월 소득</ProgressTitle>
+                <ProgressValue style={{ color: "#1976D2" }}>
+                  {formatNumber(financialSummary.monthlyIncome)}원
+                </ProgressValue>
+              </ProgressHeader>
+              <ProgressBar>
+                <ProgressFill width={100} color="#42A5F5" />
+              </ProgressBar>
+            </ProgressContainer>
+
+            <ProgressContainer>
+              <ProgressHeader>
+                <ProgressTitle>월 저축</ProgressTitle>
+                <ProgressValue style={{ color: "#689F38" }}>
+                  {formatNumber(financialSummary.monthlySavings)}원 (
+                  {financialSummary.savingsRate}%)
+                </ProgressValue>
+              </ProgressHeader>
+              <ProgressBar>
+                <ProgressFill
+                  width={financialSummary.savingsRate}
+                  color="#8BC34A"
+                />
               </ProgressBar>
             </ProgressContainer>
 
             <ProgressContainer>
               <ProgressHeader>
                 <ProgressTitle>총 부채</ProgressTitle>
-                <ProgressValue>
+                <ProgressValue style={{ color: "#E64A19" }}>
                   {formatNumber(financialSummary.totalDebts)}원
                 </ProgressValue>
               </ProgressHeader>
@@ -627,43 +669,16 @@ const DashboardPage: React.FC = () => {
                       financialSummary.totalAssets) *
                     100
                   }
-                  color="#F44336"
+                  color="#FF7043"
                 />
               </ProgressBar>
-            </ProgressContainer>
-
-            <ProgressContainer>
-              <ProgressHeader>
-                <ProgressTitle>순자산</ProgressTitle>
-                <ProgressValue>
-                  {formatNumber(financialSummary.netWorth)}원
-                </ProgressValue>
-              </ProgressHeader>
-              <ProgressBar>
-                <ProgressFill
-                  width={
-                    (financialSummary.netWorth / financialSummary.totalAssets) *
-                    100
-                  }
-                  color="#00C853"
-                />
-              </ProgressBar>
-            </ProgressContainer>
-
-            <ProgressContainer>
-              <ProgressHeader>
-                <ProgressTitle>월 소득</ProgressTitle>
-                <ProgressValue>
-                  {formatNumber(financialSummary.monthlyIncome)}원
-                </ProgressValue>
-              </ProgressHeader>
             </ProgressContainer>
 
             <ProgressContainer>
               <ProgressHeader>
                 <ProgressTitle>월 지출</ProgressTitle>
-                <ProgressValue>
-                  {formatNumber(financialSummary.monthlyExpenses)}원
+                <ProgressValue style={{ color: "#EF6C00" }}>
+                  -{formatNumber(financialSummary.monthlyExpenses)}원
                 </ProgressValue>
               </ProgressHeader>
               <ProgressBar>
@@ -673,23 +688,25 @@ const DashboardPage: React.FC = () => {
                       financialSummary.monthlyIncome) *
                     100
                   }
-                  color="#FFD600"
+                  color="#FF9800"
                 />
               </ProgressBar>
             </ProgressContainer>
 
             <ProgressContainer>
               <ProgressHeader>
-                <ProgressTitle>월 저축</ProgressTitle>
-                <ProgressValue>
-                  {formatNumber(financialSummary.monthlySavings)}원 (
-                  {financialSummary.savingsRate}%)
+                <ProgressTitle>순자산</ProgressTitle>
+                <ProgressValue style={{ color: "#FBC02D" }}>
+                  {formatNumber(financialSummary.netWorth)}원
                 </ProgressValue>
               </ProgressHeader>
               <ProgressBar>
                 <ProgressFill
-                  width={financialSummary.savingsRate}
-                  color="#00BCD4"
+                  width={
+                    (financialSummary.netWorth / financialSummary.totalAssets) *
+                    100
+                  }
+                  color="#FFC107"
                 />
               </ProgressBar>
             </ProgressContainer>
@@ -701,7 +718,19 @@ const DashboardPage: React.FC = () => {
           variant="elevated"
           footer={
             <Link to="/profile#goals">
-              <Button variant="link">모든 목표 보기</Button>
+              <Button
+                variant="link"
+                style={{
+                  fontSize: "0.95rem",
+                  color: theme.colors.text,
+                  opacity: 0.7,
+                  fontWeight: 400,
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.7")}
+              >
+                목표 더보기
+              </Button>
             </Link>
           }
         >
@@ -710,19 +739,23 @@ const DashboardPage: React.FC = () => {
               <GoalItem key={goal.id}>
                 <GoalIcon bgColor={goal.color}>{goal.icon}</GoalIcon>
                 <GoalInfo>
-                  <GoalName>{goal.name}</GoalName>
-                  <GoalProgress>
-                    <GoalProgressBar>
-                      <GoalProgressFill
-                        width={goal.progress}
-                        color={goal.color}
-                      />
-                    </GoalProgressBar>
-                    <GoalAmount>
-                      {formatNumber(goal.current)}원 /{" "}
-                      {formatNumber(goal.target)}원
-                    </GoalAmount>
-                  </GoalProgress>
+                  <GoalTitle>
+                    <GoalName>{goal.name}</GoalName>
+                    <Amount>
+                      <CurrentAmount>
+                        {formatNumber(goal.current)}원{" "}
+                      </CurrentAmount>
+                      <TargetAmount>
+                        / {formatNumber(goal.target)}원
+                      </TargetAmount>
+                    </Amount>
+                  </GoalTitle>
+                  <GoalProgressBar>
+                    <GoalProgressFill
+                      width={goal.progress}
+                      color={goal.color}
+                    />
+                  </GoalProgressBar>
                 </GoalInfo>
               </GoalItem>
             ))}
