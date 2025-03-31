@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "../components/common/Layout";
@@ -10,6 +10,7 @@ const Hero = styled.section`
   align-items: center;
   justify-content: space-between;
   padding: ${({ theme }) => `${theme.spacing.xl} 0`};
+  margin-bottom: ${({ theme }) => `${theme.spacing.xl}`};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     flex-direction: column;
@@ -20,7 +21,7 @@ const Hero = styled.section`
 
 const HeroContent = styled.div`
   flex: 1;
-  max-width: 600px;
+  max-width: 630px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     max-width: 100%;
@@ -30,12 +31,11 @@ const HeroContent = styled.div`
 
 const HeroTitle = styled.h1`
   font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: ${({ theme }) => theme.spacing.md};
   color: ${({ theme }) => theme.colors.dark};
   line-height: 1.2;
-
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     font-size: 2.5rem;
   }
@@ -74,6 +74,7 @@ const HeroImageContainer = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  position: relative;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     order: 1;
@@ -83,11 +84,12 @@ const HeroImageContainer = styled.div`
 `;
 
 const HeroImage = styled.img`
-  width: 500px;
-  height: 500px;
+  width: 610px;
+  height: 580px;
   object-fit: cover;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   box-shadow: ${({ theme }) => theme.shadows.lg};
+  transition: opacity 1s ease-in-out;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     max-width: 80%;
@@ -153,7 +155,7 @@ const FeatureTitle = styled.h3`
 
 const FeatureDescription = styled.p`
   line-height: 1.6;
-  color: ${({ theme }) => theme.colors.text}dd;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 const TestimonialsContainer = styled.div`
@@ -162,7 +164,8 @@ const TestimonialsContainer = styled.div`
   overflow-x: auto;
   padding: ${({ theme }) => theme.spacing.md} 0;
   margin: 0 -${({ theme }) => theme.spacing.md};
-  padding: 0 ${({ theme }) => theme.spacing.md};
+  padding: 0 ${({ theme }) => theme.spacing.md}
+    ${({ theme }) => theme.spacing.md};
 
   &::-webkit-scrollbar {
     height: 8px;
@@ -210,6 +213,7 @@ const Avatar = styled.div`
   align-items: center;
   justify-content: center;
   color: white;
+  font-size: 1.3rem;
   font-weight: 600;
 `;
 
@@ -260,15 +264,76 @@ const CTAText = styled.p`
 `;
 
 const HomePage: React.FC = () => {
+  const heroImages = [
+    "https://images.unsplash.com/photo-1554768804-50c1e2b50a6e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1621264448270-9ef00e88a935?q=80&w=2757&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1726065235203-4368c41c6f19?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=2606&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - containerRef.current.offsetLeft);
+    setScrollLeft(containerRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging || !containerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - containerRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    containerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  // 터치 이벤트 핸들러
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.touches[0].pageX - containerRef.current.offsetLeft);
+    setScrollLeft(containerRef.current.scrollLeft);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isDragging || !containerRef.current) return;
+    const x = e.touches[0].pageX - containerRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    containerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
   return (
     <Layout>
       <Hero>
         <HeroContent>
-          <HeroTitle>개인화된 금융 교육으로 더 현명한 재정 결정을</HeroTitle>
+          <HeroTitle>당신만의 금융 전문가, WealthWise</HeroTitle>
           <HeroSubtitle>
-            WealthWise는 당신의 재정 상황과 목표에 맞춘 맞춤형 금융 교육과
-            시뮬레이션 도구를 제공합니다. 쉽고 실용적인 금융 지식으로 재정적
-            자유를 향해 한 걸음 나아가세요.
+            WealthWise는 복잡한 금융 세계를 쉽게 이해할 수 있도록 도와드립니다.
+            <br />
+            개인 맞춤형 교육과 실용적인 도구로 재무 목표를 달성하고 안정적인
+            경제 미래를 준비하세요.
           </HeroSubtitle>
           <ButtonGroup>
             <Link to="/profile">
@@ -279,10 +344,17 @@ const HomePage: React.FC = () => {
           </ButtonGroup>
         </HeroContent>
         <HeroImageContainer>
-          <HeroImage
-            src="https://images.unsplash.com/photo-1726065235203-4368c41c6f19?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="금융 교육 플랫폼"
-          />
+          {heroImages.map((src, index) => (
+            <HeroImage
+              key={index}
+              src={src}
+              alt={`금융 교육 플랫폼 이미지 ${index + 1}`}
+              style={{
+                opacity: index === currentImageIndex ? 1 : 0,
+                position: index === currentImageIndex ? "relative" : "absolute",
+              }}
+            />
+          ))}
         </HeroImageContainer>
       </Hero>
 
@@ -342,7 +414,17 @@ const HomePage: React.FC = () => {
 
       <Section>
         <SectionTitle>사용자 후기</SectionTitle>
-        <TestimonialsContainer>
+        <TestimonialsContainer
+          ref={containerRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleMouseUp}
+          style={{ cursor: isDragging ? "grabbing" : "grab" }}
+        >
           <TestimonialCard variant="outlined">
             <Quote>
               "WealthWise를 통해 금융에 대한 두려움이 사라졌어요. 개인화된 학습

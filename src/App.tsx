@@ -21,11 +21,11 @@ import LoanSimulationPage from "./pages/LoanSimulationPage";
 // 테마
 const theme = {
   colors: {
-    primary: "#3366FF",
-    secondary: "#6C63FF",
-    success: "#00C853",
-    warning: "#FFD600",
-    danger: "#F44336",
+    primary: "#3A7A41",
+    secondary: "#82D878",
+    success: "#2E7D32",
+    warning: "#FFC107",
+    danger: "#E64A19",
     info: "#2196F3",
     light: "#F5F5F5",
     dark: "#333333",
@@ -41,7 +41,7 @@ const theme = {
     sm: "576px",
     md: "768px",
     lg: "992px",
-    xl: "1200px",
+    // xl: "1200px",
   },
   spacing: {
     xs: "4px",

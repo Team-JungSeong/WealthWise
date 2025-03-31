@@ -51,7 +51,7 @@ const NavLink = styled(RouterLink)<{ isActive: boolean }>`
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: ${({ isActive }) => (isActive ? "20px" : "0")};
+    width: ${({ isActive }) => (isActive ? "70px" : "0")};
     height: 2px;
     background-color: ${({ theme }) => theme.colors.primary};
     transition: all 0.2s ease-in-out;
@@ -61,7 +61,7 @@ const NavLink = styled(RouterLink)<{ isActive: boolean }>`
     color: ${({ theme }) => theme.colors.primary};
 
     &:after {
-      width: 20px;
+      width: 70px;
     }
   }
 `;

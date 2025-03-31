@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import Layout from '../components/common/Layout';
-import Card from '../components/common/Card';
-import Button from '../components/common/Button';
-import Input from '../components/common/Input';
-import { LearningCategory, DifficultyLevel, CompletionStatus } from '../types';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Layout from "../components/common/Layout";
+import Card from "../components/common/Card";
+import Button from "../components/common/Button";
+import Input from "../components/common/Input";
+import { LearningCategory, DifficultyLevel, CompletionStatus } from "../types";
 
 const PageHeader = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.lg};
@@ -28,7 +28,7 @@ const FiltersContainer = styled.div`
   flex-wrap: wrap;
   gap: ${({ theme }) => theme.spacing.md};
   margin-bottom: ${({ theme }) => theme.spacing.lg};
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-direction: column;
   }
@@ -55,7 +55,7 @@ const FilterSelect = styled.select`
   color: ${({ theme }) => theme.colors.text};
   background-color: white;
   min-width: 200px;
-  
+
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary};
     outline: none;
@@ -79,7 +79,7 @@ const ModuleCard = styled(Card)`
   flex-direction: column;
   height: 100%;
   transition: transform 0.2s ease-in-out;
-  
+
   &:hover {
     transform: translateY(-5px);
   }
@@ -97,15 +97,23 @@ const ModuleCategory = styled.div<{ category: string }>`
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: ${({ category, theme }) => {
-    switch(category) {
-      case 'BASIC_FINANCE': return theme.colors.primary;
-      case 'BUDGETING': return theme.colors.success;
-      case 'SAVING': return theme.colors.info;
-      case 'INVESTING': return theme.colors.warning;
-      case 'RETIREMENT': return '#8E24AA'; // 퍼플
-      case 'TAX_PLANNING': return '#FF6D00'; // 오렌지
-      case 'DEBT_MANAGEMENT': return theme.colors.danger;
-      default: return theme.colors.text;
+    switch (category) {
+      case "BASIC_FINANCE":
+        return theme.colors.primary;
+      case "BUDGETING":
+        return theme.colors.success;
+      case "SAVING":
+        return theme.colors.info;
+      case "INVESTING":
+        return theme.colors.warning;
+      case "RETIREMENT":
+        return "#8E24AA"; // 퍼플
+      case "TAX_PLANNING":
+        return "#FF6D00"; // 오렌지
+      case "DEBT_MANAGEMENT":
+        return theme.colors.danger;
+      default:
+        return theme.colors.text;
     }
   }};
 `;
@@ -147,21 +155,31 @@ const DifficultyBadge = styled.span<{ level: string }>`
   font-weight: 500;
   margin-right: ${({ theme }) => theme.spacing.sm};
   background-color: ${({ level, theme }) => {
-    switch(level) {
-      case 'BEGINNER': return `${theme.colors.success}22`;
-      case 'INTERMEDIATE': return `${theme.colors.warning}22`;
-      case 'ADVANCED': return `${theme.colors.danger}22`;
-      case 'EXPERT': return `${theme.colors.dark}22`;
-      default: return `${theme.colors.light}`;
+    switch (level) {
+      case "BEGINNER":
+        return `${theme.colors.success}22`;
+      case "INTERMEDIATE":
+        return `${theme.colors.warning}22`;
+      case "ADVANCED":
+        return `${theme.colors.danger}22`;
+      case "EXPERT":
+        return `${theme.colors.dark}22`;
+      default:
+        return `${theme.colors.light}`;
     }
   }};
   color: ${({ level, theme }) => {
-    switch(level) {
-      case 'BEGINNER': return theme.colors.success;
-      case 'INTERMEDIATE': return theme.colors.warning;
-      case 'ADVANCED': return theme.colors.danger;
-      case 'EXPERT': return theme.colors.dark;
-      default: return theme.colors.text;
+    switch (level) {
+      case "BEGINNER":
+        return theme.colors.success;
+      case "INTERMEDIATE":
+        return theme.colors.warning;
+      case "ADVANCED":
+        return theme.colors.danger;
+      case "EXPERT":
+        return theme.colors.dark;
+      default:
+        return theme.colors.text;
     }
   }};
 `;
@@ -173,19 +191,27 @@ const StatusBadge = styled.span<{ status: string }>`
   font-size: 0.75rem;
   font-weight: 500;
   background-color: ${({ status, theme }) => {
-    switch(status) {
-      case 'COMPLETED': return `${theme.colors.success}22`;
-      case 'IN_PROGRESS': return `${theme.colors.warning}22`;
-      case 'NOT_STARTED': return `${theme.colors.light}`;
-      default: return `${theme.colors.light}`;
+    switch (status) {
+      case "COMPLETED":
+        return `${theme.colors.success}22`;
+      case "IN_PROGRESS":
+        return `${theme.colors.warning}22`;
+      case "NOT_STARTED":
+        return `${theme.colors.light}`;
+      default:
+        return `${theme.colors.light}`;
     }
   }};
   color: ${({ status, theme }) => {
-    switch(status) {
-      case 'COMPLETED': return theme.colors.success;
-      case 'IN_PROGRESS': return theme.colors.warning;
-      case 'NOT_STARTED': return theme.colors.text;
-      default: return theme.colors.text;
+    switch (status) {
+      case "COMPLETED":
+        return theme.colors.success;
+      case "IN_PROGRESS":
+        return theme.colors.warning;
+      case "NOT_STARTED":
+        return theme.colors.text;
+      default:
+        return theme.colors.text;
     }
   }};
 `;
@@ -202,11 +228,15 @@ const ProgressFill = styled.div<{ width: number; status: string }>`
   width: ${({ width }) => `${width}%`};
   height: 100%;
   background-color: ${({ status, theme }) => {
-    switch(status) {
-      case 'COMPLETED': return theme.colors.success;
-      case 'IN_PROGRESS': return theme.colors.warning;
-      case 'NOT_STARTED': return theme.colors.text;
-      default: return theme.colors.primary;
+    switch (status) {
+      case "COMPLETED":
+        return theme.colors.success;
+      case "IN_PROGRESS":
+        return theme.colors.warning;
+      case "NOT_STARTED":
+        return theme.colors.text;
+      default:
+        return theme.colors.primary;
     }
   }};
 `;
@@ -233,37 +263,57 @@ const NoResultsText = styled.p`
 `;
 
 const getCategoryLabel = (category: string): string => {
-  switch(category) {
-    case 'BASIC_FINANCE': return '금융 기초';
-    case 'BUDGETING': return '예산 관리';
-    case 'SAVING': return '저축';
-    case 'INVESTING': return '투자';
-    case 'RETIREMENT': return '은퇴 계획';
-    case 'TAX_PLANNING': return '세금 계획';
-    case 'DEBT_MANAGEMENT': return '부채 관리';
-    case 'INSURANCE': return '보험';
-    case 'REAL_ESTATE': return '부동산';
-    case 'ADVANCED_INVESTING': return '고급 투자';
-    default: return '기타';
+  switch (category) {
+    case "BASIC_FINANCE":
+      return "금융 기초";
+    case "BUDGETING":
+      return "예산 관리";
+    case "SAVING":
+      return "저축";
+    case "INVESTING":
+      return "투자";
+    case "RETIREMENT":
+      return "은퇴 계획";
+    case "TAX_PLANNING":
+      return "세금 계획";
+    case "DEBT_MANAGEMENT":
+      return "부채 관리";
+    case "INSURANCE":
+      return "보험";
+    case "REAL_ESTATE":
+      return "부동산";
+    case "ADVANCED_INVESTING":
+      return "고급 투자";
+    default:
+      return "기타";
   }
 };
 
 const getDifficultyLabel = (difficulty: string): string => {
-  switch(difficulty) {
-    case 'BEGINNER': return '초급';
-    case 'INTERMEDIATE': return '중급';
-    case 'ADVANCED': return '고급';
-    case 'EXPERT': return '전문가';
-    default: return '기타';
+  switch (difficulty) {
+    case "BEGINNER":
+      return "초급";
+    case "INTERMEDIATE":
+      return "중급";
+    case "ADVANCED":
+      return "고급";
+    case "EXPERT":
+      return "전문가";
+    default:
+      return "기타";
   }
 };
 
 const getStatusLabel = (status: string): string => {
-  switch(status) {
-    case 'COMPLETED': return '완료';
-    case 'IN_PROGRESS': return '진행 중';
-    case 'NOT_STARTED': return '시작 전';
-    default: return '기타';
+  switch (status) {
+    case "COMPLETED":
+      return "완료";
+    case "IN_PROGRESS":
+      return "진행 중";
+    case "NOT_STARTED":
+      return "시작 전";
+    default:
+      return "기타";
   }
 };
 
@@ -283,144 +333,157 @@ interface LearningModule {
 
 const LearningModulesPage: React.FC = () => {
   // 필터 상태
-  const [categoryFilter, setCategoryFilter] = useState<string>('ALL');
-  const [difficultyFilter, setDifficultyFilter] = useState<string>('ALL');
-  const [statusFilter, setStatusFilter] = useState<string>('ALL');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  
+  const [categoryFilter, setCategoryFilter] = useState<string>("ALL");
+  const [difficultyFilter, setDifficultyFilter] = useState<string>("ALL");
+  const [statusFilter, setStatusFilter] = useState<string>("ALL");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
   // 예시 데이터
   const learningModules: LearningModule[] = [
     {
-      id: '1',
-      title: '금융 기초 이해하기',
-      description: '금융의 기본 개념부터 시작하는 초급자를 위한 모듈입니다. 돈의 기능, 금융 시스템의 작동 원리, 기본적인 금융 용어를 배웁니다.',
-      category: 'BASIC_FINANCE',
-      difficulty: 'BEGINNER',
+      id: "1",
+      title: "금융 기초 이해하기",
+      description:
+        "금융의 기본 개념부터 시작하는 초급자를 위한 모듈입니다. 돈의 기능, 금융 시스템의 작동 원리, 기본적인 금융 용어를 배웁니다.",
+      category: "BASIC_FINANCE",
+      difficulty: "BEGINNER",
       duration: 120,
-      completionStatus: 'COMPLETED',
+      completionStatus: "COMPLETED",
       progress: 100,
       lessons: 5,
-      completedLessons: 5
+      completedLessons: 5,
     },
     {
-      id: '2',
-      title: '스마트한 예산 관리',
-      description: '효율적인 예산 계획을 수립하고 지출을 관리하는 방법을 배웁니다. 다양한 예산 수립 기법과 지출 추적 도구를 소개합니다.',
-      category: 'BUDGETING',
-      difficulty: 'BEGINNER',
+      id: "2",
+      title: "스마트한 예산 관리",
+      description:
+        "효율적인 예산 계획을 수립하고 지출을 관리하는 방법을 배웁니다. 다양한 예산 수립 기법과 지출 추적 도구를 소개합니다.",
+      category: "BUDGETING",
+      difficulty: "BEGINNER",
       duration: 90,
-      completionStatus: 'IN_PROGRESS',
+      completionStatus: "IN_PROGRESS",
       progress: 75,
       lessons: 4,
-      completedLessons: 3
+      completedLessons: 3,
     },
     {
-      id: '3',
-      title: '저축의 기술',
-      description: '효과적인 저축 전략과 다양한 저축 상품에 대해 알아봅니다. 목표 저축, 비상금 마련, 자동 저축 방법 등을 학습합니다.',
-      category: 'SAVING',
-      difficulty: 'BEGINNER',
+      id: "3",
+      title: "저축의 기술",
+      description:
+        "효과적인 저축 전략과 다양한 저축 상품에 대해 알아봅니다. 목표 저축, 비상금 마련, 자동 저축 방법 등을 학습합니다.",
+      category: "SAVING",
+      difficulty: "BEGINNER",
       duration: 60,
-      completionStatus: 'NOT_STARTED',
+      completionStatus: "NOT_STARTED",
       progress: 0,
       lessons: 3,
-      completedLessons: 0
+      completedLessons: 0,
     },
     {
-      id: '4',
-      title: '투자 포트폴리오 구성',
-      description: '다양한 투자 자산과 포트폴리오 구성 원칙을 배웁니다. 위험 분산, 자산 배분, 리밸런싱 전략을 학습합니다.',
-      category: 'INVESTING',
-      difficulty: 'INTERMEDIATE',
+      id: "4",
+      title: "투자 포트폴리오 구성",
+      description:
+        "다양한 투자 자산과 포트폴리오 구성 원칙을 배웁니다. 위험 분산, 자산 배분, 리밸런싱 전략을 학습합니다.",
+      category: "INVESTING",
+      difficulty: "INTERMEDIATE",
       duration: 150,
-      completionStatus: 'IN_PROGRESS',
+      completionStatus: "IN_PROGRESS",
       progress: 30,
       lessons: 6,
-      completedLessons: 2
+      completedLessons: 2,
     },
     {
-      id: '5',
-      title: '은퇴를 위한 재정 계획',
-      description: '성공적인 은퇴를 위한 장기적인 재정 계획과 투자 전략을 배웁니다. 은퇴 자금 계산, 인출 전략, 사회보장제도 활용법을 다룹니다.',
-      category: 'RETIREMENT',
-      difficulty: 'INTERMEDIATE',
+      id: "5",
+      title: "은퇴를 위한 재정 계획",
+      description:
+        "성공적인 은퇴를 위한 장기적인 재정 계획과 투자 전략을 배웁니다. 은퇴 자금 계산, 인출 전략, 사회보장제도 활용법을 다룹니다.",
+      category: "RETIREMENT",
+      difficulty: "INTERMEDIATE",
       duration: 180,
-      completionStatus: 'NOT_STARTED',
+      completionStatus: "NOT_STARTED",
       progress: 0,
       lessons: 7,
-      completedLessons: 0
+      completedLessons: 0,
     },
     {
-      id: '6',
-      title: '효율적인 세금 계획',
-      description: '세금을 최소화하고 재무 목표를 달성하기 위한 합법적인 세금 계획 전략을 배웁니다. 소득세, 투자세, 상속세 계획을 다룹니다.',
-      category: 'TAX_PLANNING',
-      difficulty: 'ADVANCED',
+      id: "6",
+      title: "효율적인 세금 계획",
+      description:
+        "세금을 최소화하고 재무 목표를 달성하기 위한 합법적인 세금 계획 전략을 배웁니다. 소득세, 투자세, 상속세 계획을 다룹니다.",
+      category: "TAX_PLANNING",
+      difficulty: "ADVANCED",
       duration: 200,
-      completionStatus: 'NOT_STARTED',
+      completionStatus: "NOT_STARTED",
       progress: 0,
       lessons: 8,
-      completedLessons: 0
+      completedLessons: 0,
     },
     {
-      id: '7',
-      title: '현명한 부채 관리',
-      description: '건강한 부채 사용법과 부채 감소 전략을 배웁니다. 신용점수 관리, 대출 종류별 특성, 부채 상환 우선순위 설정을 다룹니다.',
-      category: 'DEBT_MANAGEMENT',
-      difficulty: 'BEGINNER',
+      id: "7",
+      title: "현명한 부채 관리",
+      description:
+        "건강한 부채 사용법과 부채 감소 전략을 배웁니다. 신용점수 관리, 대출 종류별 특성, 부채 상환 우선순위 설정을 다룹니다.",
+      category: "DEBT_MANAGEMENT",
+      difficulty: "BEGINNER",
       duration: 110,
-      completionStatus: 'COMPLETED',
+      completionStatus: "COMPLETED",
       progress: 100,
       lessons: 5,
-      completedLessons: 5
+      completedLessons: 5,
     },
     {
-      id: '8',
-      title: '주식 투자의 기본',
-      description: '주식 시장의 작동 원리와 기본적인 주식 투자 전략을 배웁니다. 기업 분석, 가치 평가, 매수/매도 타이밍을 학습합니다.',
-      category: 'INVESTING',
-      difficulty: 'INTERMEDIATE',
+      id: "8",
+      title: "주식 투자의 기본",
+      description:
+        "주식 시장의 작동 원리와 기본적인 주식 투자 전략을 배웁니다. 기업 분석, 가치 평가, 매수/매도 타이밍을 학습합니다.",
+      category: "INVESTING",
+      difficulty: "INTERMEDIATE",
       duration: 160,
-      completionStatus: 'IN_PROGRESS',
+      completionStatus: "IN_PROGRESS",
       progress: 50,
       lessons: 6,
-      completedLessons: 3
-    }
+      completedLessons: 3,
+    },
   ];
-  
+
   // 필터링된 모듈 목록
-  const filteredModules = learningModules.filter(module => {
+  const filteredModules = learningModules.filter((module) => {
     // 카테고리 필터
-    if (categoryFilter !== 'ALL' && module.category !== categoryFilter) {
+    if (categoryFilter !== "ALL" && module.category !== categoryFilter) {
       return false;
     }
-    
+
     // 난이도 필터
-    if (difficultyFilter !== 'ALL' && module.difficulty !== difficultyFilter) {
+    if (difficultyFilter !== "ALL" && module.difficulty !== difficultyFilter) {
       return false;
     }
-    
+
     // 상태 필터
-    if (statusFilter !== 'ALL' && module.completionStatus !== statusFilter) {
+    if (statusFilter !== "ALL" && module.completionStatus !== statusFilter) {
       return false;
     }
-    
+
     // 검색어 필터
-    if (searchQuery && !module.title.toLowerCase().includes(searchQuery.toLowerCase()) && 
-        !module.description.toLowerCase().includes(searchQuery.toLowerCase())) {
+    if (
+      searchQuery &&
+      !module.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      !module.description.toLowerCase().includes(searchQuery.toLowerCase())
+    ) {
       return false;
     }
-    
+
     return true;
   });
-  
+
   return (
     <Layout>
       <PageHeader>
         <PageTitle>학습 모듈</PageTitle>
-        <PageSubtitle>개인화된 금융 교육을 통해 재정 지식을 쌓고 현명한 결정을 내리세요.</PageSubtitle>
+        <PageSubtitle>
+          개인화된 금융 교육을 통해 재정 지식을 쌓고 현명한 결정을 내리세요.
+        </PageSubtitle>
       </PageHeader>
-      
+
       <FiltersContainer>
         <FilterGroup>
           <FilterLabel>카테고리</FilterLabel>
@@ -438,7 +501,7 @@ const LearningModulesPage: React.FC = () => {
             <option value="DEBT_MANAGEMENT">부채 관리</option>
           </FilterSelect>
         </FilterGroup>
-        
+
         <FilterGroup>
           <FilterLabel>난이도</FilterLabel>
           <FilterSelect
@@ -452,7 +515,7 @@ const LearningModulesPage: React.FC = () => {
             <option value="EXPERT">전문가</option>
           </FilterSelect>
         </FilterGroup>
-        
+
         <FilterGroup>
           <FilterLabel>상태</FilterLabel>
           <FilterSelect
@@ -465,7 +528,7 @@ const LearningModulesPage: React.FC = () => {
             <option value="NOT_STARTED">시작 전</option>
           </FilterSelect>
         </FilterGroup>
-        
+
         <SearchContainer>
           <Input
             label="검색"
@@ -476,7 +539,7 @@ const LearningModulesPage: React.FC = () => {
           />
         </SearchContainer>
       </FiltersContainer>
-      
+
       {filteredModules.length > 0 ? (
         <ModulesGrid>
           {filteredModules.map((module) => (
@@ -487,11 +550,11 @@ const LearningModulesPage: React.FC = () => {
               footer={
                 <Link to={`/learning/${module.id}`}>
                   <Button variant="primary" isFullWidth>
-                    {module.completionStatus === 'NOT_STARTED'
-                      ? '시작하기'
-                      : module.completionStatus === 'IN_PROGRESS'
-                      ? '계속하기'
-                      : '다시 보기'}
+                    {module.completionStatus === "NOT_STARTED"
+                      ? "시작하기"
+                      : module.completionStatus === "IN_PROGRESS"
+                      ? "계속하기"
+                      : "다시 보기"}
                   </Button>
                 </Link>
               }
@@ -502,18 +565,16 @@ const LearningModulesPage: React.FC = () => {
                 </ModuleCategory>
                 <ModuleTitle>{module.title}</ModuleTitle>
                 <ModuleDescription>{module.description}</ModuleDescription>
-                
+
                 <ModuleMeta>
                   <ModuleMetaItem>
                     <DifficultyBadge level={module.difficulty}>
                       {getDifficultyLabel(module.difficulty)}
                     </DifficultyBadge>
                   </ModuleMetaItem>
-                  <ModuleMetaItem>
-                    {module.duration}분
-                  </ModuleMetaItem>
+                  <ModuleMetaItem>{module.duration}분</ModuleMetaItem>
                 </ModuleMeta>
-                
+
                 <ModuleMeta>
                   <ModuleMetaItem>
                     <StatusBadge status={module.completionStatus}>
@@ -524,7 +585,7 @@ const LearningModulesPage: React.FC = () => {
                     {module.completedLessons}/{module.lessons} 강의
                   </ModuleMetaItem>
                 </ModuleMeta>
-                
+
                 <ProgressBar>
                   <ProgressFill
                     width={module.progress}
@@ -542,10 +603,10 @@ const LearningModulesPage: React.FC = () => {
           <Button
             variant="primary"
             onClick={() => {
-              setCategoryFilter('ALL');
-              setDifficultyFilter('ALL');
-              setStatusFilter('ALL');
-              setSearchQuery('');
+              setCategoryFilter("ALL");
+              setDifficultyFilter("ALL");
+              setStatusFilter("ALL");
+              setSearchQuery("");
             }}
           >
             필터 초기화
@@ -556,4 +617,4 @@ const LearningModulesPage: React.FC = () => {
   );
 };
 
-export default LearningModulesPage; 
+export default LearningModulesPage;
