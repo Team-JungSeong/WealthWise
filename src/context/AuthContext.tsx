@@ -52,7 +52,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(defaultUser));
     }
     setIsLoading(false);
-  }, []);
+  }, [defaultUser]);
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
