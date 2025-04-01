@@ -36,11 +36,11 @@ const NavLinksContainer = styled.nav`
   }
 `;
 
-const NavLink = styled(RouterLink)<{ isActive: boolean }>`
-  color: ${({ theme, isActive }) =>
-    isActive ? theme.colors.primary : theme.colors.text};
+const NavLink = styled(RouterLink)<{ $isActive: boolean }>`
+  color: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.primary : theme.colors.text};
   text-decoration: none;
-  font-weight: ${({ isActive }) => (isActive ? 600 : 400)};
+  font-weight: ${({ $isActive }) => ($isActive ? 600 : 400)};
   padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.md}`};
   transition: all 0.2s ease-in-out;
   position: relative;
@@ -51,7 +51,7 @@ const NavLink = styled(RouterLink)<{ isActive: boolean }>`
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: ${({ isActive }) => (isActive ? "70px" : "0")};
+    width: ${({ $isActive }) => ($isActive ? "70px" : "0")};
     height: 2px;
     background-color: ${({ theme }) => theme.colors.primary};
     transition: all 0.2s ease-in-out;
@@ -79,8 +79,8 @@ const MobileMenuButton = styled.button`
   }
 `;
 
-const MobileMenu = styled.div<{ isOpen: boolean }>`
-  display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+const MobileMenu = styled.div<{ $isOpen: boolean }>`
+  display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
   flex-direction: column;
   position: fixed;
   top: 60px;
@@ -95,11 +95,11 @@ const MobileMenu = styled.div<{ isOpen: boolean }>`
   }
 `;
 
-const MobileNavLink = styled(RouterLink)<{ isActive: boolean }>`
-  color: ${({ theme, isActive }) =>
-    isActive ? theme.colors.primary : theme.colors.text};
+const MobileNavLink = styled(RouterLink)<{ $isActive: boolean }>`
+  color: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.primary : theme.colors.text};
   text-decoration: none;
-  font-weight: ${({ isActive }) => (isActive ? 600 : 400)};
+  font-weight: ${({ $isActive }) => ($isActive ? 600 : 400)};
   padding: ${({ theme }) => theme.spacing.md};
   transition: all 0.2s ease-in-out;
 
@@ -164,7 +164,7 @@ const Header: React.FC = () => {
           <NavLink
             key={link.path}
             to={link.path}
-            isActive={isActivePath(link.path)}
+            $isActive={isActivePath(link.path)}
             onClick={(e) => {
               e.preventDefault();
               navigateTo(link.path);
@@ -185,12 +185,12 @@ const Header: React.FC = () => {
         {isMobileMenuOpen ? "✕" : "☰"}
       </MobileMenuButton>
 
-      <MobileMenu isOpen={isMobileMenuOpen}>
+      <MobileMenu $isOpen={isMobileMenuOpen}>
         {navLinks.map((link) => (
           <MobileNavLink
             key={link.path}
             to={link.path}
-            isActive={isActivePath(link.path)}
+            $isActive={isActivePath(link.path)}
             onClick={(e) => {
               e.preventDefault();
               navigateTo(link.path);
@@ -202,7 +202,7 @@ const Header: React.FC = () => {
         ))}
         <MobileNavLink
           to="/profile"
-          isActive={isActivePath("/profile")}
+          $isActive={isActivePath("/profile")}
           onClick={(e) => {
             e.preventDefault();
             navigateTo("/profile");

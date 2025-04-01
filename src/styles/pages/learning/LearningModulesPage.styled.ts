@@ -85,13 +85,13 @@ export const ModuleCardContent = styled.div`
   flex-direction: column;
 `;
 
-export const ModuleCategory = styled.div<{ category: string }>`
+export const ModuleCategory = styled.div<{ $category: string }>`
   font-size: 0.75rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: ${({ category, theme }) => {
-    switch (category) {
+  color: ${({ $category, theme }) => {
+    switch ($category) {
       case "BASIC_FINANCE":
         return theme.colors.primary;
       case "BUDGETING":
@@ -141,15 +141,15 @@ export const ModuleMetaItem = styled.div`
   color: ${({ theme }) => theme.colors.text}aa;
 `;
 
-export const DifficultyBadge = styled.span<{ level: string }>`
+export const DifficultyBadge = styled.span<{ $level: string }>`
   display: inline-block;
   padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.sm}`};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   font-size: 0.75rem;
   font-weight: 500;
   margin-right: ${({ theme }) => theme.spacing.sm};
-  background-color: ${({ level, theme }) => {
-    switch (level) {
+  background-color: ${({ $level, theme }) => {
+    switch ($level) {
       case "BEGINNER":
         return `${theme.colors.success}22`;
       case "INTERMEDIATE":
@@ -162,8 +162,8 @@ export const DifficultyBadge = styled.span<{ level: string }>`
         return `${theme.colors.light}`;
     }
   }};
-  color: ${({ level, theme }) => {
-    switch (level) {
+  color: ${({ $level, theme }) => {
+    switch ($level) {
       case "BEGINNER":
         return theme.colors.success;
       case "INTERMEDIATE":
@@ -178,14 +178,14 @@ export const DifficultyBadge = styled.span<{ level: string }>`
   }};
 `;
 
-export const StatusBadge = styled.span<{ status: string }>`
+export const StatusBadge = styled.span<{ $status: string }>`
   display: inline-block;
   padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.sm}`};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   font-size: 0.75rem;
   font-weight: 500;
-  background-color: ${({ status, theme }) => {
-    switch (status) {
+  background-color: ${({ $status, theme }) => {
+    switch ($status) {
       case "COMPLETED":
         return `${theme.colors.success}22`;
       case "IN_PROGRESS":
@@ -196,8 +196,8 @@ export const StatusBadge = styled.span<{ status: string }>`
         return `${theme.colors.light}`;
     }
   }};
-  color: ${({ status, theme }) => {
-    switch (status) {
+  color: ${({ $status, theme }) => {
+    switch ($status) {
       case "COMPLETED":
         return theme.colors.success;
       case "IN_PROGRESS":
@@ -218,11 +218,11 @@ export const ProgressBar = styled.div`
   overflow: hidden;
 `;
 
-export const ProgressFill = styled.div<{ width: number; status: string }>`
-  width: ${({ width }) => `${width}%`};
+export const ProgressFill = styled.div<{ $width: number; $status: string }>`
+  width: ${({ $width }) => `${$width}%`};
   height: 100%;
-  background-color: ${({ status, theme }) => {
-    switch (status) {
+  background-color: ${({ $status, theme }) => {
+    switch ($status) {
       case "COMPLETED":
         return theme.colors.success;
       case "IN_PROGRESS":

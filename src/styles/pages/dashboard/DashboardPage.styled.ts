@@ -137,10 +137,10 @@ export const BarChartSimulation = styled.div`
   padding-bottom: 30px;
 `;
 
-export const BarColumn = styled.div<{ height: number; color: string }>`
+export const BarColumn = styled.div<{ $height: number; $color: string }>`
   width: 30px;
-  height: ${({ height }) => `${height}%`};
-  background-color: ${({ color }) => color};
+  height: ${({ $height }) => `${$height}%`};
+  background-color: ${({ $color }) => $color};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   position: relative;
   transition: height 0.3s ease;
@@ -174,10 +174,10 @@ export const LegendItem = styled.div`
   margin-right: ${({ theme }) => theme.spacing.sm};
 `;
 
-export const LegendColor = styled.div<{ color: string }>`
+export const LegendColor = styled.div<{ $color: string }>`
   width: 16px;
   height: 16px;
-  background-color: ${({ color }) => color};
+  background-color: ${({ $color }) => $color};
   border-radius: 4px;
   margin-right: ${({ theme }) => theme.spacing.xs};
 `;
@@ -217,10 +217,10 @@ export const ProgressBar = styled.div`
   overflow: hidden;
 `;
 
-export const ProgressFill = styled.div<{ width: number; color: string }>`
-  width: ${({ width }) => `${width}%`};
+export const ProgressFill = styled.div<{ $width: number; $color: string }>`
+  width: ${({ $width }) => `${$width}%`};
   height: 100%;
-  background-color: ${({ color }) => color};
+  background-color: ${({ $color }) => $color};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
 `;
 
@@ -241,12 +241,12 @@ export const GoalItem = styled.div`
   }
 `;
 
-export const GoalIcon = styled.div<{ bgColor: string }>`
+export const GoalIcon = styled.div<{ $bgColor: string }>`
   width: 40px;
   height: 40px;
   border-radius: ${({ theme }) => theme.borderRadius.circle};
-  background-color: ${({ bgColor }) => bgColor}22;
-  color: ${({ bgColor }) => bgColor};
+  background-color: ${({ $bgColor }) => $bgColor}22;
+  color: ${({ $bgColor }) => $bgColor};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -285,10 +285,10 @@ export const GoalProgressBar = styled.div`
   overflow: hidden;
 `;
 
-export const GoalProgressFill = styled.div<{ width: number; color: string }>`
-  width: ${({ width }) => `${width}%`};
+export const GoalProgressFill = styled.div<{ $width: number; $color: string }>`
+  width: ${({ $width }) => `${$width}%`};
   height: 100%;
-  background-color: ${({ color }) => color};
+  background-color: ${({ $color }) => $color};
 `;
 
 export const CurrentAmount = styled.span`
@@ -333,20 +333,20 @@ export const LearningModuleItem = styled.div`
   }
 `;
 
-export const ModuleIcon = styled.div<{ level: string }>`
+export const ModuleIcon = styled.div<{ $level: string }>`
   width: 40px;
   height: 40px;
   border-radius: ${({ theme }) => theme.borderRadius.circle};
-  background-color: ${({ level, theme }) =>
-    level === "beginner"
+  background-color: ${({ $level, theme }) =>
+    $level === "beginner"
       ? theme.colors.success
-      : level === "intermediate"
+      : $level === "intermediate"
       ? theme.colors.warning
       : theme.colors.danger}22;
-  color: ${({ level, theme }) =>
-    level === "beginner"
+  color: ${({ $level, theme }) =>
+    $level === "beginner"
       ? theme.colors.success
-      : level === "intermediate"
+      : $level === "intermediate"
       ? theme.colors.warning
       : theme.colors.danger};
   display: flex;
@@ -380,18 +380,18 @@ export const ModuleProgressBar = styled.div`
   overflow: hidden;
 `;
 
-export const ModuleProgressFill = styled.div<{ width: number; color: string }>`
-  width: ${({ width }) => `${width}%`};
+export const ModuleProgressFill = styled.div<{ $width: number; $color: string }>`
+  width: ${({ $width }) => `${$width}%`};
   height: 100%;
-  background-color: ${({ color }) => color};
+  background-color: ${({ $color }) => $color};
 `;
 
-export const ModuleStatus = styled.span<{ status: string }>`
+export const ModuleStatus = styled.span<{ $status: string }>`
   font-size: 0.75rem;
-  color: ${({ status, theme }) =>
-    status === "completed"
+  color: ${({ $status, theme }) =>
+    $status === "completed"
       ? theme.colors.success
-      : status === "in-progress"
+      : $status === "in-progress"
       ? theme.colors.warning
       : theme.colors.text}aa;
 `;
@@ -422,24 +422,24 @@ export const SimulationResultItem = styled.div`
   }
 `;
 
-export const SimulationIcon = styled.div<{ type: string }>`
+export const SimulationIcon = styled.div<{ $type: string }>`
   width: 50px;
   height: 50px;
   border-radius: ${({ theme }) => theme.borderRadius.circle};
-  background-color: ${({ type, theme }) =>
-    type === "budget"
+  background-color: ${({ $type, theme }) =>
+    $type === "budget"
       ? theme.colors.primary
-      : type === "investment"
+      : $type === "investment"
       ? theme.colors.success
-      : type === "retirement"
+      : $type === "retirement"
       ? theme.colors.warning
       : theme.colors.info}22;
-  color: ${({ type, theme }) =>
-    type === "budget"
+  color: ${({ $type, theme }) =>
+    $type === "budget"
       ? theme.colors.primary
-      : type === "investment"
+      : $type === "investment"
       ? theme.colors.success
-      : type === "retirement"
+      : $type === "retirement"
       ? theme.colors.warning
       : theme.colors.info};
   display: flex;

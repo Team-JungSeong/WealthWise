@@ -142,20 +142,20 @@ export const PostActions = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.lg};
 `;
 
-export const ActionButton = styled.button<{ isActive?: boolean; variant?: 'primary' | 'secondary' | 'tertiary' }>`
+export const ActionButton = styled.button<{ $isActive?: boolean; variant?: 'primary' | 'secondary' | 'tertiary' }>`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.xs};
   background-color: transparent;
   border: none;
-  color: ${({ isActive, variant, theme }) => {
-    if (isActive) return theme.colors.primary;
+  color: ${({ $isActive, variant, theme }) => {
+    if ($isActive) return theme.colors.primary;
     if (variant === 'primary') return theme.colors.primary;
     if (variant === 'secondary') return theme.colors.secondary || theme.colors.text;
     if (variant === 'tertiary') return `${theme.colors.text}aa`;
     return theme.colors.text;
   }};
-  font-weight: ${({ isActive, variant }) => (isActive || variant === 'primary') ? '500' : '400'};
+  font-weight: ${({ $isActive, variant }) => ($isActive || variant === 'primary') ? '500' : '400'};
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   

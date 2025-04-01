@@ -126,17 +126,17 @@ const LearningModuleDetailPage: React.FC = () => {
               </ModuleProgress>
               
               <ModuleBadges>
-                <Badge bgColor="#3366FF">
+                <Badge $bgColor="#3366FF">
                   {moduleData.category === LearningCategory.BasicFinance && '기본 금융'}
                   {moduleData.category === LearningCategory.Budgeting && '예산 관리'}
                   {moduleData.category === LearningCategory.Investing && '투자'}
                 </Badge>
-                <Badge bgColor="#00C853">
+                <Badge $bgColor="#00C853">
                   {moduleData.difficulty === DifficultyLevel.Beginner && '초급'}
                   {moduleData.difficulty === DifficultyLevel.Intermediate && '중급'}
                   {moduleData.difficulty === DifficultyLevel.Advanced && '고급'}
                 </Badge>
-                <Badge bgColor="#FF6D00">소요 시간: {moduleData.duration}분</Badge>
+                <Badge $bgColor="#FF6D00">소요 시간: {moduleData.duration}분</Badge>
               </ModuleBadges>
             </ModuleInfo>
             
@@ -153,16 +153,16 @@ const LearningModuleDetailPage: React.FC = () => {
               {moduleData.lessons.map((lesson, index) => (
                 <LessonItem 
                   key={lesson.id}
-                  isActive={lesson.id === activeLessonId}
-                  isCompleted={lesson.isCompleted}
+                  $isActive={lesson.id === activeLessonId}
+                  $isCompleted={lesson.isCompleted}
                   onClick={() => setActiveLessonId(lesson.id)}
                 >
-                  <LessonNumber isCompleted={lesson.isCompleted}>
+                  <LessonNumber $isCompleted={lesson.isCompleted}>
                     {lesson.isCompleted ? '✓' : index + 1}
                   </LessonNumber>
                   <LessonInfo>
                     <LessonTitle>{lesson.title}</LessonTitle>
-                    <LessonStatus isCompleted={lesson.isCompleted}>
+                    <LessonStatus $isCompleted={lesson.isCompleted}>
                       {lesson.isCompleted ? '완료' : '미완료'}
                     </LessonStatus>
                   </LessonInfo>
@@ -176,13 +176,13 @@ const LearningModuleDetailPage: React.FC = () => {
               <TabContainer>
                 <TabButtons>
                   <TabButton 
-                    isActive={activeTab === 'content'} 
+                    $isActive={activeTab === 'content'} 
                     onClick={() => setActiveTab('content')}
                   >
                     학습 내용
                   </TabButton>
                   <TabButton 
-                    isActive={activeTab === 'resources'} 
+                    $isActive={activeTab === 'resources'} 
                     onClick={() => setActiveTab('resources')}
                   >
                     추가 자료

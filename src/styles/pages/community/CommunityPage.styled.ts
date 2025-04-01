@@ -56,12 +56,12 @@ export const CategoryTabs = styled.div`
   }
 `;
 
-export const CategoryTab = styled.button<{ isActive: boolean }>`
-  background-color: ${({ isActive, theme }) => isActive ? theme.colors.primary : 'transparent'};
+export const CategoryTab = styled.button<{ $isActive: boolean }>`
+  background-color: ${({ $isActive, theme }) => $isActive ? theme.colors.primary : 'transparent'};
   border: none;
   padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.md}`};
-  color: ${({ isActive }) => isActive ? 'white' : 'inherit'};
-  font-weight: ${({ isActive }) => isActive ? '500' : '400'};
+  color: ${({ $isActive }) => $isActive ? 'white' : 'inherit'};
+  font-weight: ${({ $isActive }) => $isActive ? '500' : '400'};
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   
@@ -169,19 +169,19 @@ export const Pagination = styled.div`
   margin-top: ${({ theme }) => theme.spacing.xl};
 `;
 
-export const PageButton = styled.button<{ isActive?: boolean }>`
-  background-color: ${({ isActive, theme }) => isActive ? theme.colors.primary : 'transparent'};
-  border: 1px solid ${({ isActive, theme }) => isActive ? theme.colors.primary : theme.colors.border};
+export const PageButton = styled.button<{ $isActive?: boolean }>`
+  background-color: ${({ $isActive, theme }) => $isActive ? theme.colors.primary : 'transparent'};
+  border: 1px solid ${({ $isActive, theme }) => $isActive ? theme.colors.primary : theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.md}`};
-  color: ${({ isActive }) => isActive ? 'white' : 'inherit'};
-  font-weight: ${({ isActive }) => isActive ? '500' : '400'};
+  color: ${({ $isActive }) => $isActive ? 'white' : 'inherit'};
+  font-weight: ${({ $isActive }) => $isActive ? '500' : '400'};
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   margin: 0 4px;
   
   &:hover {
-    background-color: ${({ isActive, theme }) => isActive ? theme.colors.primary : theme.colors.light};
+    background-color: ${({ $isActive, theme }) => $isActive ? theme.colors.primary : theme.colors.light};
   }
 `;
 

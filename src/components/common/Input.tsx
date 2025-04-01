@@ -16,7 +16,7 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, '
   isLoading?: boolean;
 }
 
-const getInputSize = (size: InputSize, theme: any) => {
+const getInputSize = ($size: InputSize, theme: any) => {
   const sizes = {
     sm: css`
       height: 32px;
@@ -35,13 +35,13 @@ const getInputSize = (size: InputSize, theme: any) => {
     `,
   };
 
-  return sizes[size];
+  return sizes[$size];
 };
 
-const getInputVariant = (variant: InputVariant, theme: any, hasError: boolean) => {
+const getInputVariant = ($variant: InputVariant, theme: any, $hasError: boolean) => {
   const errorColor = theme.colors.danger;
-  const borderColor = hasError ? errorColor : theme.colors.border;
-  const focusBorderColor = hasError ? errorColor : theme.colors.primary;
+  const borderColor = $hasError ? errorColor : theme.colors.border;
+  const focusBorderColor = $hasError ? errorColor : theme.colors.primary;
   
   const variants = {
     outlined: css`
@@ -55,7 +55,7 @@ const getInputVariant = (variant: InputVariant, theme: any, hasError: boolean) =
     `,
     filled: css`
       border: none;
-      background-color: ${hasError ? `${errorColor}11` : theme.colors.light};
+      background-color: ${$hasError ? `${errorColor}11` : theme.colors.light};
       
       &:focus {
         box-shadow: 0 0 0 1px ${focusBorderColor};
@@ -73,21 +73,21 @@ const getInputVariant = (variant: InputVariant, theme: any, hasError: boolean) =
     `,
   };
 
-  return variants[variant];
+  return variants[$variant];
 };
 
-const Container = styled.div<{ isFullWidth: boolean }>`
+const Container = styled.div<{ $isFullWidth: boolean }>`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: ${({ isFullWidth }) => (isFullWidth ? '100%' : 'auto')};
+  width: ${({ $isFullWidth }) => ($isFullWidth ? '100%' : 'auto')};
 `;
 
-const Label = styled.label<{ size: InputSize }>`
+const Label = styled.label<{ $size: InputSize }>`
   margin-bottom: ${({ theme }) => theme.spacing.xs};
-  font-size: ${({ size }) => 
-    size === 'sm' ? '0.75rem' : 
-    size === 'md' ? '0.875rem' : 
+  font-size: ${({ $size }) => 
+    $size === 'sm' ? '0.75rem' : 
+    $size === 'md' ? '0.875rem' : 
     '1rem'
   };
   font-weight: 500;
@@ -95,11 +95,11 @@ const Label = styled.label<{ size: InputSize }>`
 `;
 
 const StyledInput = styled.input<{
-  size: InputSize;
-  variant: InputVariant;
-  hasError: boolean;
-  hasLeftIcon: boolean;
-  hasRightIcon: boolean;
+  $size: InputSize;
+  $variant: InputVariant;
+  $hasError: boolean;
+  $hasLeftIcon: boolean;
+  $hasRightIcon: boolean;
 }>`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   font-family: ${({ theme }) => theme.fonts.primary};
@@ -117,30 +117,30 @@ const StyledInput = styled.input<{
     cursor: not-allowed;
   }
   
-  ${({ size, theme }) => getInputSize(size, theme)}
-  ${({ variant, theme, hasError }) => getInputVariant(variant, theme, hasError)}
+  ${({ $size, theme }) => getInputSize($size, theme)}
+  ${({ $variant, theme, $hasError }) => getInputVariant($variant, theme, $hasError)}
   
-  ${({ hasLeftIcon }) => hasLeftIcon && css`
+  ${({ $hasLeftIcon }) => $hasLeftIcon && css`
     padding-left: 40px;
   `}
   
-  ${({ hasRightIcon }) => hasRightIcon && css`
+  ${({ $hasRightIcon }) => $hasRightIcon && css`
     padding-right: 40px;
   `}
 `;
 
-const HelperText = styled.p<{ isError: boolean }>`
+const HelperText = styled.p<{ $isError: boolean }>`
   margin: ${({ theme }) => `${theme.spacing.xs} 0 0`};
   font-size: 0.75rem;
-  color: ${({ theme, isError }) => 
-    isError ? theme.colors.danger : `${theme.colors.text}88`
+  color: ${({ theme, $isError }) => 
+    $isError ? theme.colors.danger : `${theme.colors.text}88`
   };
 `;
 
-const IconWrapper = styled.div<{ position: 'left' | 'right' }>`
+const IconWrapper = styled.div<{ $position: 'left' | 'right' }>`
   position: absolute;
   top: 0;
-  ${({ position }) => position === 'left' ? 'left: 12px;' : 'right: 12px;'}
+  ${({ $position }) => $position === 'left' ? 'left: 12px;' : 'right: 12px;'}
   height: 100%;
   display: flex;
   align-items: center;
@@ -180,34 +180,34 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const helpText = errorText || helperText;
     
     return (
-      <Container isFullWidth={isFullWidth}>
-        {label && <Label size={size}>{label}</Label>}
+      <Container $isFullWidth={isFullWidth}>
+        {label && <Label $size={size}>{label}</Label>}
         
         {leftIcon && (
-          <IconWrapper position="left">
+          <IconWrapper $position="left">
             {leftIcon}
           </IconWrapper>
         )}
         
         <StyledInput
           ref={ref}
-          size={size}
-          variant={variant}
-          hasError={hasError}
-          hasLeftIcon={!!leftIcon}
-          hasRightIcon={!!rightIcon || isLoading}
+          $size={size}
+          $variant={variant}
+          $hasError={hasError}
+          $hasLeftIcon={!!leftIcon}
+          $hasRightIcon={!!rightIcon || isLoading}
           aria-invalid={hasError}
           {...props}
         />
         
         {(rightIcon || isLoading) && (
-          <IconWrapper position="right">
+          <IconWrapper $position="right">
             {isLoading ? <LoadingSpinner /> : rightIcon}
           </IconWrapper>
         )}
         
         {helpText && (
-          <HelperText isError={hasError}>
+          <HelperText $isError={hasError}>
             {helpText}
           </HelperText>
         )}
