@@ -36,7 +36,7 @@ const expertsMockData = [
   {
     id: '1',
     name: '김재원',
-    avatarUrl: 'https://via.placeholder.com/150',
+    avatarUrl: 'https://placehold.co/150',
     rating: 4.9,
     reviewCount: 128,
     hourlyRate: 80000,
@@ -46,7 +46,7 @@ const expertsMockData = [
   {
     id: '2',
     name: '이민지',
-    avatarUrl: 'https://via.placeholder.com/150',
+    avatarUrl: 'https://placehold.co/150',
     rating: 4.8,
     reviewCount: 94,
     hourlyRate: 70000,
@@ -56,7 +56,7 @@ const expertsMockData = [
   {
     id: '3',
     name: '박진호',
-    avatarUrl: 'https://via.placeholder.com/150',
+    avatarUrl: 'https://placehold.co/150',
     rating: 4.7,
     reviewCount: 76,
     hourlyRate: 75000,
@@ -66,7 +66,7 @@ const expertsMockData = [
   {
     id: '4',
     name: '최수영',
-    avatarUrl: 'https://via.placeholder.com/150',
+    avatarUrl: 'https://placehold.co/150',
     rating: 4.9,
     reviewCount: 112,
     hourlyRate: 85000,
@@ -76,7 +76,7 @@ const expertsMockData = [
   {
     id: '5',
     name: '정도윤',
-    avatarUrl: 'https://via.placeholder.com/150',
+    avatarUrl: 'https://placehold.co/150',
     rating: 4.6,
     reviewCount: 68,
     hourlyRate: 65000,
@@ -86,7 +86,7 @@ const expertsMockData = [
   {
     id: '6',
     name: '한지윤',
-    avatarUrl: 'https://via.placeholder.com/150',
+    avatarUrl: 'https://placehold.co/150',
     rating: 4.8,
     reviewCount: 87,
     hourlyRate: 75000,

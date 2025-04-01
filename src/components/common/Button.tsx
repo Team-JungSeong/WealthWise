@@ -13,7 +13,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   iconPosition?: 'left' | 'right';
 }
 
-const getButtonStyles = (variant: ButtonVariant, theme: any) => {
+const getButtonStyles = ($variant: ButtonVariant, theme: any) => {
   const styles = {
     primary: css`
       background-color: ${theme.colors.primary};
@@ -81,10 +81,10 @@ const getButtonStyles = (variant: ButtonVariant, theme: any) => {
     `,
   };
 
-  return styles[variant];
+  return styles[$variant];
 };
 
-const getButtonSize = (size: ButtonSize, theme: any) => {
+const getButtonSize = ($size: ButtonSize, theme: any) => {
   const sizes = {
     sm: css`
       padding: ${theme.spacing.xs} ${theme.spacing.sm};
@@ -100,10 +100,17 @@ const getButtonSize = (size: ButtonSize, theme: any) => {
     `,
   };
 
-  return sizes[size];
+  return sizes[$size];
 };
 
-const StyledButton = styled.button<ButtonProps>`
+const StyledButton = styled.button<{
+  $variant?: ButtonVariant;
+  $size?: ButtonSize;
+  $isFullWidth?: boolean;
+  $isLoading?: boolean;
+  $icon?: React.ReactNode;
+  $iconPosition?: 'left' | 'right';
+}>`
   border: none;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   font-family: ${({ theme }) => theme.fonts.primary};
@@ -119,16 +126,16 @@ const StyledButton = styled.button<ButtonProps>`
     cursor: not-allowed;
   }
   
-  ${({ variant = 'primary', theme }) => getButtonStyles(variant, theme)}
-  ${({ size = 'md', theme }) => getButtonSize(size, theme)}
-  ${({ isFullWidth }) => isFullWidth && css`width: 100%;`}
+  ${({ $variant = 'primary', theme }) => getButtonStyles($variant, theme)}
+  ${({ $size = 'md', theme }) => getButtonSize($size, theme)}
+  ${({ $isFullWidth }) => $isFullWidth && css`width: 100%;`}
 `;
 
-const IconWrapper = styled.span<{ position: 'left' | 'right' }>`
+const IconWrapper = styled.span<{ $position: 'left' | 'right' }>`
   display: inline-flex;
   align-items: center;
-  margin-left: ${({ position }) => position === 'right' ? '8px' : '0'};
-  margin-right: ${({ position }) => position === 'left' ? '8px' : '0'};
+  margin-left: ${({ $position }) => $position === 'right' ? '8px' : '0'};
+  margin-right: ${({ $position }) => $position === 'left' ? '8px' : '0'};
 `;
 
 const LoadingSpinner = styled.div`
@@ -158,19 +165,22 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <StyledButton
-      variant={variant}
-      size={size}
-      isFullWidth={isFullWidth}
+      $variant={variant}
+      $size={size}
+      $isFullWidth={isFullWidth}
+      $isLoading={isLoading}
+      $icon={icon}
+      $iconPosition={iconPosition}
       disabled={isLoading || props.disabled}
       {...props}
     >
       {isLoading && <LoadingSpinner />}
       {!isLoading && icon && iconPosition === 'left' && (
-        <IconWrapper position="left">{icon}</IconWrapper>
+        <IconWrapper $position="left">{icon}</IconWrapper>
       )}
       {children}
       {!isLoading && icon && iconPosition === 'right' && (
-        <IconWrapper position="right">{icon}</IconWrapper>
+        <IconWrapper $position="right">{icon}</IconWrapper>
       )}
     </StyledButton>
   );

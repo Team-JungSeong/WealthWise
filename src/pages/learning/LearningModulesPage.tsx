@@ -328,7 +328,7 @@ const LearningModulesPage: React.FC = () => {
               }
             >
               <ModuleCardContent>
-                <ModuleCategory category={module.category}>
+                <ModuleCategory $category={module.category}>
                   {getCategoryLabel(module.category)}
                 </ModuleCategory>
                 <ModuleTitle>{module.title}</ModuleTitle>
@@ -336,7 +336,7 @@ const LearningModulesPage: React.FC = () => {
 
                 <ModuleMeta>
                   <ModuleMetaItem>
-                    <DifficultyBadge level={module.difficulty}>
+                    <DifficultyBadge $level={module.difficulty}>
                       {getDifficultyLabel(module.difficulty)}
                     </DifficultyBadge>
                   </ModuleMetaItem>
@@ -345,7 +345,7 @@ const LearningModulesPage: React.FC = () => {
 
                 <ModuleMeta>
                   <ModuleMetaItem>
-                    <StatusBadge status={module.completionStatus}>
+                    <StatusBadge $status={module.completionStatus}>
                       {getStatusLabel(module.completionStatus)}
                     </StatusBadge>
                   </ModuleMetaItem>
@@ -356,8 +356,8 @@ const LearningModulesPage: React.FC = () => {
 
                 <ProgressBar>
                   <ProgressFill
-                    width={module.progress}
-                    status={module.completionStatus}
+                    $width={module.progress}
+                    $status={module.completionStatus}
                   />
                 </ProgressBar>
               </ModuleCardContent>

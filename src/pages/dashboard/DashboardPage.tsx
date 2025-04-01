@@ -173,7 +173,7 @@ const DashboardPage: React.FC = () => {
                 </ProgressValue>
               </ProgressHeader>
               <ProgressBar>
-                <ProgressFill width={100} color="#3A7A41" />
+                <ProgressFill $width={100} $color="#3A7A41" />
               </ProgressBar>
             </ProgressContainer>
 
@@ -185,7 +185,7 @@ const DashboardPage: React.FC = () => {
                 </ProgressValue>
               </ProgressHeader>
               <ProgressBar>
-                <ProgressFill width={100} color="#42A5F5" />
+                <ProgressFill $width={100} $color="#42A5F5" />
               </ProgressBar>
             </ProgressContainer>
 
@@ -199,8 +199,8 @@ const DashboardPage: React.FC = () => {
               </ProgressHeader>
               <ProgressBar>
                 <ProgressFill
-                  width={summary.savingsRate}
-                  color="#8BC34A"
+                  $width={summary.savingsRate}
+                  $color="#8BC34A"
                 />
               </ProgressBar>
             </ProgressContainer>
@@ -214,8 +214,8 @@ const DashboardPage: React.FC = () => {
               </ProgressHeader>
               <ProgressBar>
                 <ProgressFill
-                  width={(summary.totalDebts / summary.totalAssets) * 100}
-                  color="#FF5722"
+                  $width={(summary.totalDebts / summary.totalAssets) * 100}
+                  $color="#FF5722"
                 />
               </ProgressBar>
             </ProgressContainer>
@@ -226,7 +226,7 @@ const DashboardPage: React.FC = () => {
           <GoalsList>
             {goals.map((goal) => (
               <GoalItem key={goal.id}>
-                <GoalIcon bgColor={goal.color}>{goal.icon}</GoalIcon>
+                <GoalIcon $bgColor={goal.color}>{goal.icon}</GoalIcon>
                 <GoalInfo>
                   <GoalTitle>
                     <GoalName>{goal.name}</GoalName>
@@ -242,8 +242,8 @@ const DashboardPage: React.FC = () => {
                   </GoalTitle>
                   <GoalProgressBar>
                     <GoalProgressFill
-                      width={goal.progress}
-                      color={goal.color}
+                      $width={goal.progress}
+                      $color={goal.color}
                     />
                   </GoalProgressBar>
                 </GoalInfo>
@@ -259,7 +259,7 @@ const DashboardPage: React.FC = () => {
           <Legend>
             {assetsData.categories.map((category, index) => (
               <LegendItem key={index}>
-                <LegendColor color={assetsData.colors[index]} />
+                <LegendColor $color={assetsData.colors[index]} />
                 <LegendLabel>
                   {category} ({assetsData.values[index]}%)
                 </LegendLabel>
@@ -274,8 +274,8 @@ const DashboardPage: React.FC = () => {
               {expensesData.categories.map((category, index) => (
                 <BarColumn
                   key={index}
-                  height={expensesData.values[index] * 2}
-                  color={expensesData.colors[index]}
+                  $height={expensesData.values[index] * 2}
+                  $color={expensesData.colors[index]}
                   data-value={`${expensesData.values[index]}%`}
                 />
               ))}
@@ -284,7 +284,7 @@ const DashboardPage: React.FC = () => {
           <Legend>
             {expensesData.categories.map((category, index) => (
               <LegendItem key={index}>
-                <LegendColor color={expensesData.colors[index]} />
+                <LegendColor $color={expensesData.colors[index]} />
                 <LegendLabel>
                   {category} ({expensesData.values[index]}%)
                 </LegendLabel>
@@ -305,14 +305,14 @@ const DashboardPage: React.FC = () => {
           <LearningModulesList>
             {learningModules.map((module) => (
               <LearningModuleItem key={module.id}>
-                <ModuleIcon level={module.level}>{module.icon}</ModuleIcon>
+                <ModuleIcon $level={module.level}>{module.icon}</ModuleIcon>
                 <ModuleInfo>
                   <ModuleName>{module.name}</ModuleName>
                   <ModuleProgress>
                     <ModuleProgressBar>
                       <ModuleProgressFill
-                        width={module.progress}
-                        color={
+                        $width={module.progress}
+                        $color={
                           module.level === "beginner"
                             ? "#00C853"
                             : module.level === "intermediate"
@@ -321,7 +321,7 @@ const DashboardPage: React.FC = () => {
                         }
                       />
                     </ModuleProgressBar>
-                    <ModuleStatus status={module.status}>
+                    <ModuleStatus $status={module.status}>
                       {module.status === "completed"
                         ? "완료"
                         : module.status === "in-progress"
@@ -347,7 +347,7 @@ const DashboardPage: React.FC = () => {
           <SimulationResultsList>
             {simulationResults.map((sim) => (
               <SimulationResultItem key={sim.id}>
-                <SimulationIcon type={sim.type}>{sim.icon}</SimulationIcon>
+                <SimulationIcon $type={sim.type}>{sim.icon}</SimulationIcon>
                 <SimulationName>{sim.name}</SimulationName>
                 <SimulationResult>{sim.result}</SimulationResult>
                 <SimulationDate>{sim.date}</SimulationDate>

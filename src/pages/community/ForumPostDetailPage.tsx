@@ -144,7 +144,7 @@ const ForumPostDetailPage: React.FC = () => {
         </PostMeta>
         <PostContent>{postDetail.content}</PostContent>
         <PostActions>
-          <ActionButton variant="primary" isActive={isLiked} onClick={handleLikeClick}>
+          <ActionButton variant="primary" $isActive={isLiked} onClick={handleLikeClick}>
             {isLiked ? 'Liked' : 'Like'}
           </ActionButton>
           <ActionButton variant="secondary">Comment</ActionButton>

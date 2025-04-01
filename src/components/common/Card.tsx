@@ -15,7 +15,7 @@ interface CardProps {
   onClick?: () => void;
 }
 
-const getCardVariantStyles = (variant: CardVariant, theme: any) => {
+const getCardVariantStyles = ($variant: CardVariant, theme: any) => {
   const variants = {
     default: css`
       background-color: ${theme.colors.background};
@@ -30,28 +30,28 @@ const getCardVariantStyles = (variant: CardVariant, theme: any) => {
     `,
   };
 
-  return variants[variant];
+  return variants[$variant];
 };
 
 const CardContainer = styled.div<{
-  variant: CardVariant;
-  isHoverable: boolean;
-  isFullWidth: boolean;
-  isClickable: boolean;
+  $variant: CardVariant;
+  $isHoverable: boolean;
+  $isFullWidth: boolean;
+  $isClickable: boolean;
 }>`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   overflow: hidden;
   transition: all 0.2s ease-in-out;
   
-  ${({ variant, theme }) => getCardVariantStyles(variant, theme)}
-  ${({ isFullWidth }) => isFullWidth && css`width: 100%;`}
-  ${({ isHoverable, theme }) => isHoverable && css`
+  ${({ $variant, theme }) => getCardVariantStyles($variant, theme)}
+  ${({ $isFullWidth }) => $isFullWidth && css`width: 100%;`}
+  ${({ $isHoverable, theme }) => $isHoverable && css`
     &:hover {
       transform: translateY(-4px);
       box-shadow: ${theme.shadows.lg};
     }
   `}
-  ${({ isClickable }) => isClickable && css`
+  ${({ $isClickable }) => $isClickable && css`
     cursor: pointer;
   `}
 `;
@@ -100,10 +100,10 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <CardContainer
-      variant={variant}
-      isHoverable={isHoverable}
-      isFullWidth={isFullWidth}
-      isClickable={!!onClick}
+      $variant={variant}
+      $isHoverable={isHoverable}
+      $isFullWidth={isFullWidth}
+      $isClickable={!!onClick}
       className={className}
       onClick={onClick}
     >

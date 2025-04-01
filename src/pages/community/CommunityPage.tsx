@@ -176,7 +176,7 @@ const CommunityPage: React.FC = () => {
             {categories.map(category => (
               <CategoryTab 
                 key={category.id}
-                isActive={activeCategory === category.id}
+                $isActive={activeCategory === category.id}
                 onClick={() => setActiveCategory(category.id)}
               >
                 {category.name}
@@ -229,7 +229,7 @@ const CommunityPage: React.FC = () => {
           
           <Pagination>
             <PageButton>«</PageButton>
-            <PageButton isActive>1</PageButton>
+            <PageButton $isActive>1</PageButton>
             <PageButton>2</PageButton>
             <PageButton>3</PageButton>
             <PageButton>4</PageButton>

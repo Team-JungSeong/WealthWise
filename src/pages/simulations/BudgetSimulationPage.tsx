@@ -105,18 +105,18 @@ const BudgetSimulationPage: React.FC = () => {
         ].map(step => (
           <StepIndicator 
             key={step.number}
-            isActive={currentStep === step.number}
-            isCompleted={currentStep > step.number}
+            $isActive={currentStep === step.number}
+            $isCompleted={currentStep > step.number}
           >
             <StepCircle 
-              isActive={currentStep === step.number}
-              isCompleted={currentStep > step.number}
+              $isActive={currentStep === step.number}
+              $isCompleted={currentStep > step.number}
             >
               {currentStep > step.number ? '✓' : step.number}
             </StepCircle>
             <StepLabel 
-              isActive={currentStep === step.number}
-              isCompleted={currentStep > step.number}
+              $isActive={currentStep === step.number}
+              $isCompleted={currentStep > step.number}
             >
               {step.label}
             </StepLabel>
@@ -229,8 +229,8 @@ const BudgetSimulationPage: React.FC = () => {
                     </CategoryLabel>
                     <ProgressBar>
                       <ProgressFill 
-                        width={Math.min(100, (item.current / item.recommended) * 100)}
-                        color={item.current > item.recommended ? '#F44336' : item.category.color}
+                        $width={Math.min(100, (item.current / item.recommended) * 100)}
+                        $color={item.current > item.recommended ? '#F44336' : item.category.color}
                       />
                     </ProgressBar>
                   </CategoryContainer>
