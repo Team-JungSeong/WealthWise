@@ -16,6 +16,13 @@ interface AuthContextType {
   signup: (name: string, email: string, password: string) => Promise<boolean>;
 }
 
+// 기본 임시 사용자 객체를 컴포넌트 외부로 이동
+const defaultUser: User = {
+  id: '1',
+  name: '김투자',
+  email: 'investor@example.com',
+};
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
@@ -31,13 +38,6 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  // 기본 임시 사용자 생성
-  const defaultUser: User = {
-    id: '1',
-    name: '김투자',
-    email: 'investor@example.com',
-  };
-
   // 기본적으로 유저를 설정하여 로그인된 상태로 시작
   const [user, setUser] = useState<User | null>(defaultUser);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -52,7 +52,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(defaultUser));
     }
     setIsLoading(false);
-  }, [defaultUser]);
+  }, []); // 의존성 배열에서 defaultUser 제거 - 컴포넌트 마운트 시 한 번만 실행
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
