@@ -142,9 +142,20 @@ const Header: React.FC = () => {
     return location.pathname.startsWith(path);
   };
 
+  const navigateTo = (path: string) => {
+    if (location.pathname === path) {
+      window.location.reload();
+    } else {
+      window.location.href = path;
+    }
+  };
+
   return (
     <HeaderContainer>
-      <LogoLink to="/">
+      <LogoLink to="/" onClick={(e) => {
+        e.preventDefault();
+        navigateTo("/");
+      }}>
         <Logo>WealthWise</Logo>
       </LogoLink>
 
@@ -154,11 +165,20 @@ const Header: React.FC = () => {
             key={link.path}
             to={link.path}
             isActive={isActivePath(link.path)}
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo(link.path);
+            }}
           >
             {link.name}
           </NavLink>
         ))}
-        <ActionButton to="/profile">내 프로필</ActionButton>
+        <ActionButton to="/profile" onClick={(e) => {
+          e.preventDefault();
+          navigateTo("/profile");
+        }}>
+          내 프로필
+        </ActionButton>
       </NavLinksContainer>
 
       <MobileMenuButton onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
@@ -171,7 +191,11 @@ const Header: React.FC = () => {
             key={link.path}
             to={link.path}
             isActive={isActivePath(link.path)}
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo(link.path);
+              setIsMobileMenuOpen(false);
+            }}
           >
             {link.name}
           </MobileNavLink>
@@ -179,7 +203,11 @@ const Header: React.FC = () => {
         <MobileNavLink
           to="/profile"
           isActive={isActivePath("/profile")}
-          onClick={() => setIsMobileMenuOpen(false)}
+          onClick={(e) => {
+            e.preventDefault();
+            navigateTo("/profile");
+            setIsMobileMenuOpen(false);
+          }}
         >
           내 프로필
         </MobileNavLink>
