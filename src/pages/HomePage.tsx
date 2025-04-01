@@ -27,7 +27,7 @@ import {
   AuthorTitle,
   CTASection,
   CTATitle,
-  CTAText
+  CTAText,
 } from "../styles/pages/HomePage.styled";
 
 const HomePage: React.FC = () => {
@@ -254,9 +254,10 @@ const HomePage: React.FC = () => {
       <CTASection>
         <CTATitle>지금 바로 재정 건강을 개선하세요</CTATitle>
         <CTAText>
-          WealthWise와 함께라면 복잡한 금융 세계도 쉽게 이해할 수 있습니다. 지금
-          무료로 가입하고 맞춤형 금융 교육과 도구를 활용해 더 나은 재정적 미래를
-          설계하세요.
+          WealthWise와 함께라면 복잡한 금융 세계도 쉽게 이해할 수 있습니다.
+          <br />
+          지금 무료로 가입하고 맞춤형 금융 교육과 도구를 활용해 더 나은 재정적
+          미래를 설계하세요.
         </CTAText>
         <Link to="/profile">
           <StyledButton variant="primary" size="lg">

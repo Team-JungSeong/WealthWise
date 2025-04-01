@@ -43,22 +43,15 @@ import {
 
 const DashboardPage: React.FC = () => {
   const { user, isAuthenticated } = useAuth();
-  const { summary, assetsData, expensesData, goals, isLoading } =
-    useFinancialData(user?.id);
+  const { summary, assetsData, expensesData, goals } = useFinancialData(
+    user?.id
+  );
   const theme = useTheme();
 
   // 숫자 포맷팅 함수
   const formatNumber = (num: number): string => {
     return new Intl.NumberFormat("ko-KR").format(num);
   };
-
-  if (isLoading) {
-    return (
-      <Layout>
-        <div>데이터를 불러오는 중입니다...</div>
-      </Layout>
-    );
-  }
 
   if (!isAuthenticated) {
     return (
