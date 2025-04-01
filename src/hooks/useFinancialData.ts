@@ -48,12 +48,13 @@ const MOCK_FINANCIAL_DATA = {
   assetsData: {
     categories: ["현금", "주식", "부동산", "퇴직금", "기타"],
     values: [25, 30, 20, 15, 10],
-    colors: ["#3366FF", "#00C853", "#FFD600", "#FF6D00", "#8E24AA"],
+    colors: ["#42A5F5", "#8BC34A", "#FF9800", "#F06292", "#7986CB"],
+
   },
   expensesData: {
     categories: ["주거비", "식비", "교통비", "생활비", "여가", "의료비"],
     values: [30, 25, 15, 10, 15, 5],
-    colors: ["#3366FF", "#00C853", "#FFD600", "#FF6D00", "#8E24AA", "#00BCD4"],
+    colors: ["#EF7A7A", "#8F96D2", "#64D5E6", "#B9DB93", "#FFDF81", "#E4E68B"]
   },
   goals: [
     {

@@ -123,7 +123,7 @@ const SocialLink = styled.a`
 
   &:hover,
   &:focus {
-    color: blue;
+    text-decoration: underline ${({ theme }) => theme.colors.light};
   }
 `;
 

@@ -1,8 +1,17 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React from "react";
+import styled, { css } from "styled-components";
 
-type ButtonVariant = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' | 'link';
-type ButtonSize = 'sm' | 'md' | 'lg';
+type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "info"
+  | "light"
+  | "dark"
+  | "link";
+type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -10,7 +19,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isFullWidth?: boolean;
   isLoading?: boolean;
   icon?: React.ReactNode;
-  iconPosition?: 'left' | 'right';
+  iconPosition?: "left" | "right";
 }
 
 const getButtonStyles = (variant: ButtonVariant, theme: any) => {
@@ -73,10 +82,12 @@ const getButtonStyles = (variant: ButtonVariant, theme: any) => {
     `,
     link: css`
       background-color: transparent;
-      color: ${theme.colors.primary};
+      color: ${theme.colors.text}aa;
       padding: 0;
+      transition: all 0.3s ease;
+      text-decoration: underline;
       &:hover {
-        text-decoration: underline;
+        color: ${theme.colors.primary};
       }
     `,
   };
@@ -113,22 +124,26 @@ const StyledButton = styled.button<ButtonProps>`
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease-in-out;
-  
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
-  
-  ${({ variant = 'primary', theme }) => getButtonStyles(variant, theme)}
-  ${({ size = 'md', theme }) => getButtonSize(size, theme)}
-  ${({ isFullWidth }) => isFullWidth && css`width: 100%;`}
+
+  ${({ variant = "primary", theme }) => getButtonStyles(variant, theme)}
+  ${({ size = "md", theme }) => getButtonSize(size, theme)}
+  ${({ isFullWidth }) =>
+    isFullWidth &&
+    css`
+      width: 100%;
+    `}
 `;
 
-const IconWrapper = styled.span<{ position: 'left' | 'right' }>`
+const IconWrapper = styled.span<{ position: "left" | "right" }>`
   display: inline-flex;
   align-items: center;
-  margin-left: ${({ position }) => position === 'right' ? '8px' : '0'};
-  margin-right: ${({ position }) => position === 'left' ? '8px' : '0'};
+  margin-left: ${({ position }) => (position === "right" ? "8px" : "0")};
+  margin-right: ${({ position }) => (position === "left" ? "8px" : "0")};
 `;
 
 const LoadingSpinner = styled.div`
@@ -140,20 +155,22 @@ const LoadingSpinner = styled.div`
   border-top-color: #fff;
   animation: spin 1s ease-in-out infinite;
   margin-right: 8px;
-  
+
   @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+      transform: rotate(360deg);
+    }
   }
 `;
 
 const Button: React.FC<ButtonProps> = ({
   children,
-  variant = 'primary',
-  size = 'md',
+  variant = "primary",
+  size = "md",
   isFullWidth = false,
   isLoading = false,
   icon,
-  iconPosition = 'left',
+  iconPosition = "left",
   ...props
 }) => {
   return (
@@ -165,15 +182,15 @@ const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {isLoading && <LoadingSpinner />}
-      {!isLoading && icon && iconPosition === 'left' && (
+      {!isLoading && icon && iconPosition === "left" && (
         <IconWrapper position="left">{icon}</IconWrapper>
       )}
       {children}
-      {!isLoading && icon && iconPosition === 'right' && (
+      {!isLoading && icon && iconPosition === "right" && (
         <IconWrapper position="right">{icon}</IconWrapper>
       )}
     </StyledButton>
   );
 };
 
-export default Button; 
+export default Button;

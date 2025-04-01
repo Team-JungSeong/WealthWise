@@ -77,21 +77,21 @@ export const SpendingCard = styled(Card)`
   }
 `;
 
-export const LearningProgressCard = styled(Card)`
-  grid-column: span 6;
+// export const LearningProgressCard = styled(Card)`
+//   grid-column: span 6;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    grid-column: span 1;
-  }
-`;
+//   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+//     grid-column: span 1;
+//   }
+// `;
 
-export const SimulationResultsCard = styled(Card)`
-  grid-column: span 6;
+// export const SimulationResultsCard = styled(Card)`
+//   grid-column: span 6;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    grid-column: span 1;
-  }
-`;
+//   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+//     grid-column: span 1;
+//   }
+// `;
 
 export const ChartContainer = styled.div`
   height: 300px;
@@ -100,6 +100,7 @@ export const ChartContainer = styled.div`
   justify-content: center;
   position: relative;
 `;
+
 
 // 차트를 간단히 시뮬레이션하는 컴포넌트 (실제 구현에서는 D3.js 등으로 대체)
 export const PieChartSimulation = styled.div.attrs<{ data: ChartData }>(({ data }) => ({
@@ -132,13 +133,13 @@ export const BarChartSimulation = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  width: 100%;
+  width: 90%;
   height: 100%;
-  padding-bottom: 30px;
+  padding-bottom: 10%;
 `;
 
 export const BarColumn = styled.div<{ height: number; color: string }>`
-  width: 30px;
+  width: 40px;
   height: ${({ height }) => `${height}%`};
   background-color: ${({ color }) => color};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
@@ -161,6 +162,8 @@ export const BarColumn = styled.div<{ height: number; color: string }>`
 `;
 
 export const Legend = styled.div`
+  margin: 0 auto;
+  width: 95%;
   display: flex;
   flex-wrap: wrap;
   gap: ${({ theme }) => theme.spacing.sm};
@@ -316,154 +319,165 @@ export const SectionTitle = styled.h3`
   color: ${({ theme }) => theme.colors.dark};
 `;
 
-export const LearningModulesList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm};
-`;
+// export const LearningModulesList = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   gap: ${({ theme }) => theme.spacing.sm};
+// `;
 
-export const LearningModuleItem = styled.div`
-  display: flex;
-  align-items: center;
-  padding: ${({ theme }) => `${theme.spacing.sm} 0`};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+// export const LearningModuleItem = styled.div`
+//   display: flex;
+//   align-items: center;
+//   padding: ${({ theme }) => `${theme.spacing.sm} 0`};
+//   // border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+//   transition: all 0.3s ease;
 
-  &:last-child {
-    border-bottom: none;
-  }
-`;
+//     &:last-child {
+//       border-bottom: none;
+//     }
+      
+//     &:hover {
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+//     transform: translateY(-5px);
+//   }
+// `;
 
-export const ModuleIcon = styled.div<{ level: string }>`
-  width: 40px;
-  height: 40px;
-  border-radius: ${({ theme }) => theme.borderRadius.circle};
-  background-color: ${({ level, theme }) =>
-    level === "beginner"
-      ? theme.colors.success
-      : level === "intermediate"
-      ? theme.colors.warning
-      : theme.colors.danger}22;
-  color: ${({ level, theme }) =>
-    level === "beginner"
-      ? theme.colors.success
-      : level === "intermediate"
-      ? theme.colors.warning
-      : theme.colors.danger};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  margin-right: ${({ theme }) => theme.spacing.sm};
-`;
+// export const ModuleIcon = styled.div<{ level: string }>`
+//   width: 40px;
+//   height: 40px;
+//   border-radius: ${({ theme }) => theme.borderRadius.circle};
+//   background-color: ${({ level, theme }) =>
+//     level === "beginner"
+//       ? theme.colors.success
+//       : level === "intermediate"
+//       ? theme.colors.warning
+//       : theme.colors.danger}22;
+//   color: ${({ level, theme }) =>
+//     level === "beginner"
+//       ? theme.colors.success
+//       : level === "intermediate"
+//       ? theme.colors.warning
+//       : theme.colors.danger};
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 1.25rem;
+//   margin-right: ${({ theme }) => theme.spacing.sm};
+//   transition: transform 0.3s ease;
+  
+//   &:hover {
+//     transform: scale(1.1);
+//   }
+// `;
 
-export const ModuleInfo = styled.div`
-  flex: 1;
-`;
+// export const ModuleInfo = styled.div`
+//   flex: 1;
+// `;
 
-export const ModuleName = styled.h4`
-  margin: 0;
-  font-weight: 500;
-  font-size: 1rem;
-`;
+// export const ModuleName = styled.h4`
+//   margin: 0;
+//   font-weight: 500;
+//   font-size: 1rem;
+// `;
 
-export const ModuleProgress = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.xs};
-`;
+// export const ModuleProgress = styled.div`
+//   display: flex;
+//   align-items: center;
+//   gap: ${({ theme }) => theme.spacing.xs};
+// `;
 
-export const ModuleProgressBar = styled.div`
-  flex: 1;
-  height: 4px;
-  background-color: ${({ theme }) => theme.colors.light};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  overflow: hidden;
-`;
+// export const ModuleProgressBar = styled.div`
+//   flex: 1;
+//   height: 4px;
+//   background-color: ${({ theme }) => theme.colors.light};
+//   border-radius: ${({ theme }) => theme.borderRadius.sm};
+//   overflow: hidden;
+// `;
 
-export const ModuleProgressFill = styled.div<{ width: number; color: string }>`
-  width: ${({ width }) => `${width}%`};
-  height: 100%;
-  background-color: ${({ color }) => color};
-`;
+// export const ModuleProgressFill = styled.div<{ width: number; color: string }>`
+//   width: ${({ width }) => `${width}%`};
+//   height: 100%;
+//   background-color: ${({ color }) => color};
+// `;
 
-export const ModuleStatus = styled.span<{ status: string }>`
-  font-size: 0.75rem;
-  color: ${({ status, theme }) =>
-    status === "completed"
-      ? theme.colors.success
-      : status === "in-progress"
-      ? theme.colors.warning
-      : theme.colors.text}aa;
-`;
+// export const ModuleStatus = styled.span<{ status: string }>`
+//   font-size: 0.75rem;
+//   color: ${({ status, theme }) =>
+//     status === "completed"
+//       ? theme.colors.success
+//       : status === "in-progress"
+//       ? theme.colors.warning
+//       : theme.colors.text}aa;
+// `;
 
-export const SimulationResultsList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: ${({ theme }) => theme.spacing.md};
+// export const SimulationResultsList = styled.div`
+//   display: grid;
+//   grid-template-columns: repeat(2, 1fr);
+//   gap: ${({ theme }) => theme.spacing.md};
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    grid-template-columns: 1fr;
-  }
-`;
+//   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+//     grid-template-columns: 1fr;
+//   }
+// `;
 
-export const SimulationResultItem = styled.div`
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  padding: ${({ theme }) => theme.spacing.md};
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: all 0.2s ease;
+// export const SimulationResultItem = styled.div`
+//   border: 1px solid ${({ theme }) => theme.colors.border};
+//   border-radius: ${({ theme }) => theme.borderRadius.md};
+//   padding: ${({ theme }) => theme.spacing.md};
+//   text-align: center;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   transition: all 0.2s ease;
 
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: ${({ theme }) => theme.shadows.md};
-  }
-`;
+//   &:hover {
+//     border-color: ${({ theme }) => theme.colors.primary};
+//     box-shadow: ${({ theme }) => theme.shadows.md};
+//   }
+// `;
 
-export const SimulationIcon = styled.div<{ type: string }>`
-  width: 50px;
-  height: 50px;
-  border-radius: ${({ theme }) => theme.borderRadius.circle};
-  background-color: ${({ type, theme }) =>
-    type === "budget"
-      ? theme.colors.primary
-      : type === "investment"
-      ? theme.colors.success
-      : type === "retirement"
-      ? theme.colors.warning
-      : theme.colors.info}22;
-  color: ${({ type, theme }) =>
-    type === "budget"
-      ? theme.colors.primary
-      : type === "investment"
-      ? theme.colors.success
-      : type === "retirement"
-      ? theme.colors.warning
-      : theme.colors.info};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
+// export const SimulationIcon = styled.div<{ type: string }>`
+//   width: 50px;
+//   height: 50px;
+//   border-radius: ${({ theme }) => theme.borderRadius.circle};
+//   background-color: ${({ type, theme }) =>
+//     type === "budget"
+//       ? theme.colors.primary
+//       : type === "investment"
+//       ? theme.colors.success
+//       : type === "retirement"
+//       ? theme.colors.warning
+//       : theme.colors.info}22;
+//   color: ${({ type, theme }) =>
+//     type === "budget"
+//       ? theme.colors.primary
+//       : type === "investment"
+//       ? theme.colors.success
+//       : type === "retirement"
+//       ? theme.colors.warning
+//       : theme.colors.info};
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 1.5rem;
+//   margin-bottom: ${({ theme }) => theme.spacing.sm};
+// `;
 
-export const SimulationName = styled.h4`
-  margin: 0 0 ${({ theme }) => theme.spacing.xs};
-  font-weight: 500;
-  font-size: 1rem;
-`;
+// export const SimulationName = styled.h4`
+//   margin: 0 0 ${({ theme }) => theme.spacing.xs};
+//   font-weight: 500;
+//   font-size: 1rem;
+// `;
 
-export const SimulationResult = styled.p`
-  margin: 0;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: ${({ theme }) => theme.colors.dark};
-`;
+// export const SimulationResult = styled.p`
+//   margin: 0;
+//   font-weight: 700;
+//   font-size: 1.25rem;
+//   color: ${({ theme }) => theme.colors.dark};
+// `;
 
-export const SimulationDate = styled.span`
-  font-size: 0.75rem;
-  color: ${({ theme }) => theme.colors.text}aa;
-  margin-top: ${({ theme }) => theme.spacing.xs};
-`;
+// export const SimulationDate = styled.span`
+//   font-size: 0.75rem;
+//   color: ${({ theme }) => theme.colors.text}aa;
+//   margin-top: ${({ theme }) => theme.spacing.xs};
+// `;

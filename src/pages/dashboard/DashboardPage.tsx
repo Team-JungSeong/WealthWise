@@ -39,93 +39,13 @@ import {
   SpendingCard,
   BarChartSimulation,
   BarColumn,
-  LearningProgressCard,
-  LearningModulesList,
-  LearningModuleItem,
-  ModuleIcon,
-  ModuleInfo,
-  ModuleName,
-  ModuleProgress,
-  ModuleProgressBar,
-  ModuleProgressFill,
-  ModuleStatus,
-  SimulationResultsCard,
-  SimulationResultsList,
-  SimulationResultItem,
-  SimulationIcon,
-  SimulationName,
-  SimulationResult,
-  SimulationDate
 } from "../../styles/pages/dashboard/DashboardPage.styled";
 
 const DashboardPage: React.FC = () => {
   const { user, isAuthenticated } = useAuth();
-  const { summary, assetsData, expensesData, goals, isLoading } = useFinancialData(user?.id);
+  const { summary, assetsData, expensesData, goals, isLoading } =
+    useFinancialData(user?.id);
   const theme = useTheme();
-
-  // 학습 모듈 예시 데이터
-  const learningModules = [
-    {
-      id: 1,
-      name: "금융 기초 이해하기",
-      progress: 100,
-      status: "completed",
-      level: "beginner",
-      icon: "📚",
-    },
-    {
-      id: 2,
-      name: "예산 관리의 기술",
-      progress: 75,
-      status: "in-progress",
-      level: "beginner",
-      icon: "📊",
-    },
-    {
-      id: 3,
-      name: "투자 포트폴리오 구성",
-      progress: 20,
-      status: "in-progress",
-      level: "intermediate",
-      icon: "📈",
-    },
-  ];
-
-  // 시뮬레이션 결과 예시 데이터
-  const simulationResults = [
-    {
-      id: 1,
-      name: "월 예산 계획",
-      result: "350,000원 절약 가능",
-      date: "2023-04-15",
-      type: "budget",
-      icon: "📊",
-    },
-    {
-      id: 2,
-      name: "투자 수익률 예측",
-      result: "연 7.5% 예상",
-      date: "2023-04-10",
-      type: "investment",
-      icon: "📈",
-    },
-    {
-      id: 3,
-      name: "은퇴 자금 시뮬레이션",
-      result: "목표의 68% 달성 예상",
-      date: "2023-04-05",
-      type: "retirement",
-      icon: "🏖️",
-    },
-    {
-      id: 4,
-      name: "대출 상환 계획",
-      result: "5년 단축 가능",
-      date: "2023-04-01",
-      type: "loan",
-      icon: "💳",
-    },
-  ];
 
   // 숫자 포맷팅 함수
   const formatNumber = (num: number): string => {
@@ -158,7 +78,7 @@ const DashboardPage: React.FC = () => {
       <PageHeader>
         <PageTitle>{user?.name}님의 금융 대시보드</PageTitle>
         <PageSubtitle>
-          당신의 재정 상태를 한눈에 파악하고 목표 달성 과정을 추적하세요.
+          재정 상태를 한눈에 파악하고 목표 달성 과정을 추적하세요.
         </PageSubtitle>
       </PageHeader>
 
@@ -198,9 +118,23 @@ const DashboardPage: React.FC = () => {
                 </ProgressValue>
               </ProgressHeader>
               <ProgressBar>
+                <ProgressFill width={summary.savingsRate} color="#8BC34A" />
+              </ProgressBar>
+            </ProgressContainer>
+
+            <ProgressContainer>
+              <ProgressHeader>
+                <ProgressTitle>월 지출</ProgressTitle>
+                <ProgressValue style={{ color: "#EF6C00" }}>
+                  -{formatNumber(summary.monthlyExpenses)}원
+                </ProgressValue>
+              </ProgressHeader>
+              <ProgressBar>
                 <ProgressFill
-                  width={summary.savingsRate}
-                  color="#8BC34A"
+                  width={
+                    (summary.monthlyExpenses / summary.monthlyIncome) * 100
+                  }
+                  color="#FF9800"
                 />
               </ProgressBar>
             </ProgressContainer>
@@ -222,7 +156,15 @@ const DashboardPage: React.FC = () => {
           </div>
         </FinancialOverviewCard>
 
-        <GoalsCard title="금융 목표" variant="elevated">
+        <GoalsCard
+          title="금융 목표"
+          variant="elevated"
+          footer={
+            <Link to="/goals">
+              <Button variant="link">목표 더보기</Button>
+            </Link>
+          }
+        >
           <GoalsList>
             {goals.map((goal) => (
               <GoalItem key={goal.id}>
@@ -235,9 +177,7 @@ const DashboardPage: React.FC = () => {
                         {formatNumber(goal.current)}원
                       </CurrentAmount>
                       {" / "}
-                      <TargetAmount>
-                        {formatNumber(goal.target)}원
-                      </TargetAmount>
+                      <TargetAmount>{formatNumber(goal.target)}원</TargetAmount>
                     </Amount>
                   </GoalTitle>
                   <GoalProgressBar>
@@ -292,69 +232,6 @@ const DashboardPage: React.FC = () => {
             ))}
           </Legend>
         </SpendingCard>
-
-        <LearningProgressCard
-          title="학습 진행 상황"
-          variant="elevated"
-          footer={
-            <Link to="/learning">
-              <Button variant="link">모든 학습 모듈 보기</Button>
-            </Link>
-          }
-        >
-          <LearningModulesList>
-            {learningModules.map((module) => (
-              <LearningModuleItem key={module.id}>
-                <ModuleIcon level={module.level}>{module.icon}</ModuleIcon>
-                <ModuleInfo>
-                  <ModuleName>{module.name}</ModuleName>
-                  <ModuleProgress>
-                    <ModuleProgressBar>
-                      <ModuleProgressFill
-                        width={module.progress}
-                        color={
-                          module.level === "beginner"
-                            ? "#00C853"
-                            : module.level === "intermediate"
-                            ? "#FFD600"
-                            : "#F44336"
-                        }
-                      />
-                    </ModuleProgressBar>
-                    <ModuleStatus status={module.status}>
-                      {module.status === "completed"
-                        ? "완료"
-                        : module.status === "in-progress"
-                        ? "진행 중"
-                        : "시작 전"}
-                    </ModuleStatus>
-                  </ModuleProgress>
-                </ModuleInfo>
-              </LearningModuleItem>
-            ))}
-          </LearningModulesList>
-        </LearningProgressCard>
-
-        <SimulationResultsCard
-          title="최근 시뮬레이션 결과"
-          variant="elevated"
-          footer={
-            <Link to="/simulations">
-              <Button variant="link">모든 시뮬레이션 보기</Button>
-            </Link>
-          }
-        >
-          <SimulationResultsList>
-            {simulationResults.map((sim) => (
-              <SimulationResultItem key={sim.id}>
-                <SimulationIcon type={sim.type}>{sim.icon}</SimulationIcon>
-                <SimulationName>{sim.name}</SimulationName>
-                <SimulationResult>{sim.result}</SimulationResult>
-                <SimulationDate>{sim.date}</SimulationDate>
-              </SimulationResultItem>
-            ))}
-          </SimulationResultsList>
-        </SimulationResultsCard>
       </DashboardGrid>
     </Layout>
   );
