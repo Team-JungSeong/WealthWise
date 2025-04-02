@@ -1,4 +1,15 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut, 
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  updateProfile,
+  User as FirebaseUser
+} from 'firebase/auth';
+import { auth, firestore } from '../firebase/config';
+import { doc, setDoc } from 'firebase/firestore';
 
 interface User {
   id: string;
@@ -12,16 +23,10 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
-  logout: () => void;
-  signup: (name: string, email: string, password: string) => Promise<boolean>;
+  logout: () => Promise<void>;
+  signup: (email: string, password: string, name: string) => Promise<boolean>;
+  resetPassword: (email: string) => Promise<boolean>;
 }
-
-// 기본 임시 사용자 객체를 컴포넌트 외부로 이동
-const defaultUser: User = {
-  id: '1',
-  name: '김투자',
-  email: 'investor@example.com',
-};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -38,37 +43,35 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  // 기본적으로 유저를 설정하여 로그인된 상태로 시작
-  const [user, setUser] = useState<User | null>(defaultUser);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // 로컬 스토리지에서 사용자 정보가 있으면 그것을 사용, 없으면 기본 사용자 유지
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    } else {
-      // 로컬 스토리지에 기본 사용자 저장
-      localStorage.setItem('user', JSON.stringify(defaultUser));
-    }
-    setIsLoading(false);
-  }, []); // 의존성 배열에서 defaultUser 제거 - 컴포넌트 마운트 시 한 번만 실행
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setIsLoading(true);
+      if (firebaseUser) {
+        // Firebase 사용자 객체를 애플리케이션 User 형식으로 변환
+        const appUser: User = {
+          id: firebaseUser.uid,
+          name: firebaseUser.displayName || '사용자',
+          email: firebaseUser.email || '',
+          avatar: firebaseUser.photoURL || undefined,
+        };
+        setUser(appUser);
+      } else {
+        setUser(null);
+      }
+      setIsLoading(false);
+    });
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 해제
+    return () => unsubscribe();
+  }, []); 
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
       setIsLoading(true);
-      // 실제 구현에서는 API 호출로 대체
-      // const response = await api.post('/auth/login', { email, password });
-      
-      // 임시 로그인 구현
-      const mockUser: User = {
-        id: '1',
-        name: '김투자',
-        email: email,
-      };
-      
-      setUser(mockUser);
-      localStorage.setItem('user', JSON.stringify(mockUser));
+      await signInWithEmailAndPassword(auth, email, password);
       return true;
     } catch (error) {
       console.error('Login failed:', error);
@@ -78,30 +81,63 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    // 로그아웃 시에도 기본 사용자로 설정하여 항상 로그인된 상태 유지
-    setUser(defaultUser);
-    localStorage.setItem('user', JSON.stringify(defaultUser));
-  };
-
-  const signup = async (name: string, email: string, password: string): Promise<boolean> => {
+  const logout = async (): Promise<void> => {
     try {
       setIsLoading(true);
-      // 실제 구현에서는 API 호출로 대체
-      // const response = await api.post('/auth/signup', { name, email, password });
+      await signOut(auth);
+    } catch (error) {
+      console.error('Logout failed:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const signup = async (email: string, password: string, name: string): Promise<boolean> => {
+    try {
+      setIsLoading(true);
+      console.log("회원가입 시도:", { email, name });
       
-      // 임시 회원가입 구현
-      const mockUser: User = {
-        id: Date.now().toString(),
-        name,
-        email,
-      };
+      // Authentication에 사용자 생성
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const firebaseUser = userCredential.user;
+      console.log("Firebase 인증 사용자 생성 성공:", firebaseUser.uid);
       
-      setUser(mockUser);
-      localStorage.setItem('user', JSON.stringify(mockUser));
+      // 사용자 프로필 업데이트 (이름 설정)
+      await updateProfile(firebaseUser, {
+        displayName: name
+      });
+      console.log("사용자 프로필 업데이트 성공");
+      
+      // Firestore에 사용자 정보 저장
+      await setDoc(doc(firestore, "users", firebaseUser.uid), {
+        id: firebaseUser.uid,
+        name: name,
+        email: email,
+        createdAt: new Date()
+      });
+      console.log("Firestore에 사용자 정보 저장 성공");
+      
       return true;
     } catch (error) {
-      console.error('Signup failed:', error);
+      console.error('회원가입 실패:', error);
+      // 더 자세한 오류 정보 출력
+      if (error instanceof Error) {
+        console.error('오류 메시지:', error.message);
+        console.error('오류 스택:', error.stack);
+      }
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const resetPassword = async (email: string): Promise<boolean> => {
+    try {
+      setIsLoading(true);
+      await sendPasswordResetEmail(auth, email);
+      return true;
+    } catch (error) {
+      console.error('Password reset failed:', error);
       return false;
     } finally {
       setIsLoading(false);
@@ -110,11 +146,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const value = {
     user,
-    isAuthenticated: true, // 항상 인증된 상태로 설정
+    isAuthenticated: !!user,
     isLoading,
     login,
     logout,
-    signup
+    signup,
+    resetPassword
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
