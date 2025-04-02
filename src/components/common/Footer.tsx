@@ -145,25 +145,15 @@ const Footer: React.FC = () => {
             <FooterLink to="/learning">학습 모듈</FooterLink>
             <FooterLink to="/simulations">시뮬레이션</FooterLink>
             <FooterLink to="/community">커뮤니티</FooterLink>
-            <FooterLink to="/experts">전문가 연결</FooterLink>
+            <FooterLink to="/experts">전문가</FooterLink>
           </Column>
 
           <Column>
             <Title>리소스</Title>
-            <FooterLink to="/blog">블로그</FooterLink>
             <FooterLink to="/faq">자주 묻는 질문</FooterLink>
             <FooterLink to="/glossary">금융 용어 사전</FooterLink>
             <FooterLink to="/guides">가이드</FooterLink>
             <FooterLink to="/calculator">계산기</FooterLink>
-          </Column>
-
-          <Column>
-            <Title>회사 소개</Title>
-            <FooterLink to="/about">회사 소개</FooterLink>
-            <FooterLink to="/careers">채용 정보</FooterLink>
-            <FooterLink to="/press">언론 보도</FooterLink>
-            <FooterLink to="/contact">문의하기</FooterLink>
-            <FooterLink to="/partners">파트너십</FooterLink>
           </Column>
 
           <Column>
