@@ -1,7 +1,20 @@
 import styled from 'styled-components';
+import { ModuleCategory } from './LearningModulesPage.styled';
 
 export const PageHeader = styled.div`
+  font-size: 0.85rem;
   margin-bottom: ${({ theme }) => theme.spacing.lg};
+
+  a {
+    text-decoration: none;
+    font-weight: 700;
+    color: ${({ theme }) => theme.colors.text}aa;
+    
+    &:hover {
+      color: ${({ theme }) => theme.colors.primary};
+      text-decoration: underline;
+    }
+  }
 `;
 
 export const PageTitle = styled.h1`
@@ -25,7 +38,8 @@ export const ModuleContainer = styled.div`
 export const ModuleHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.md};
   margin-bottom: ${({ theme }) => theme.spacing.md};
   
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -50,13 +64,46 @@ export const ModuleBadges = styled.div`
   flex-wrap: wrap;
 `;
 
-export const Badge = styled.span<{ bgColor: string }>`
-  background-color: ${({ bgColor }) => bgColor}22;
-  color: ${({ bgColor }) => bgColor};
+export const DetailModuleCategory = styled(ModuleCategory)`
+  background-color: ${({ category, theme }) => {
+    switch (category) {
+      case "BASIC_FINANCE":
+        return `${theme.colors.primary}22`;
+      case "BUDGETING":
+        return `${theme.colors.success}22`;
+      case "SAVING":
+        return `${theme.colors.info}22`;
+      case "INVESTING":
+        return `#3148f522`;
+      case "RETIREMENT":
+        return `${theme.colors.warning}22`;
+      case "TAX_PLANNING":
+        return `#9c66cb22`;
+      case "DEBT_MANAGEMENT":
+        return `${theme.colors.danger}22`;
+      case "REAL_ESTATE":
+        return `#ff7b0022`;
+      case "ADVANCED_INVESTING":
+        return `#ff480022`;
+      case "INSURANCE":
+        return `#E64A1922`;
+      default:
+        return `${theme.colors.text}22`;
+    }
+  }};
   padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.sm}`};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
-  font-size: 0.875rem;
+`;
+
+export const DurationBadge = styled.span`
+  display: inline-block;
+  padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.sm}`};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  font-size: 0.75rem;
   font-weight: 500;
+  margin-right: ${({ theme }) => theme.spacing.sm};
+  background-color: #FF6D0022;
+  color: #FF6D00;
 `;
 
 export const ModuleProgress = styled.div`
@@ -80,7 +127,7 @@ export const ProgressFill = styled.div<{ width: number; color: string }>`
 `;
 
 export const TabContainer = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
+  padding-bottom: ${({ theme }) => theme.spacing.md};
 `;
 
 export const TabButtons = styled.div`

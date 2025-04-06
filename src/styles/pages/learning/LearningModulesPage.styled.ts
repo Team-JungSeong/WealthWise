@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Card from '../../../components/common/Card';
 import { getInputSize } from '../../../components/common/Input';
+import Button from 'src/components/common/Button';
 
 export const PageHeader = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.lg};
@@ -84,7 +85,6 @@ export const ModuleCard = styled(Card)`
   flex-direction: column;
   height: 100%;
   transition: transform 0.2s ease-in-out;
-  position: relative;
 
   &:hover {
     transform: translateY(-5px);
@@ -135,7 +135,9 @@ export const ModuleCategory = styled.div<{ category: string }>`
     }
   }};
 `;
-
+export const ModuleMiddleItem = styled.div`
+  height:auto;
+`;
 export const ModuleTitle = styled.h3`
   font-size: 1.25rem;
   font-weight: 600;
@@ -144,6 +146,7 @@ export const ModuleTitle = styled.h3`
 `;
 
 export const ModuleDescription = styled.p`
+  height: 70px;
   color: ${({ theme }) => theme.colors.text}dd;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -151,11 +154,7 @@ export const ModuleDescription = styled.p`
   margin-bottom: ${({ theme }) => theme.spacing.md};
 `;
 export const ModuleBottomItem = styled.div`
-  width:94%;
-  position: absolute;
-  right: 3%;
-  bottom: 22%;
-
+  width: 100%;
 `;
 export const ModuleMeta = styled.div`
   display: flex;
@@ -176,7 +175,6 @@ export const DifficultyBadge = styled.span<{ level: string }>`
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   font-size: 0.75rem;
   font-weight: 500;
-  margin-right: ${({ theme }) => theme.spacing.sm};
   background-color: ${({ level, theme }) => {
     switch (level) {
       case "BEGINNER":
@@ -280,7 +278,23 @@ export const NoResultsIcon = styled.div`
 `;
 
 export const NoResultsText = styled.p`
+
   color: ${({ theme }) => theme.colors.text}aa;
   font-size: 1.125rem;
   margin-bottom: ${({ theme }) => theme.spacing.md};
+`;
+
+export const CustomStatusButton = styled(Button)`
+   margin-top: ${({ theme }) => theme.spacing.md};
+  &:hover {
+    /* 상태별 호버 색상 */
+    ${props => props.variant === 'secondary' && `
+      background-color: rgb(58, 122, 65);
+    `}
+    
+    ${props => props.variant === 'light' && `
+      background-color: rgb(58, 122, 65);
+      color: #FFFFFF;
+    `}
+  }
 `;

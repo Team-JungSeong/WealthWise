@@ -30,6 +30,8 @@ import {
   NoResultsText,
   ModuleTopItem,
   ModuleBottomItem,
+  CustomStatusButton,
+  ModuleMiddleItem,
 } from "../../styles/pages/learning/LearningModulesPage.styled";
 
 const getCategoryLabel = (category: string): string => {
@@ -328,22 +330,7 @@ const LearningModulesPage: React.FC = () => {
       {filteredModules.length > 0 ? (
         <ModulesGrid>
           {filteredModules.map((module) => (
-            <ModuleCard
-              key={module.id}
-              variant="elevated"
-              isHoverable
-              footer={
-                <Link to={`/learning/${module.id}`}>
-                  <Button variant="primary" isFullWidth>
-                    {module.completionStatus === "NOT_STARTED"
-                      ? "시작하기"
-                      : module.completionStatus === "IN_PROGRESS"
-                      ? "계속하기"
-                      : "다시 보기"}
-                  </Button>
-                </Link>
-              }
-            >
+            <ModuleCard key={module.id} variant="elevated" isHoverable>
               <ModuleCardContent>
                 <ModuleTopItem>
                   <ModuleCategory category={module.category}>
@@ -356,8 +343,10 @@ const LearningModulesPage: React.FC = () => {
                   </ModuleMetaItem>
                 </ModuleTopItem>
 
-                <ModuleTitle>{module.title}</ModuleTitle>
-                <ModuleDescription>{module.description}</ModuleDescription>
+                <ModuleMiddleItem>
+                  <ModuleTitle>{module.title}</ModuleTitle>
+                  <ModuleDescription>{module.description}</ModuleDescription>
+                </ModuleMiddleItem>
 
                 <ModuleBottomItem>
                   <ModuleMeta>
@@ -377,6 +366,25 @@ const LearningModulesPage: React.FC = () => {
                       status={module.completionStatus}
                     />
                   </ProgressBar>
+
+                  <Link to={`/learning/${module.id}`}>
+                    <CustomStatusButton
+                      variant={
+                        module.completionStatus === "NOT_STARTED"
+                          ? "secondary"
+                          : module.completionStatus === "IN_PROGRESS"
+                          ? "secondary"
+                          : "light"
+                      }
+                      isFullWidth
+                    >
+                      {module.completionStatus === "NOT_STARTED"
+                        ? "시작하기"
+                        : module.completionStatus === "IN_PROGRESS"
+                        ? "계속하기"
+                        : "다시 보기"}
+                    </CustomStatusButton>
+                  </Link>
                 </ModuleBottomItem>
               </ModuleCardContent>
             </ModuleCard>
