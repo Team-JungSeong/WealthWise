@@ -160,7 +160,7 @@ const LogoutButton = styled.button`
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
 
   const navLinks = [
     { name: "대시보드", path: "/dashboard", requiresAuth: true },
