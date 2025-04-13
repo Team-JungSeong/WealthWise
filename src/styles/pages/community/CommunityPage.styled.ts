@@ -1,3 +1,4 @@
+import Card from 'src/components/common/Card';
 import styled from 'styled-components';
 
 export const PageHeader = styled.div`
@@ -18,7 +19,7 @@ export const PageSubtitle = styled.p`
 
 export const SearchAndFilters = styled.div`
   display: flex;
-  gap: ${({ theme }) => theme.spacing.md};
+  gap: ${({ theme }) => theme.spacing.sm};
   margin-bottom: ${({ theme }) => theme.spacing.lg};
 `;
 
@@ -45,6 +46,7 @@ export const CategoryTabs = styled.div`
   gap: ${({ theme }) => theme.spacing.sm};
   margin-bottom: ${({ theme }) => theme.spacing.lg};
   padding-bottom: ${({ theme }) => theme.spacing.xs};
+  justify-content: space-between;
   
   &::-webkit-scrollbar {
     height: 4px;
@@ -56,9 +58,16 @@ export const CategoryTabs = styled.div`
   }
 `;
 
+export const TabsContainer = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.sm};
+  overflow-x: auto;
+`;
+
 export const CategoryTab = styled.button<{ isActive: boolean }>`
   background-color: ${({ isActive, theme }) => isActive ? theme.colors.primary : 'transparent'};
   border: none;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.md}`};
   color: ${({ isActive }) => isActive ? 'white' : 'inherit'};
   font-weight: ${({ isActive }) => isActive ? '500' : '400'};
@@ -66,11 +75,15 @@ export const CategoryTab = styled.button<{ isActive: boolean }>`
   transition: all 0.2s ease-in-out;
   
   &:hover {
-    background-color: ${({ theme }) => theme.colors.primary}11;
+    background-color: ${({ theme }) => theme.colors.primary}22;
+  }
+  &:focus {
+    background-color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
 export const PostList = styled.div`
+  flex: 1;
   margin-bottom: ${({ theme }) => theme.spacing.xl};
 `;
 
@@ -88,6 +101,9 @@ export const PostItem = styled.div`
 `;
 
 export const PostHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   padding-bottom: ${({ theme }) => theme.spacing.md};
   margin-bottom: ${({ theme }) => theme.spacing.md};
@@ -226,4 +242,10 @@ export const TopicText = styled.span`
 export const TopicCount = styled.span`
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.text}aa;
+`;
+
+export const ContentRow = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.xl};
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
 `;
