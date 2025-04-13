@@ -176,7 +176,7 @@ export const ProgressFill = styled.div<{ width: number; color: string }>`
 `;
 
 export const FormGroup = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.md};
+  //margin-bottom: ${({ theme }) => theme.spacing.md};
   flex: 1;
   max-width: 400px;
 `;
