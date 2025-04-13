@@ -67,6 +67,11 @@ export const RecentItemsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: ${({ theme }) => theme.spacing.md};
+
+  Button {
+    margin-top: ${({ theme }) => theme.spacing.md};
+    padding: ${({ theme }) => theme.spacing.xs};
+  }
   
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     grid-template-columns: repeat(2, 1fr);

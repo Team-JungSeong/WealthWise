@@ -1,7 +1,19 @@
 import styled from 'styled-components';
 
 export const PageHeader = styled.div`
+  font-size: 0.85rem;
   margin-bottom: ${({ theme }) => theme.spacing.lg};
+
+  a {
+    text-decoration: none;
+    font-weight: 700;
+    color: ${({ theme }) => theme.colors.text}aa;
+    
+    &:hover {
+      color: ${({ theme }) => theme.colors.primary};
+      text-decoration: underline;
+    }
+  }
 `;
 
 export const PageTitle = styled.h1`

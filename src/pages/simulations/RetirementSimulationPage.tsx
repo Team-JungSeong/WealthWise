@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Layout from '../../components/common/Layout';
-import Card from '../../components/common/Card';
-import Button from '../../components/common/Button';
-import Input from '../../components/common/Input';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Layout from "../../components/common/Layout";
+import Card from "../../components/common/Card";
+import Button from "../../components/common/Button";
+import Input from "../../components/common/Input";
 import {
   PageHeader,
   PageTitle,
@@ -18,34 +18,34 @@ import {
   Slider,
   ActionButtons,
   ResultsContainer,
-  ResultValue
-} from '../../styles/pages/simulations/RetirementSimulationPage.styled';
+  ResultValue,
+} from "../../styles/pages/simulations/RetirementSimulationPage.styled";
 
 const RetirementSimulationPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  
+
   // 시뮬레이션 파라미터
-  const [currentAge, setCurrentAge] = useState('30');
-  const [retirementAge, setRetirementAge] = useState('65');
-  const [lifeExpectancy, setLifeExpectancy] = useState('85');
-  const [currentSavings, setCurrentSavings] = useState('10000000');
-  const [monthlySavings, setMonthlySavings] = useState('500000');
-  const [expectedReturn, setExpectedReturn] = useState('6');
-  const [inflationRate, setInflationRate] = useState('3');
-  const [monthlyExpenses, setMonthlyExpenses] = useState('3000000');
-  
+  const [currentAge, setCurrentAge] = useState("30");
+  const [retirementAge, setRetirementAge] = useState("65");
+  const [lifeExpectancy, setLifeExpectancy] = useState("85");
+  const [currentSavings, setCurrentSavings] = useState("10000000");
+  const [monthlySavings, setMonthlySavings] = useState("500000");
+  const [expectedReturn, setExpectedReturn] = useState("6");
+  const [inflationRate, setInflationRate] = useState("3");
+  const [monthlyExpenses, setMonthlyExpenses] = useState("3000000");
+
   const handleNextStep = () => {
-    setCurrentStep(prev => Math.min(prev + 1, 3));
+    setCurrentStep((prev) => Math.min(prev + 1, 3));
   };
-  
+
   const handlePreviousStep = () => {
-    setCurrentStep(prev => Math.max(prev - 1, 1));
+    setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
-  
+
   const formatCurrency = (value: number) => {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원';
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
   };
-  
+
   // 은퇴 시뮬레이션 계산
   const calculateRetirementResults = () => {
     const currentAgeValue = parseInt(currentAge) || 30;
@@ -56,41 +56,50 @@ const RetirementSimulationPage: React.FC = () => {
     const expectedReturnValue = parseFloat(expectedReturn) || 0;
     const inflationRateValue = parseFloat(inflationRate) || 0;
     const monthlyExpensesValue = parseFloat(monthlyExpenses) || 0;
-    
+
     // 은퇴까지 남은 연수
     const yearsToRetirement = retirementAgeValue - currentAgeValue;
-    
+
     // 은퇴 기간 연수
     const retirementDuration = lifeExpectancyValue - retirementAgeValue;
-    
+
     // 인플레이션 반영 은퇴 생활비 (월)
-    const inflatedMonthlyExpenses = monthlyExpensesValue * Math.pow(1 + inflationRateValue / 100, yearsToRetirement);
-    
+    const inflatedMonthlyExpenses =
+      monthlyExpensesValue *
+      Math.pow(1 + inflationRateValue / 100, yearsToRetirement);
+
     // 은퇴 필요 자금 (인출율 4% 가정)
     const withdrawalRate = 0.04; // 연 4%
-    const requiredRetirementFund = (inflatedMonthlyExpenses * 12) / withdrawalRate;
-    
+    const requiredRetirementFund =
+      (inflatedMonthlyExpenses * 12) / withdrawalRate;
+
     // 은퇴시 예상 저축액
     const monthlyRate = expectedReturnValue / 100 / 12;
     const totalMonths = yearsToRetirement * 12;
-    
+
     let projectedSavings = currentSavingsValue;
     for (let i = 0; i < totalMonths; i++) {
-      projectedSavings = (projectedSavings + monthlySavingsValue) * (1 + monthlyRate);
+      projectedSavings =
+        (projectedSavings + monthlySavingsValue) * (1 + monthlyRate);
     }
-    
+
     // 목표 달성률
-    const achievementRate = Math.min(100, (projectedSavings / requiredRetirementFund) * 100);
-    
+    const achievementRate = Math.min(
+      100,
+      (projectedSavings / requiredRetirementFund) * 100
+    );
+
     // 월 추가 저축 필요액
     let additionalSavingsNeeded = 0;
     if (projectedSavings < requiredRetirementFund) {
       // 간단한 근사치 계산 (실제로는 더 복잡한 계산이 필요)
       const shortfall = requiredRetirementFund - projectedSavings;
-      const futureValueFactor = ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) * (1 + monthlyRate);
+      const futureValueFactor =
+        ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) *
+        (1 + monthlyRate);
       additionalSavingsNeeded = shortfall / futureValueFactor;
     }
-    
+
     return {
       yearsToRetirement,
       retirementDuration,
@@ -98,7 +107,7 @@ const RetirementSimulationPage: React.FC = () => {
       requiredRetirementFund: Math.round(requiredRetirementFund),
       projectedSavings: Math.round(projectedSavings),
       achievementRate: Math.round(achievementRate),
-      additionalSavingsNeeded: Math.round(additionalSavingsNeeded)
+      additionalSavingsNeeded: Math.round(additionalSavingsNeeded),
     };
   };
 
@@ -107,14 +116,15 @@ const RetirementSimulationPage: React.FC = () => {
   return (
     <Layout>
       <PageHeader>
-        <Link to="/simulations">← 모든 시뮬레이션으로 돌아가기</Link>
+        <Link to="/simulations">&lt; 모든 시뮬레이션으로 돌아가기</Link>
         <PageTitle>은퇴 시뮬레이션</PageTitle>
         <PageSubtitle>
-          은퇴 후 필요한 자금과 현재 저축 계획으로 목표 달성 가능 여부를 확인합니다.
-          편안한 노후 생활을 위한 최적의 저축 및 투자 계획을 세워보세요.
+          은퇴 후 필요한 자금과 현재 저축 계획으로 목표 달성 가능 여부를
+          확인합니다. 편안한 노후 생활을 위한 최적의 저축 및 투자 계획을
+          세워보세요.
         </PageSubtitle>
       </PageHeader>
-      
+
       <Card variant="elevated">
         {currentStep === 1 && (
           <FormContainer>
@@ -209,8 +219,12 @@ const RetirementSimulationPage: React.FC = () => {
               </FormCol>
             </FormRow>
             <ActionButtons>
-              <Button variant="light" onClick={handlePreviousStep}>이전</Button>
-              <Button variant="primary" onClick={handleNextStep}>다음</Button>
+              <Button variant="light" onClick={handlePreviousStep}>
+                이전
+              </Button>
+              <Button variant="primary" onClick={handleNextStep}>
+                다음
+              </Button>
             </ActionButtons>
           </FormContainer>
         )}
@@ -241,8 +255,12 @@ const RetirementSimulationPage: React.FC = () => {
               />
             </SliderContainer>
             <ActionButtons>
-              <Button variant="light" onClick={handlePreviousStep}>이전</Button>
-              <Button variant="primary" onClick={handleNextStep}>다음</Button>
+              <Button variant="light" onClick={handlePreviousStep}>
+                이전
+              </Button>
+              <Button variant="primary" onClick={handleNextStep}>
+                다음
+              </Button>
             </ActionButtons>
           </FormContainer>
         )}
@@ -255,7 +273,9 @@ const RetirementSimulationPage: React.FC = () => {
               </ResultValue>
             </ResultsContainer>
             <ActionButtons>
-              <Button variant="light" onClick={handlePreviousStep}>이전</Button>
+              <Button variant="light" onClick={handlePreviousStep}>
+                이전
+              </Button>
               <Button variant="primary">결과 저장하기</Button>
             </ActionButtons>
           </FormContainer>
@@ -265,4 +285,4 @@ const RetirementSimulationPage: React.FC = () => {
   );
 };
 
-export default RetirementSimulationPage; 
+export default RetirementSimulationPage;
