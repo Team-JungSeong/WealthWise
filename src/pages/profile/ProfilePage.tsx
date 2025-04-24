@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../../components/common/Layout';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
+import { useAuth } from '../../context/AuthContext';
 import {
   PageHeader,
   PageTitle,
@@ -15,7 +17,6 @@ import {
   ProfileAvatar,
   ProfileInfo,
   ProfileName,
-  ProfileEmail,
   ProgressContainer,
   ProgressHeader,
   ProgressTitle,
@@ -23,13 +24,18 @@ import {
   ProgressBar,
   ProgressFill,
   FormGroup,
-  FormRow
+  ProfileImage,
+  AvatarOverlay,
+  AvatarIcon,
+  ButtonGroup,
+  FileInput,
+  ProfileInfoRow,
+  ProfileInfoLabel,
+  ProfileInfoValue
 } from '../../styles/pages/profile/ProfilePage.styled';
 
 // 사용자 프로필 데이터 (임시)
 const profileData = {
-  name: '김미래',
-  email: 'future.kim@example.com',
   joinDate: '2023년 3월 15일',
   completedModules: 5,
   totalModules: 12,
@@ -44,8 +50,90 @@ const profileData = {
 
 const ProfilePage: React.FC = () => {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [name, setName] = useState(profileData.name);
-  
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(true);
+  const [updateLoading, setUpdateLoading] = useState(false);
+  const navigate = useNavigate();
+  const { user, isAuthenticated, updateUserProfile } = useAuth();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // 사용자 정보가 로드되면 상태 업데이트
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+      setAvatarPreview(user.avatar);
+      setIsLoading(false);
+    } else if (!isLoading) {
+      // 사용자가 로그인하지 않은 경우 로그인 페이지로 리디렉션
+      navigate('/login');
+    }
+  }, [user, isAuthenticated, navigate, isLoading]);
+
+  const handleAvatarClick = () => {
+    if (isEditMode && fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setAvatarFile(file);
+      // 미리보기 URL 생성
+      const previewURL = URL.createObjectURL(file);
+      setAvatarPreview(previewURL);
+    }
+  };
+
+  const handleSubmit = async () => {
+    setUpdateLoading(true);
+    try {
+      const success = await updateUserProfile({
+        name,
+        avatar: avatarFile || undefined
+      });
+      
+      if (success) {
+        // 업데이트 성공 시 편집 모드 종료
+        setIsEditMode(false);
+        setAvatarFile(null);
+      } else {
+        console.error('프로필 업데이트 실패');
+      }
+    } catch (error) {
+      console.error('프로필 업데이트 중 오류 발생:', error);
+    } finally {
+      setUpdateLoading(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsEditMode(false);
+    setName(user?.name || '');
+    setAvatarPreview(user?.avatar);
+    setAvatarFile(null);
+    
+    // 미리보기 URL 해제
+    if (avatarPreview && !user?.avatar) {
+      URL.revokeObjectURL(avatarPreview);
+    }
+  };
+
+  // 로딩 중이거나 사용자 정보가 없는 경우 로딩 표시
+  if (isLoading || !user) {
+    return (
+      <Layout>
+        <div style={{ textAlign: 'center', padding: '50px' }}>
+          <p>로딩 중...</p>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <PageHeader>
@@ -56,28 +144,86 @@ const ProfilePage: React.FC = () => {
       <ProfileContainer>
         <ProfileCard variant="elevated">
           <ProfileHeader>
-            <ProfileAvatar>
-              {/* 실제 이미지가 있다면 이미지를 사용, 없으면 이니셜 표시 */}
-              {/* <ProfileImage src="프로필이미지URL" alt="프로필 이미지" /> */}
-              {profileData.name.charAt(0)}
+            <ProfileAvatar onClick={handleAvatarClick}>
+              {avatarPreview ? (
+                <ProfileImage src={avatarPreview} alt="프로필 이미지" />
+              ) : (
+                name.charAt(0)
+              )}
+              
+              {isEditMode && (
+                <AvatarOverlay>
+                  <AvatarIcon>📷</AvatarIcon>
+                </AvatarOverlay>
+              )}
+              
+              <FileInput
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                ref={fileInputRef}
+              />
             </ProfileAvatar>
             
             <ProfileInfo>
               {isEditMode ? (
-                <FormGroup>
-                  <Input
-                    label="이름"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </FormGroup>
+                <>
+                  <ProfileInfoRow>
+                    <ProfileInfoLabel>이름</ProfileInfoLabel>
+                    <FormGroup>
+                      <Input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        isFullWidth
+                      />
+                    </FormGroup>
+                  </ProfileInfoRow>
+                  
+                  <ProfileInfoRow>
+                    <ProfileInfoLabel>이메일</ProfileInfoLabel>
+                    <FormGroup>
+                      <Input
+                        type="email"
+                        value={email}
+                        disabled
+                        isFullWidth
+                      />
+                    </FormGroup>
+                  </ProfileInfoRow>
+                  
+                  <ButtonGroup>
+                    <Button
+                      variant="primary"
+                      onClick={handleSubmit}
+                      isLoading={updateLoading}
+                    >
+                      저장하기
+                    </Button>
+                    <Button
+                      variant="light"
+                      onClick={handleCancel}
+                      disabled={updateLoading}
+                    >
+                      취소
+                    </Button>
+                  </ButtonGroup>
+                </>
               ) : (
                 <>
-                  <ProfileName>{profileData.name}</ProfileName>
-                  <ProfileEmail>{profileData.email}</ProfileEmail>
+                  <ProfileName>{name}</ProfileName>
+                  <ProfileInfoRow>
+                    <ProfileInfoLabel>이메일</ProfileInfoLabel>
+                    <ProfileInfoValue>{email}</ProfileInfoValue>
+                  </ProfileInfoRow>
+                  <ProfileInfoRow>
+                    <ProfileInfoLabel>가입일</ProfileInfoLabel>
+                    <ProfileInfoValue>{profileData.joinDate}</ProfileInfoValue>
+                  </ProfileInfoRow>
                   <Button
                     variant="primary"
                     onClick={() => setIsEditMode(true)}
+                    style={{ maxWidth:'300px'}}
                   >
                     프로필 편집
                   </Button>
@@ -86,37 +232,7 @@ const ProfilePage: React.FC = () => {
             </ProfileInfo>
           </ProfileHeader>
           
-          {isEditMode ? (
-            <div>
-              <FormRow>
-                <Input
-                  label="이메일"
-                  type="email"
-                  value={profileData.email}
-                  disabled
-                  isFullWidth
-                />
-              </FormRow>
-              
-              <FormRow>
-                <Button
-                  variant="primary"
-                  onClick={() => setIsEditMode(false)}
-                >
-                  저장하기
-                </Button>
-                <Button
-                  variant="light"
-                  onClick={() => {
-                    setIsEditMode(false);
-                    setName(profileData.name);
-                  }}
-                >
-                  취소
-                </Button>
-              </FormRow>
-            </div>
-          ) : (
+          {!isEditMode && (
             <div>
               <ProgressContainer>
                 <ProgressHeader>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth } from "../../context/AuthContext";
 
 const HeaderContainer = styled.header`
   background-color: ${({ theme }) => theme.colors.background};
@@ -123,17 +124,56 @@ const ActionButton = styled(RouterLink)`
   }
 `;
 
+const SecondaryButton = styled(RouterLink)`
+  border: 1px solid ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
+  background-color: transparent;
+  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.md}`};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  margin-left: ${({ theme }) => theme.spacing.md};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary}11;
+  }
+`;
+
+const LogoutButton = styled.button`
+  background-color: transparent;
+  color: ${({ theme }) => theme.colors.danger};
+  border: 1px solid ${({ theme }) => theme.colors.danger};
+  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.md}`};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  margin-left: ${({ theme }) => theme.spacing.md};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.danger}11;
+  }
+`;
+
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { isAuthenticated, logout } = useAuth();
 
   const navLinks = [
-    { name: "대시보드", path: "/dashboard" },
-    { name: "학습", path: "/learning" },
-    { name: "시뮬레이션", path: "/simulations" },
-    { name: "커뮤니티", path: "/community" },
-    { name: "전문가", path: "/experts" },
+    { name: "대시보드", path: "/dashboard", requiresAuth: true },
+    { name: "학습", path: "/learning", requiresAuth: false },
+    { name: "시뮬레이션", path: "/simulations", requiresAuth: false },
+    { name: "커뮤니티", path: "/community", requiresAuth: false },
+    { name: "전문가", path: "/experts", requiresAuth: false },
   ];
+
+  // 로그인 상태에 따라 표시할 링크 필터링
+  const filteredNavLinks = navLinks.filter(link => 
+    !link.requiresAuth || (link.requiresAuth && isAuthenticated)
+  );
 
   const isActivePath = (path: string) => {
     if (path === "/") {
@@ -150,6 +190,11 @@ const Header: React.FC = () => {
     }
   };
 
+  const handleLogout = async () => {
+    await logout();
+    navigateTo('/');
+  };
+
   return (
     <HeaderContainer>
       <LogoLink to="/" onClick={(e) => {
@@ -160,7 +205,7 @@ const Header: React.FC = () => {
       </LogoLink>
 
       <NavLinksContainer>
-        {navLinks.map((link) => (
+        {filteredNavLinks.map((link) => (
           <NavLink
             key={link.path}
             to={link.path}
@@ -173,12 +218,44 @@ const Header: React.FC = () => {
             {link.name}
           </NavLink>
         ))}
-        <ActionButton to="/profile" onClick={(e) => {
-          e.preventDefault();
-          navigateTo("/profile");
-        }}>
-          내 프로필
-        </ActionButton>
+        
+        {isAuthenticated ? (
+          <>
+            <ActionButton 
+              to="/profile" 
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo("/profile");
+              }}
+            >
+              내 프로필
+            </ActionButton>
+            <LogoutButton onClick={handleLogout}>
+              로그아웃
+            </LogoutButton>
+          </>
+        ) : (
+          <>
+            <ActionButton 
+              to="/login" 
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo("/login");
+              }}
+            >
+              로그인
+            </ActionButton>
+            <SecondaryButton 
+              to="/signup" 
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo("/signup");
+              }}
+            >
+              회원가입
+            </SecondaryButton>
+          </>
+        )}
       </NavLinksContainer>
 
       <MobileMenuButton onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
@@ -186,7 +263,7 @@ const Header: React.FC = () => {
       </MobileMenuButton>
 
       <MobileMenu $isOpen={isMobileMenuOpen}>
-        {navLinks.map((link) => (
+        {filteredNavLinks.map((link) => (
           <MobileNavLink
             key={link.path}
             to={link.path}
@@ -200,17 +277,58 @@ const Header: React.FC = () => {
             {link.name}
           </MobileNavLink>
         ))}
-        <MobileNavLink
-          to="/profile"
-          $isActive={isActivePath("/profile")}
-          onClick={(e) => {
-            e.preventDefault();
-            navigateTo("/profile");
-            setIsMobileMenuOpen(false);
-          }}
-        >
-          내 프로필
-        </MobileNavLink>
+        
+        {isAuthenticated ? (
+          <>
+            <MobileNavLink
+              to="/profile"
+              $isActive={isActivePath("/profile")}
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo("/profile");
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              내 프로필
+            </MobileNavLink>
+            <MobileNavLink
+              to="/"
+              $isActive={false}
+              onClick={(e) => {
+                e.preventDefault();
+                handleLogout();
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              로그아웃
+            </MobileNavLink>
+          </>
+        ) : (
+          <>
+            <MobileNavLink
+              to="/login"
+              $isActive={isActivePath("/login")}
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo("/login");
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              로그인
+            </MobileNavLink>
+            <MobileNavLink
+              to="/signup"
+              $isActive={isActivePath("/signup")}
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo("/signup");
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              회원가입
+            </MobileNavLink>
+          </>
+        )}
       </MobileMenu>
     </HeaderContainer>
   );

@@ -75,7 +75,7 @@ const CardSubtitle = styled.p`
 `;
 
 const CardBody = styled.div`
-  padding: ${({ theme }) => theme.spacing.md};
+  padding: ${({ theme }) => theme.spacing.lg};
 `;
 
 const CardFooter = styled.div`
