@@ -4,15 +4,14 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 // Firebase 구성 정보
-// 실제 프로젝트에서는 환경 변수로 관리하는 것이 더 안전합니다.
 const firebaseConfig = {
-  apiKey: "AIzaSyBjGukVD8YPNh0tEq4Ud0mXzsvXkQhpq4s",
-  authDomain: "wealthwise-71d31.firebaseapp.com",
-  projectId: "wealthwise-71d31",
-  storageBucket: "wealthwise-71d31.firebasestorage.app",
-  messagingSenderId: "126422253161",
-  appId: "1:126422253161:web:e01ecea95a0fe5bd612cf8",
-  measurementId: "G-FKHLYLLP53"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 // Firebase 앱 초기화
