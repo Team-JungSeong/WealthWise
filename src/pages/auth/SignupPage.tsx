@@ -54,7 +54,6 @@ const SignupPage: React.FC = () => {
     
     try {
       setIsLoading(true);
-      console.log('회원가입 함수 호출:', { email, password, name });
       const result = await signup(email, password, name);
       if (result) {
         navigate('/');
