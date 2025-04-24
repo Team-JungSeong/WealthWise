@@ -6,13 +6,13 @@ import { getStorage } from 'firebase/storage';
 // Firebase 구성 정보
 // 실제 프로젝트에서는 환경 변수로 관리하는 것이 더 안전합니다.
 const firebaseConfig = {
-  apiKey: "AIzaSyDifrzjP4UbwrjMwvDdxeJEZ55oyn2VXl8",
-  authDomain: "wealthwise-14208.firebaseapp.com",
-  projectId: "wealthwise-14208",
-  storageBucket: "wealthwise-14208.appspot.com",
-  messagingSenderId: "957493961648",
-  appId: "1:957493961648:web:cdabfc71a3c511ed47ac75",
-  measurementId: "G-59DPV3PXWK"
+  apiKey: "AIzaSyBjGukVD8YPNh0tEq4Ud0mXzsvXkQhpq4s",
+  authDomain: "wealthwise-71d31.firebaseapp.com",
+  projectId: "wealthwise-71d31",
+  storageBucket: "wealthwise-71d31.firebasestorage.app",
+  messagingSenderId: "126422253161",
+  appId: "1:126422253161:web:e01ecea95a0fe5bd612cf8",
+  measurementId: "G-FKHLYLLP53"
 };
 
 // Firebase 앱 초기화
