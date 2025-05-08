@@ -33,6 +33,7 @@ export const FilterGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.sm};
+  min-width: 200px;
 `;
 
 export const FilterLabel = styled.label`
@@ -42,6 +43,7 @@ export const FilterLabel = styled.label`
 `;
 
 export const FilterSelect = styled.select`
+  height: 42px;
   padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.md}`};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.md};
@@ -49,7 +51,14 @@ export const FilterSelect = styled.select`
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.text};
   background-color: white;
-  min-width: 200px;
+  width: 200px;
+
+  /* 화살표 위치 조정을 위한 스타일 추가 */
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
   
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary};
@@ -58,8 +67,11 @@ export const FilterSelect = styled.select`
 `;
 
 export const SearchContainer = styled.div`
-  flex: 1;
-  min-width: 300px;
+  min-width: 500px;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.sm};
 `;
 
 export const ExpertsGrid = styled.div`
@@ -80,6 +92,9 @@ export const ExpertCard = styled(Card)`
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 300px;
+  position: relative;
+  padding-bottom: 10px;
 `;
 
 export const ExpertHeader = styled.div`
@@ -98,7 +113,6 @@ export const ExpertAvatar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
   color: ${({ theme }) => theme.colors.primary};
 `;
 
@@ -141,10 +155,16 @@ export const Price = styled.div`
 `;
 
 export const ExpertBio = styled.p`
+  height: 100px;
   margin: 0 0 ${({ theme }) => theme.spacing.md};
   line-height: 1.6;
   color: ${({ theme }) => theme.colors.text};
   flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; // 최대 3줄로 제한
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const SpecialtiesList = styled.div`
@@ -153,7 +173,6 @@ export const SpecialtiesList = styled.div`
   gap: ${({ theme }) => theme.spacing.xs};
   margin-bottom: ${({ theme }) => theme.spacing.md};
 `;
-
 export const SpecialtyTag = styled.span`
   background-color: ${({ theme }) => theme.colors.primary}11;
   color: ${({ theme }) => theme.colors.primary};
@@ -164,7 +183,11 @@ export const SpecialtyTag = styled.span`
 `;
 
 export const ActionButton = styled(Button)`
-  width: 100%;
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  margin: 0 20px;
+  width: calc(100% - 40px);
 `;
 
 export const NoResultsContainer = styled.div`
