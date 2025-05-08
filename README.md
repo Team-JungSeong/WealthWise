@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# WealthWise
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![WealthWise Logo](./public/wealthwise-finance-bold-icon.ico)
 
-## Available Scripts
+**WealthWise**는 금융 교육, 시뮬레이션, 커뮤니티, 전문가 상담 등 다양한 기능을 제공하는 종합 자산 관리 및 금융 학습 플랫폼입니다.
 
-In the project directory, you can run:
+React, TypeScript, Redux, Firebase 등 최신 웹 기술을 활용하여 개발되었습니다.
 
-### `npm start`
+## 주요 기능
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **대시보드**: 자산 현황, 목표, 금융 데이터 시각화
+- **시뮬레이션**: 다양한 금융 시나리오 체험 및 분석
+- **금융 학습**: 금융 지식, 투자, 자산 관리 등 교육 콘텐츠 제공
+- **커뮤니티**: 사용자 간 정보 공유 및 소통
+- **전문가 상담**: 금융 전문가와의 1:1 상담 기능
+- **프로필 관리**: 개인 정보, 자산, 목표 설정 및 관리
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 기술 스택
 
-### `npm test`
+- **Frontend**: React, TypeScript, Redux, Styled-components, D3.js
+- **Backend/Cloud**: Firebase (인증, DB, 호스팅)
+- **기타**: React Router, Axios, Jest, Testing Library
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 폴더 구조
 
-### `npm run build`
+```
+src/
+  components/      # 공통 UI 컴포넌트
+    common/        # Header, Footer, Button 등
+  context/         # 전역 상태 관리
+  data/            # 데이터 관련 파일
+  firebase/        # Firebase 설정
+  hooks/           # 커스텀 훅
+  pages/           # 주요 페이지 (dashboard, simulations, learning, community, experts, profile, auth 등)
+  styles/          # 스타일 파일
+  types/           # 타입 정의
+  App.tsx          # 앱 엔트리포인트
+  index.tsx        # 렌더링 엔트리포인트
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 설치 및 실행 방법
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **의존성 설치**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm install
+```
 
-### `npm run eject`
+2. **개발 서버 실행**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+브라우저에서 http://localhost:3000 접속
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. **테스트 실행**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm test
+```
 
-## Learn More
+4. **프로덕션 빌드**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm run build
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 기여 방법
 
-### Code Splitting
+1. 이슈 등록 및 포크(Fork)
+2. 새로운 브랜치 생성 (feature/your-feature)
+3. 코드 작성 및 커밋
+4. Pull Request 생성
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 라이선스
 
-### Analyzing the Bundle Size
+본 프로젝트는 MIT 라이선스를 따릅니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 문의
 
-### Making a Progressive Web App
+팀원 연락처
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- 프론트엔드/데이터: [이성운 - sw0523_dr@kakao.com]
+- 프론트엔드/UI: [홍민정 - hminjung99@gmail.com]
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+GitHub 이슈를 통해서도 문의해주세요.
