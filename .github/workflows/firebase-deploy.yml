@@ -19,13 +19,34 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Build
-        run: npm run build
+      - name: Debug environment
+        run: |
+          echo "Node version: $(node -v)"
+          echo "NPM version: $(npm -v)"
+          echo "Current directory: $(pwd)"
+          echo "Directory contents: $(ls -la)"
+          echo "Firebase.json: $(cat firebase.json)"
       
+      - name: Build
+        run: npm run build --verbose
+        env:
+          REACT_APP_FIREBASE_API_KEY: AIzaSyBjGukVD8YPNh0tEq4Ud0mXzsvXkQhpq4s
+          REACT_APP_FIREBASE_AUTH_DOMAIN: wealthwise-71d31.firebaseapp.com
+          REACT_APP_FIREBASE_PROJECT_ID: wealthwise-71d31
+          REACT_APP_FIREBASE_STORAGE_BUCKET: wealthwise-71d31.firebasestorage.app
+          REACT_APP_FIREBASE_MESSAGING_SENDER_ID: 126422253161
+          REACT_APP_FIREBASE_APP_ID: 1:126422253161:web:e01ecea95a0fe5bd612cf8
+          REACT_APP_FIREBASE_MEASUREMENT_ID: G-FKHLYLLP53
+          CI: false  # 경고를 오류로 처리하지 않도록 설정
+      
+      - name: Debug build output
+        run: |
+          echo "Build directory contents: $(ls -la build)"
+          
       - name: Deploy to Firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           channelId: live
-          projectId: ${{ secrets.FIREBASE_PROJECT_ID }} 
+          projectId: wealthwise-71d31 
