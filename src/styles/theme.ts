@@ -1,55 +1,10 @@
-export interface Theme {
-  colors: {
-    primary: string;
-    secondary: string;
-    success: string;
-    warning: string;
-    danger: string;
-    info: string;
-    light: string;
-    dark: string;
-    background: string;
-    text: string;
-    border: string;
-  };
-  fonts: {
-    primary: string;
-    heading: string;
-  };
-  breakpoints: {
-    sm: string;
-    md: string;
-    lg: string;
-  };
-  spacing: {
-    xs: string;
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
-  };
-  borderRadius: {
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
-    circle: string;
-  };
-  shadows: {
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
-  };
-}
-
-const theme: Theme = {
+const theme = {
   colors: {
     primary: "#3A7A41",
-    secondary: "#82D878",
-    success: "#2E7D32",
+    secondary: "rgba(58, 122, 65, 0.89)",
+    success: "#2E8D32",
     warning: "#FFC107",
-    danger: "#E64A19",
+    danger: "#FF0000",
     info: "#2196F3",
     light: "#F5F5F5",
     dark: "#333333",
@@ -65,6 +20,7 @@ const theme: Theme = {
     sm: "576px",
     md: "768px",
     lg: "992px",
+    // xl: "1200px",
   },
   spacing: {
     xs: "4px",
