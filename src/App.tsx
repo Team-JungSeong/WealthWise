@@ -19,6 +19,8 @@ import RetirementSimulationPage from "./pages/simulations/RetirementSimulationPa
 import CommunityPage from "./pages/community/CommunityPage";
 import ForumPostDetailPage from "./pages/community/ForumPostDetailPage";
 import LoanSimulationPage from "./pages/simulations/LoanSimulationPage";
+import LoginPage from "./pages/auth/LoginPage";
+import SignupPage from "./pages/auth/SignupPage";
 
 const AppContainer = styled.div`
   font-family: ${({ theme }) => theme.fonts.primary};
@@ -65,6 +67,8 @@ const App: React.FC = () => {
                 element={<ForumPostDetailPage />}
               />
               <Route path="/experts" element={<ExpertsPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
             </Routes>
           </Router>
         </AppContainer>
