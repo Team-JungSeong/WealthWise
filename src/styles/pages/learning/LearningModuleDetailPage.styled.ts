@@ -65,8 +65,8 @@ export const ModuleBadges = styled.div`
 `;
 
 export const DetailModuleCategory = styled(ModuleCategory)`
-  background-color: ${({ $category, theme }) => {
-    switch ($category) {
+  background-color: ${({ category, theme }) => {
+    switch (category) {
       case "BASIC_FINANCE":
         return `${theme.colors.primary}22`;
       case "BUDGETING":

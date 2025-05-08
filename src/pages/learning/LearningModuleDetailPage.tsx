@@ -197,7 +197,7 @@ const LearningModuleDetailPage: React.FC = () => {
 
               <ModuleBadges>
                 {/* 카테고리 뱃지 */}
-                <DetailModuleCategory $category={moduleData.category}>
+                <DetailModuleCategory category={moduleData.category}>
                   {moduleData.category === LearningCategory.BasicFinance &&
                     "금융 기초"}
                   {moduleData.category === LearningCategory.Budgeting &&
@@ -218,7 +218,7 @@ const LearningModuleDetailPage: React.FC = () => {
                 </DetailModuleCategory>
 
                 {/* 난이도 뱃지 */}
-                <DifficultyBadge $level={moduleData.difficulty}>
+                <DifficultyBadge level={moduleData.difficulty}>
                   {moduleData.difficulty === DifficultyLevel.Beginner && "초급"}
                   {moduleData.difficulty === DifficultyLevel.Intermediate &&
                     "중급"}
