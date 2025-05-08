@@ -84,4 +84,4 @@ npm run build
 - 프론트엔드 / 데이터: [이성운 - sw0523_dr@kakao.com]
 - 프론트엔드 / UI: [홍민정 - hminjung99@gmail.com]
 
-GitHub 이슈를 통해서도 문의해주세요.
+GitHub 이슈를 통해서도 문의해주세요!
