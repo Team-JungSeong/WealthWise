@@ -123,7 +123,7 @@ const SocialLink = styled.a`
 
   &:hover,
   &:focus {
-    color: blue;
+    text-decoration: underline ${({ theme }) => theme.colors.light};
   }
 `;
 
@@ -145,12 +145,11 @@ const Footer: React.FC = () => {
             <FooterLink to="/learning">학습 모듈</FooterLink>
             <FooterLink to="/simulations">시뮬레이션</FooterLink>
             <FooterLink to="/community">커뮤니티</FooterLink>
-            <FooterLink to="/experts">전문가 연결</FooterLink>
+            <FooterLink to="/experts">전문가</FooterLink>
           </Column>
 
           <Column>
             <Title>리소스</Title>
-            <FooterLink to="/blog">블로그</FooterLink>
             <FooterLink to="/faq">자주 묻는 질문</FooterLink>
             <FooterLink to="/glossary">금융 용어 사전</FooterLink>
             <FooterLink to="/guides">가이드</FooterLink>

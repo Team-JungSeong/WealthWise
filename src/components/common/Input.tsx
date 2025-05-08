@@ -1,10 +1,11 @@
-import React, { forwardRef } from 'react';
-import styled, { css } from 'styled-components';
+import React, { forwardRef } from "react";
+import styled, { css } from "styled-components";
 
-type InputSize = 'sm' | 'md' | 'lg';
-type InputVariant = 'outlined' | 'filled' | 'underlined';
+type InputSize = "sm" | "md" | "lg";
+type InputVariant = "outlined" | "filled" | "underlined";
 
-interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+interface InputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
   label?: string;
   helperText?: string;
   errorText?: string;
@@ -16,7 +17,7 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, '
   isLoading?: boolean;
 }
 
-const getInputSize = ($size: InputSize, theme: any) => {
+export const getInputSize = ($size: InputSize, theme: any) => {
   const sizes = {
     sm: css`
       height: 32px;
@@ -28,6 +29,7 @@ const getInputSize = ($size: InputSize, theme: any) => {
       padding: 0 ${theme.spacing.md};
       font-size: 1rem;
     `,
+
     lg: css`
       height: 48px;
       padding: 0 ${theme.spacing.lg};
@@ -38,16 +40,20 @@ const getInputSize = ($size: InputSize, theme: any) => {
   return sizes[$size];
 };
 
-const getInputVariant = ($variant: InputVariant, theme: any, $hasError: boolean) => {
+const getInputVariant = (
+  $variant: InputVariant,
+  theme: any,
+  $hasError: boolean
+) => {
   const errorColor = theme.colors.danger;
   const borderColor = $hasError ? errorColor : theme.colors.border;
   const focusBorderColor = $hasError ? errorColor : theme.colors.primary;
-  
+
   const variants = {
     outlined: css`
       border: 1px solid ${borderColor};
       background-color: transparent;
-      
+
       &:focus {
         border-color: ${focusBorderColor};
         box-shadow: 0 0 0 1px ${focusBorderColor};
@@ -56,7 +62,7 @@ const getInputVariant = ($variant: InputVariant, theme: any, $hasError: boolean)
     filled: css`
       border: none;
       background-color: ${$hasError ? `${errorColor}11` : theme.colors.light};
-      
+
       &:focus {
         box-shadow: 0 0 0 1px ${focusBorderColor};
       }
@@ -66,7 +72,7 @@ const getInputVariant = ($variant: InputVariant, theme: any, $hasError: boolean)
       border-bottom: 1px solid ${borderColor};
       border-radius: 0;
       background-color: transparent;
-      
+
       &:focus {
         border-bottom-color: ${focusBorderColor};
       }
@@ -80,16 +86,13 @@ const Container = styled.div<{ $isFullWidth: boolean }>`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: ${({ $isFullWidth }) => ($isFullWidth ? '100%' : 'auto')};
+  width: ${({ $isFullWidth }) => ($isFullWidth ? "100%" : "auto")};
 `;
 
 const Label = styled.label<{ $size: InputSize }>`
   margin-bottom: ${({ theme }) => theme.spacing.xs};
-  font-size: ${({ $size }) => 
-    $size === 'sm' ? '0.75rem' : 
-    $size === 'md' ? '0.875rem' : 
-    '1rem'
-  };
+  font-size: ${({ $size }) =>
+    $size === "sm" ? "0.75rem" : $size === "md" ? "0.875rem" : "1rem"};
   font-weight: 500;
   color: ${({ theme }) => theme.colors.dark};
 `;
@@ -106,41 +109,45 @@ const StyledInput = styled.input<{
   color: ${({ theme }) => theme.colors.text};
   transition: all 0.2s ease-in-out;
   outline: none;
-  width: 100%;
-  
+  // width: 100%;
+
   &::placeholder {
     color: ${({ theme }) => theme.colors.text}88;
   }
-  
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
-  
+
   ${({ $size, theme }) => getInputSize($size, theme)}
-  ${({ $variant, theme, $hasError }) => getInputVariant($variant, theme, $hasError)}
-  
-  ${({ $hasLeftIcon }) => $hasLeftIcon && css`
-    padding-left: 40px;
-  `}
-  
-  ${({ $hasRightIcon }) => $hasRightIcon && css`
-    padding-right: 40px;
-  `}
+  ${({ $variant, theme, $hasError }) =>
+    getInputVariant($variant, theme, $hasError)}
+
+  ${({ $hasLeftIcon }) =>
+    $hasLeftIcon &&
+    css`
+      padding-left: 40px;
+    `}
+
+  ${({ $hasRightIcon }) =>
+    $hasRightIcon &&
+    css`
+      padding-right: 40px;
+    `}
 `;
 
 const HelperText = styled.p<{ $isError: boolean }>`
   margin: ${({ theme }) => `${theme.spacing.xs} 0 0`};
   font-size: 0.75rem;
-  color: ${({ theme, $isError }) => 
-    $isError ? theme.colors.danger : `${theme.colors.text}88`
-  };
+  color: ${({ theme, $isError }) =>
+    $isError ? theme.colors.danger : `${theme.colors.text}88`};
 `;
 
-const IconWrapper = styled.div<{ $position: 'left' | 'right' }>`
+const IconWrapper = styled.div<{ $position: "left" | "right" }>`
   position: absolute;
   top: 0;
-  ${({ $position }) => $position === 'left' ? 'left: 12px;' : 'right: 12px;'}
+  ${({ $position }) => ($position === "left" ? "left: 12px;" : "right: 12px;")}
   height: 100%;
   display: flex;
   align-items: center;
@@ -154,12 +161,13 @@ const LoadingSpinner = styled.div`
   border-radius: 50%;
   border-top-color: ${({ theme }) => theme.colors.primary};
   animation: spin 1s ease-in-out infinite;
-  
+
   @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+      transform: rotate(360deg);
+    }
   }
 `;
-
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
@@ -167,8 +175,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       helperText,
       errorText,
       isFullWidth = false,
-      size = 'md',
-      variant = 'outlined',
+      size = "md",
+      variant = "outlined",
       leftIcon,
       rightIcon,
       isLoading = false,
@@ -178,17 +186,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const hasError = !!errorText;
     const helpText = errorText || helperText;
-    
+
     return (
       <Container $isFullWidth={isFullWidth}>
         {label && <Label $size={size}>{label}</Label>}
-        
-        {leftIcon && (
-          <IconWrapper $position="left">
-            {leftIcon}
-          </IconWrapper>
-        )}
-        
+
+        {leftIcon && <IconWrapper $position="left">{leftIcon}</IconWrapper>}
+
         <StyledInput
           ref={ref}
           $size={size}
@@ -199,23 +203,19 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           aria-invalid={hasError}
           {...props}
         />
-        
+
         {(rightIcon || isLoading) && (
           <IconWrapper $position="right">
             {isLoading ? <LoadingSpinner /> : rightIcon}
           </IconWrapper>
         )}
-        
-        {helpText && (
-          <HelperText $isError={hasError}>
-            {helpText}
-          </HelperText>
-        )}
+
+        {helpText && <HelperText $isError={hasError}>{helpText}</HelperText>}
       </Container>
     );
   }
 );
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 
-export default Input; 
+export default Input;
