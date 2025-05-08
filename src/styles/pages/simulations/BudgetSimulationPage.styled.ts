@@ -1,7 +1,19 @@
 import styled from 'styled-components';
 
 export const PageHeader = styled.div`
+  font-size: 0.85rem;
   margin-bottom: ${({ theme }) => theme.spacing.lg};
+
+  a {
+    text-decoration: none;
+    font-weight: 700;
+    color: ${({ theme }) => theme.colors.text}aa;
+    
+    &:hover {
+      color: ${({ theme }) => theme.colors.primary};
+      text-decoration: underline;
+    }
+  }
 `;
 
 export const PageTitle = styled.h1`
@@ -27,7 +39,7 @@ export const StepsContainer = styled.div`
   }
 `;
 
-export const StepIndicator = styled.div<{ $isActive: boolean; $isCompleted: boolean }>`
+export const StepIndicator = styled.div<{ isActive: boolean; isCompleted: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,8 +53,8 @@ export const StepIndicator = styled.div<{ $isActive: boolean; $isCompleted: bool
     right: -50%;
     width: 100%;
     height: 2px;
-    background-color: ${({ $isCompleted, theme }) => 
-      $isCompleted ? theme.colors.primary : theme.colors.border};
+    background-color: ${({ isCompleted, theme }) => 
+      isCompleted ? theme.colors.primary : theme.colors.border};
     z-index: 0;
   }
   
@@ -57,18 +69,18 @@ export const StepIndicator = styled.div<{ $isActive: boolean; $isCompleted: bool
   }
 `;
 
-export const StepCircle = styled.div<{ $isActive: boolean; $isCompleted: boolean }>`
+export const StepCircle = styled.div<{ isActive: boolean; isCompleted: boolean }>`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: ${({ $isActive, $isCompleted, theme }) => 
-    $isCompleted ? theme.colors.success :
-    $isActive ? theme.colors.primary : 'white'};
-  border: 2px solid ${({ $isActive, $isCompleted, theme }) => 
-    $isCompleted ? theme.colors.success :
-    $isActive ? theme.colors.primary : theme.colors.border};
-  color: ${({ $isActive, $isCompleted, theme }) => 
-    ($isActive || $isCompleted) ? 'white' : theme.colors.text};
+  background-color: ${({ isActive, isCompleted, theme }) => 
+    isCompleted ? theme.colors.success :
+    isActive ? theme.colors.primary : 'white'};
+  border: 2px solid ${({ isActive, isCompleted, theme }) => 
+    isCompleted ? theme.colors.success :
+    isActive ? theme.colors.primary : theme.colors.border};
+  color: ${({ isActive, isCompleted, theme }) => 
+    (isActive || isCompleted) ? 'white' : theme.colors.text};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,11 +93,11 @@ export const StepCircle = styled.div<{ $isActive: boolean; $isCompleted: boolean
   }
 `;
 
-export const StepLabel = styled.div<{ $isActive: boolean; $isCompleted: boolean }>`
-  font-weight: ${({ $isActive }) => $isActive ? '600' : '400'};
-  color: ${({ $isActive, $isCompleted, theme }) => 
-    $isCompleted ? theme.colors.success :
-    $isActive ? theme.colors.primary : theme.colors.text};
+export const StepLabel = styled.div<{ isActive: boolean; isCompleted: boolean }>`
+  font-weight: ${({ isActive }) => isActive ? '600' : '400'};
+  color: ${({ isActive, isCompleted, theme }) => 
+    isCompleted ? theme.colors.success :
+    isActive ? theme.colors.primary : theme.colors.text};
   text-align: center;
 `;
 
@@ -184,9 +196,9 @@ export const ProgressBar = styled.div`
   margin-top: ${({ theme }) => theme.spacing.xs};
 `;
 
-export const ProgressFill = styled.div<{ $width: number; $color: string }>`
-  width: ${({ $width }) => `${$width}%`};
+export const ProgressFill = styled.div<{ width: number; color: string }>`
+  width: ${({ width }) => `${width}%`};
   height: 100%;
-  background-color: ${({ $color }) => $color};
+  background-color: ${({ color }) => color};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
 `;

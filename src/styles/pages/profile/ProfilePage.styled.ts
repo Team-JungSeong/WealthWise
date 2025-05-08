@@ -50,7 +50,8 @@ export const ProfileCard = styled(Card)`
 
 export const ProfileHeader = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
 `;
 
 export const ProfileAvatar = styled.div`
@@ -65,7 +66,6 @@ export const ProfileAvatar = styled.div`
   font-size: 3rem;
   color: ${({ theme }) => theme.colors.primary};
   overflow: hidden;
-  position: relative;
 `;
 
 export const ProfileImage = styled.img`
@@ -74,72 +74,24 @@ export const ProfileImage = styled.img`
   object-fit: cover;
 `;
 
-export const AvatarOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  cursor: pointer;
-  
-  &:hover {
-    opacity: 1;
-  }
-`;
-
-export const AvatarIcon = styled.div`
-  color: white;
-  font-size: 1.5rem;
-`;
-
 export const ProfileInfo = styled.div`
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-export const ProfileInfoRow = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  width: 100%;
-`;
-
-export const ProfileInfoLabel = styled.span`
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.text};
-  width: 50px;
-  margin-right: ${({ theme }) => theme.spacing.md};
-`;
-
-export const ProfileInfoValue = styled.span`
-  font-weight: 400;
-  color: ${({ theme }) => theme.colors.dark};
 `;
 
 export const ProfileName = styled.h3`
   font-family: ${({ theme }) => theme.fonts.heading};
   font-size: 1.75rem;
   font-weight: 600;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  margin-top: 0;
+  margin-bottom: ${({ theme }) => theme.spacing.xs};
 `;
 
 export const ProfileEmail = styled.p`
   color: ${({ theme }) => theme.colors.text}aa;
   margin-bottom: ${({ theme }) => theme.spacing.md};
-  font-size: 1rem;
 `;
 
 export const ProgressContainer = styled.div`
-  margin: ${({ theme }) => theme.spacing.md} 0;
+  margin: ${({ theme }) => `${theme.spacing.md} 0`};
 `;
 
 export const ProgressHeader = styled.div`
@@ -176,9 +128,7 @@ export const ProgressFill = styled.div<{ width: number; color: string }>`
 `;
 
 export const FormGroup = styled.div`
-  //margin-bottom: ${({ theme }) => theme.spacing.md};
-  flex: 1;
-  max-width: 400px;
+  margin-bottom: ${({ theme }) => theme.spacing.md};
 `;
 
 export const FormRow = styled.div`
@@ -189,17 +139,4 @@ export const FormRow = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     flex-direction: column;
   }
-`;
-
-export const EditFormContainer = styled.div`
-  width: 100%;
-`;
-
-export const ButtonGroup = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.md};
-`;
-
-export const FileInput = styled.input`
-  display: none;
 `;
