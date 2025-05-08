@@ -171,8 +171,8 @@ const Header: React.FC = () => {
   ];
 
   // 로그인 상태에 따라 표시할 링크 필터링
-  const filteredNavLinks = navLinks.filter(link => 
-    !link.requiresAuth || (link.requiresAuth && isAuthenticated)
+  const filteredNavLinks = navLinks.filter(
+    (link) => !link.requiresAuth || (link.requiresAuth && isAuthenticated)
   );
 
   const isActivePath = (path: string) => {
@@ -192,20 +192,23 @@ const Header: React.FC = () => {
 
   const handleLogout = async () => {
     await logout();
-    navigateTo('/');
+    navigateTo("/");
   };
 
   return (
     <HeaderContainer>
-      <LogoLink to="/" onClick={(e) => {
-        e.preventDefault();
-        navigateTo("/");
-      }}>
+      <LogoLink
+        to="/"
+        onClick={(e) => {
+          e.preventDefault();
+          navigateTo("/");
+        }}
+      >
         <Logo>WealthWise</Logo>
       </LogoLink>
 
       <NavLinksContainer>
-        {filteredNavLinks.map((link) => (
+        {navLinks.map((link) => (
           <NavLink
             key={link.path}
             to={link.path}
@@ -218,11 +221,10 @@ const Header: React.FC = () => {
             {link.name}
           </NavLink>
         ))}
-        
         {isAuthenticated ? (
           <>
-            <ActionButton 
-              to="/profile" 
+            <ActionButton
+              to="/profile"
               onClick={(e) => {
                 e.preventDefault();
                 navigateTo("/profile");
@@ -230,14 +232,12 @@ const Header: React.FC = () => {
             >
               내 프로필
             </ActionButton>
-            <LogoutButton onClick={handleLogout}>
-              로그아웃
-            </LogoutButton>
+            <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
           </>
         ) : (
           <>
-            <ActionButton 
-              to="/login" 
+            <ActionButton
+              to="/login"
               onClick={(e) => {
                 e.preventDefault();
                 navigateTo("/login");
@@ -245,8 +245,8 @@ const Header: React.FC = () => {
             >
               로그인
             </ActionButton>
-            <SecondaryButton 
-              to="/signup" 
+            <SecondaryButton
+              to="/signup"
               onClick={(e) => {
                 e.preventDefault();
                 navigateTo("/signup");
@@ -263,7 +263,7 @@ const Header: React.FC = () => {
       </MobileMenuButton>
 
       <MobileMenu $isOpen={isMobileMenuOpen}>
-        {filteredNavLinks.map((link) => (
+        {navLinks.map((link) => (
           <MobileNavLink
             key={link.path}
             to={link.path}
@@ -277,7 +277,6 @@ const Header: React.FC = () => {
             {link.name}
           </MobileNavLink>
         ))}
-        
         {isAuthenticated ? (
           <>
             <MobileNavLink

@@ -1,7 +1,7 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React from "react";
+import styled, { css } from "styled-components";
 
-type CardVariant = 'default' | 'outlined' | 'elevated';
+type CardVariant = "default" | "outlined" | "elevated";
 
 interface CardProps {
   title?: string;
@@ -42,18 +42,29 @@ const CardContainer = styled.div<{
   border-radius: ${({ theme }) => theme.borderRadius.md};
   overflow: hidden;
   transition: all 0.2s ease-in-out;
-  
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   ${({ $variant, theme }) => getCardVariantStyles($variant, theme)}
-  ${({ $isFullWidth }) => $isFullWidth && css`width: 100%;`}
-  ${({ $isHoverable, theme }) => $isHoverable && css`
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: ${theme.shadows.lg};
-    }
-  `}
-  ${({ $isClickable }) => $isClickable && css`
-    cursor: pointer;
-  `}
+  ${({ $isFullWidth }) =>
+    $isFullWidth &&
+    css`
+      width: 100%;
+    `}
+  ${({ $isHoverable, theme }) =>
+    $isHoverable &&
+    css`
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: ${theme.shadows.lg};
+      }
+    `}
+  ${({ $isClickable }) =>
+    $isClickable &&
+    css`
+      cursor: pointer;
+    `}
 `;
 
 const CardHeader = styled.div`
@@ -75,14 +86,18 @@ const CardSubtitle = styled.p`
 `;
 
 const CardBody = styled.div`
-  padding: ${({ theme }) => theme.spacing.lg};
+  padding: ${({ theme }) => theme.spacing.md};
+  flex: 1;
 `;
 
 const CardFooter = styled.div`
-  padding: ${({ theme }) => `0 ${theme.spacing.md} ${theme.spacing.md}`};
+  padding: ${({ theme }) =>
+    `${theme.spacing.md} ${theme.spacing.xs} ${theme.spacing.md}`};
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-top: auto;
+  border-top: 1px solid ${({ theme }) => theme.colors.border}30;
 `;
 
 const Card: React.FC<CardProps> = ({
@@ -90,7 +105,7 @@ const Card: React.FC<CardProps> = ({
   subtitle,
   children,
   footer,
-  variant = 'default',
+  variant = "default",
   className,
   isHoverable = false,
   isFullWidth = false,
@@ -119,4 +134,4 @@ const Card: React.FC<CardProps> = ({
   );
 };
 
-export default Card; 
+export default Card;
